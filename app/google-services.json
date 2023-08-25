@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "477548423755",
+    "project_id": "kode-shell",
+    "storage_bucket": "kode-shell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477548423755:android:af208b1daf3244927e3bce",
+        "android_client_info": {
+          "package_name": "com.example.kodeshell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477548423755-d9e9vvn0cmkna7d3himiabu0q90atupl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5i9VY_sBeFkSoyxZzEsnLhi_r5czMSwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477548423755-d9e9vvn0cmkna7d3himiabu0q90atupl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
