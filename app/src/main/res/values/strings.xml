@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KodeShell</string>
+    <string name="done">Done</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="password">Password</string>
+    <string name="reset">Reset</string>
+</resources>
