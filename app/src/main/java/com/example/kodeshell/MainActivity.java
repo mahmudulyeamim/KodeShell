@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
 //                                progressDialog.show();
                                 try {
-                                    Intent intent = new Intent(MainActivity.this , MainActivity.class);
+                                    Intent intent = new Intent(MainActivity.this , HomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }catch (Exception e){
