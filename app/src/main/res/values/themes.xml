@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorSecondaryContainer">@color/white</item>
     </style>
 
     <style name="Theme.KodeShell" parent="Base.Theme.KodeShell" />

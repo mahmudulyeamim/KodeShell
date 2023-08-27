@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
+        android:indeterminateTint="@color/dark_grey_color"
         app:layout_constraintBottom_toBottomOf="@id/signup2_register_button"
         app:layout_constraintEnd_toEndOf="@id/signup2_register_button"
         app:layout_constraintStart_toStartOf="@id/signup2_register_button"

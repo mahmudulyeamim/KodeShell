@@ -6,4 +6,5 @@
     <color name="off_white">#EEEEEE</color>
     <color name="grey_color">#8F9193</color>
     <color name="hint_grey_color">#E1E3E5</color>
+    <color name="dark_grey_color">#727272</color>
 </resources>
