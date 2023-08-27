@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/new_post_button"
+        android:icon="@drawable/add_24"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/message_button"
+        android:icon="@drawable/paper_plane_24"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle" />
+</menu>
