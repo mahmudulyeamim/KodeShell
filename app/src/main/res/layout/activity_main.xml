@@ -8,117 +8,17 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:background="@drawable/custom_rounded_bottombar"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="650dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/homeActivity"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_rounded_bottombar_item" >
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="14dp"
-                app:srcCompat="@drawable/home_icon" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/helpActivity"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_rounded_bottombar_item_dark" >
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@drawable/help_icon1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/contestReminderActivity"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_rounded_bottombar_item_dark" >
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@drawable/contest_reminder_icon1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/notificationActivity"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_rounded_bottombar_item_dark" >
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@drawable/notification_icon1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/messageActivity"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_rounded_bottombar_item_dark" >
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:srcCompat="@drawable/message_icon1" />
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemActiveIndicatorStyle="@drawable/bottom_nav_icon_selector"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

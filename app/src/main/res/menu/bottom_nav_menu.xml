@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_button"
+        android:icon="@drawable/home_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/search_button"
+        android:icon="@drawable/search_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/contest_button"
+        android:icon="@drawable/calendar_day_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/notification_button"
+        android:icon="@drawable/bell_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/profile_button"
+        android:icon="@drawable/circle_user_24"
+        tools:ignore="MenuTitle" />
+
+</menu>

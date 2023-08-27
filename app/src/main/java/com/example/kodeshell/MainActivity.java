@@ -12,16 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        LinearLayout helpButton = findViewById(R.id.helpActivity);
-        LinearLayout contestReminderButton = findViewById(R.id.contestReminderActivity);
-        LinearLayout notificationButton = findViewById(R.id.notificationActivity);
-        LinearLayout messageButton = findViewById(R.id.messageActivity);
-
-        helpButton.setOnClickListener(view -> openHelpActivity());
-        contestReminderButton.setOnClickListener(view -> openContestReminderActivity());
-        notificationButton.setOnClickListener(view -> openNotificationActivity());
-        messageButton.setOnClickListener(view -> openMessageActivity());
     }
 
     private void openHelpActivity() {
