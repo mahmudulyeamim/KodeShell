@@ -18,6 +18,9 @@
             android:name=".MessageActivity"
             android:exported="false" />
         <activity
+            android:name=".UserList"
+            android:exported="false" />
+        <activity
             android:name=".NotificationActivity"
             android:exported="false" />
         <activity
