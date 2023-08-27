@@ -89,8 +89,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
             passwordTextInput.setError("Field can't be empty");
             return false;
         }
-        else if(passwordInput.length() < 6) {
-            passwordTextInput.setError("Password must be atleast 6 characters long");
+        else if(passwordInput.length() < 8) {
+            passwordTextInput.setError("Password must be atleast 8 characters long");
             return false;
         }
         else {

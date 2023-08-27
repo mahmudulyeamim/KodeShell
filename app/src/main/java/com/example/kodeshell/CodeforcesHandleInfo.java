@@ -122,7 +122,5 @@ public class CodeforcesHandleInfo extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 }
