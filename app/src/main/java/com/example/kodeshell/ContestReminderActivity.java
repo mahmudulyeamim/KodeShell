@@ -25,7 +25,7 @@ public class ContestReminderActivity extends AppCompatActivity {
     }
 
     private void openHomeActivity() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

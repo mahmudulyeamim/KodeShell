@@ -5,251 +5,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-    <ImageView
-        android:id="@+id/coverPictureLoginActivity"
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/login" />
-
-    <TextView
-        android:id="@+id/titleText1LoginActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="420dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="Login"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverPictureLoginActivity" />
-
-    <EditText
-        android:id="@+id/emailLoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="350dp"
-        android:fontFamily="@font/ubuntu"
-        android:hint="Email ID"
-        android:padding="8dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:layout_height="90dp"
+        android:background="@drawable/custom_rounded_bottombar"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="650dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText1LoginActivity" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/passwordLoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="270dp"
-        android:drawableRight="@drawable/baseline_remove_red_eye_24"
-        android:fontFamily="@font/ubuntu"
-        android:hint="Password"
-        android:padding="8dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText1LoginActivity" />
+        <LinearLayout
+            android:id="@+id/homeActivity"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_rounded_bottombar_item" >
 
-    <Button
-        android:id="@+id/loginButtonLoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="200dp"
-        android:backgroundTint="@color/dark_blue"
-        android:fontFamily="@font/ubuntu"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius = "15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLoginActivity" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                app:srcCompat="@drawable/home_icon" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/loginWithGoogleLoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="120dp"
-        android:backgroundTint="@color/offwhite"
-        android:fontFamily="@font/ubuntu"
-        android:text="Login with Google"
-        android:textColor="@color/material_dynamic_neutral40"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius = "15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLoginActivity" />
+        <LinearLayout
+            android:id="@+id/helpActivity"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_rounded_bottombar_item_dark" >
 
-    <TextView
-        android:id="@+id/forgotPasswordLoginActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="280dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="Forgot Password?"
-        android:textColor="@color/dark_blue"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLoginActivity" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/help_icon1" />
+        </LinearLayout>
 
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="200dp"
-        android:background="@color/material_dynamic_neutral60"
-        app:layout_constraintBottom_toTopOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButtonLoginActivity" />
+        <LinearLayout
+            android:id="@+id/contestReminderActivity"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_rounded_bottombar_item_dark" >
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/material_dynamic_neutral60"
-        app:layout_constraintBottom_toTopOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButtonLoginActivity" />
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/contest_reminder_icon1" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="OR"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButtonLoginActivity" />
+        <LinearLayout
+            android:id="@+id/notificationActivity"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_rounded_bottombar_item_dark" >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="250dp"
-        app:layout_constraintBottom_toBottomOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintEnd_toEndOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintStart_toStartOf="@+id/loginWithGoogleLoginActivity"
-        app:layout_constraintTop_toTopOf="@+id/loginWithGoogleLoginActivity"
-        app:srcCompat="@drawable/google" />
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/notification_icon1" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/newToKodeShellText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="170dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="70dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="New to KodeShell?"
-        android:textColor="@color/material_dynamic_neutral60"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginWithGoogleLoginActivity" />
+        <LinearLayout
+            android:id="@+id/messageActivity"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_rounded_bottombar_item_dark" >
 
-    <TextView
-        android:id="@+id/registerButtonLoginActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="70dp"
-        android:layout_marginLeft="2dp"
-        android:fontFamily="@font/ubuntu"
-        android:text="Register"
-        android:textColor="@color/dark_blue"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/newToKodeShellText"
-        app:layout_constraintTop_toBottomOf="@+id/loginWithGoogleLoginActivity" />
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/message_icon1" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="360dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/emailLoginActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText1LoginActivity"
-        app:srcCompat="@drawable/at_the_rate_icon" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="280dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/passwordLoginActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText1LoginActivity"
-        app:srcCompat="@drawable/lock_icon" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

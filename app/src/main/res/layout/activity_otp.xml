@@ -8,7 +8,7 @@
     tools:context=".OtpActivity">
 
     <ImageView
-        android:id="@+id/coverPictureOtpActivity"
+        android:id="@+id/otp_cover_picture"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/otp" />
 
     <TextView
-        android:id="@+id/titletext1OtpActivity"
+        android:id="@+id/otp_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -30,10 +30,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverPictureOtpActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_cover_picture" />
 
     <TextView
-        android:id="@+id/descriptionTextOtpActivity"
+        android:id="@+id/otp_description_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -41,15 +41,15 @@
         android:layout_marginBottom="390dp"
         android:fontFamily="@font/ubuntu"
         android:text="A 6 digit code has been sent to"
-        android:textColor="@color/material_dynamic_neutral60"
+        android:textColor="@color/grey_color"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverPictureOtpActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_cover_picture" />
 
     <TextView
-        android:id="@+id/emailAddressTextOtpActivity"
+        android:id="@+id/otp_email_address_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -57,12 +57,12 @@
         android:layout_marginBottom="370dp"
         android:fontFamily="@font/ubuntu"
         android:text="demo@gmail.com"
-        android:textColor="@color/material_dynamic_neutral60"
+        android:textColor="@color/grey_color"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverPictureOtpActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_cover_picture" />
 
 
     <ImageView
@@ -76,7 +76,7 @@
 
 
     <Button
-        android:id="@+id/submitButtonOtpActivity"
+        android:id="@+id/otp_submit_button"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginLeft="30dp"
@@ -89,14 +89,15 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutOtpActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_linear_layout" />
 
     <TextView
-        android:id="@+id/noOtpText"
+        android:id="@+id/otp_did_not_receive_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
@@ -104,17 +105,17 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="80dp"
         android:fontFamily="@font/ubuntu"
-        android:text="Didn't recieve OTP?"
-        android:textColor="@color/material_dynamic_neutral60"
+        android:text="Didn't receive OTP?"
+        android:textColor="@color/grey_color"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitButtonOtpActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_submit_button" />
 
     <TextView
-        android:id="@+id/resendButton"
+        android:id="@+id/otp_resend_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -126,11 +127,11 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/noOtpText"
-        app:layout_constraintTop_toBottomOf="@+id/submitButtonOtpActivity" />
+        app:layout_constraintStart_toEndOf="@id/otp_did_not_receive_text"
+        app:layout_constraintTop_toBottomOf="@+id/otp_submit_button" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutOtpActivity"
+        android:id="@+id/otp_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -142,103 +143,109 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coverPictureOtpActivity">
+        app:layout_constraintTop_toBottomOf="@+id/otp_cover_picture">
 
         <EditText
-            android:id="@+id/inputotp1"
+            android:id="@+id/input_otp1"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_gravity="center"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center"/>
 
         <EditText
-            android:id="@+id/inputotp2"
+            android:id="@+id/input_otp2"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/inputotp3"
+            android:id="@+id/input_otp3"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/inputotp4"
+            android:id="@+id/input_otp4"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/inputotp5"
+            android:id="@+id/input_otp5"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/inputotp6"
+            android:id="@+id/input_otp6"
             android:layout_width="40dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/backgroundbox"
+            android:background="@drawable/custom_rounded_background_outline_box"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="1"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:textAlignment="center" />
 
 
     </LinearLayout>

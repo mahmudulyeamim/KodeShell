@@ -1,33 +1,30 @@
 package com.example.kodeshell;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.Objects;
 
 public class SignupActivity1 extends AppCompatActivity {
-    TextView loginbut;
-    EditText rg_firstname, rg_lastname, rg_email;
-    Button rg_signup;
-    CircleImageView rg_profileImg;
-    FirebaseAuth auth;
-    String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+    TextView loginButton;
 
+    TextInputLayout firstNameTextInput, lastNameTextInput, emailTextInput;
+
+    FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
 
@@ -35,16 +32,20 @@ public class SignupActivity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup1);
+
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
-        loginbut = findViewById(R.id.loginButtonSignupActivity1);
-        rg_firstname = findViewById(R.id.firstnameSignupActivity1);
-        rg_lastname = findViewById(R.id.lastnameSignupActivity1);
-        rg_email = findViewById(R.id.emailSignupActivity1);
-        rg_signup = findViewById(R.id.continueButtonSignupActivity1);
 
-        Button continueButton = findViewById(R.id.continueButtonSignupActivity1);
+        loginButton = findViewById(R.id.signup1_login_text);
+
+        firstNameTextInput = findViewById(R.id.signup1_first_name);
+        lastNameTextInput = findViewById(R.id.signup1_last_name);
+        emailTextInput = findViewById(R.id.signup1_email);
+
+        initEditText();
+
+        Button continueButton = findViewById(R.id.signup1_continue_button);
         ImageView backButton = findViewById(R.id.backButton);
 
         continueButton.setOnClickListener(view -> openSignupActivity2());
@@ -52,27 +53,111 @@ public class SignupActivity1 extends AppCompatActivity {
         backButton.setOnClickListener(view -> openLoginActivity());
     }
 
+    private void initEditText() {
+        firstNameTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                firstNameTextInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        lastNameTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                lastNameTextInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        emailTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                emailTextInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
     private void openSignupActivity2() {
-        String firstName, lastName, email;
-        firstName = rg_firstname.getText().toString();
-        lastName = rg_lastname.getText().toString();
-        email = rg_email.getText().toString();
-        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) ||
-                TextUtils.isEmpty(email)) {
-            Toast.makeText(SignupActivity1.this, "Please Enter Valid Information", Toast.LENGTH_SHORT).show();
-        } else if (!email.matches(emailPattern)) {
-            rg_email.setError("Type A Valid Email Here");
-        } else {
+        if(validateName(firstNameTextInput) && validateName(lastNameTextInput) && validateEmail()) {
             Intent intent = new Intent(this, SignupActivity2.class);
+
+            String firstName = Objects.requireNonNull(firstNameTextInput.getEditText()).getText().toString().trim();
+            String lastName = Objects.requireNonNull(lastNameTextInput.getEditText()).getText().toString().trim();
+            String email = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
+
             intent.putExtra("fname", firstName);
             intent.putExtra("lname", lastName);
             intent.putExtra("uemail", email);
+
             startActivity(intent);
         }
     }
 
     private void openLoginActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    private boolean validateName(TextInputLayout nameTextInput) {
+        String name = Objects.requireNonNull(nameTextInput.getEditText()).getText().toString().trim();
+
+        if(name.isEmpty()) {
+            nameTextInput.setError("Field can't be empty");
+            return false;
+        }
+        else if(!name.matches("^[a-zA-Z]+$")) {
+            nameTextInput.setError("Only alphabetical characters are allowed");
+            return false;
+        }
+        else {
+            nameTextInput.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        String emailInput = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
+
+        if(emailInput.isEmpty()) {
+            emailTextInput.setError("Field can't be empty");
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            emailTextInput.setError("Please enter a valid email address");
+            return false;
+        }
+        else {
+            emailTextInput.setError(null);
+            return true;
+        }
     }
 }
