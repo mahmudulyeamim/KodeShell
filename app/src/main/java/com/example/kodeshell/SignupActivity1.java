@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -109,11 +110,10 @@ public class SignupActivity1 extends AppCompatActivity {
     private void openSignupActivity2() {
         if(validateName(firstNameTextInput) && validateName(lastNameTextInput) && validateEmail()) {
             Intent intent = new Intent(this, SignupActivity2.class);
-
             String firstName = Objects.requireNonNull(firstNameTextInput.getEditText()).getText().toString().trim();
             String lastName = Objects.requireNonNull(lastNameTextInput.getEditText()).getText().toString().trim();
             String email = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
-
+//
             intent.putExtra("fname", firstName);
             intent.putExtra("lname", lastName);
             intent.putExtra("uemail", email);
@@ -123,7 +123,7 @@ public class SignupActivity1 extends AppCompatActivity {
     }
 
     private void openLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(SignupActivity1.this, LoginActivity.class);
         startActivity(intent);
     }
 
