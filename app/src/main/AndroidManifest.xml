@@ -20,19 +20,7 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".MessageActivity"
-            android:exported="false" />
-        <activity
             android:name=".UserList"
-            android:exported="false" />
-        <activity
-            android:name=".NotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ContestReminderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HelpActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
