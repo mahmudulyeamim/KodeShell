@@ -45,4 +45,16 @@ public class CodeforcesAPIHelper {
         );
         requestQueue.add(jsonObjectRequest);
     }
+
+    public void fetchUpcomingContests(CodeforcesAPIHelper.UserInfoListener listener) {
+        String url = API_BASE_URL + "contest.list?gym=false";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                response -> listener.onSuccess(response),
+                error -> listener.onError("Error fetching upcoming contests: " + error.getMessage())
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
 }

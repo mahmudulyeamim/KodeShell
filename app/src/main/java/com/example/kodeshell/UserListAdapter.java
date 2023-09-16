@@ -2,14 +2,12 @@ package com.example.kodeshell;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,8 +41,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                intent.putExtra("publisherId", contactList.get(position).getUserId());
+                Intent intent = new Intent(mContext, ChatActivity.class);
+                intent.putExtra("Name", contactList.get(position).getFirstName());
+                intent.putExtra("ID", contactList.get(position).getUserId());
                 mContext.startActivity(intent);
             }
         });
