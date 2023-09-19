@@ -55,4 +55,13 @@ dependencies {
     //Dimension
     implementation 'com.intuit.ssp:ssp-android:1.0.5'
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
+
+    // recycler view
+    implementation "androidx.recyclerview:recyclerview:1.3.1"
+
+    // card-view
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    // circular image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

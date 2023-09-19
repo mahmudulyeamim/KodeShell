@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment;
+    ContestFragment contestFragment;
     ProfileFragment profileFragment;
 
     @Override
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         homeFragment = new HomeFragment();
+        contestFragment = new ContestFragment();
         profileFragment = new ProfileFragment();
 
         openHomeFragment();
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.home_button) {
                     openHomeFragment();
+                    return true;
+                }
+                else if(item.getItemId() == R.id.contest_button) {
+                    openContestFragment();
                     return true;
                 }
                 else if(item.getItemId() == R.id.profile_button) {
@@ -50,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHomeFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();
+    }
+
+    private void openContestFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, contestFragment).commit();
     }
 
     private void openProfileFragment() {

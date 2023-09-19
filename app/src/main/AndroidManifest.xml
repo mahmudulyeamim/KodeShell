@@ -16,9 +16,14 @@
         android:theme="@style/Theme.KodeShell"
         tools:targetApi="31">
         <activity
+            android:name=".ContestInsiderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Upcoming_Codeforces_List"
+            android:exported="false" />
+        <activity
             android:name=".CodeforcesHandleInfo"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".UserList"
             android:exported="false" />

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/contestCardView"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/contest_site_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_atcoder"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/contest_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:text="Codeforces Round 898 (Div. 4) Powered by CodeTon"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/ubuntu"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@id/contest_site_image"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/contest_time_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sep 18 at 8:35 pm"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:fontFamily="@font/ubuntu"
+            android:layout_toRightOf="@id/contest_site_image"
+            android:layout_below="@id/contest_name_textview"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/dark_grey_color"/>
+
+        <TextView
+            android:id="@+id/contest_duration_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Duration: 2.15 Hours"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:fontFamily="@font/ubuntu"
+            android:layout_toRightOf="@id/contest_site_image"
+            android:layout_below="@id/contest_time_textview"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/dark_grey_color"/>
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
