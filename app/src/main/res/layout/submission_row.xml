@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/submissionCardView"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/problem_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Codeforces Round 898 (Div. 4) Powered by CodeTon"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/ubuntu"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/solution_status_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:text="Status: Accepted"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                android:fontFamily="@font/ubuntu"
+                android:textColor="@color/dark_grey_color"/>
+
+            <TextView
+                android:id="@+id/submission_time_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:layout_weight="1"
+                android:text="4 hours ago"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                android:fontFamily="@font/ubuntu"
+                android:textColor="@color/dark_grey_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
