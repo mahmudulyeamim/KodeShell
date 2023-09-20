@@ -34,7 +34,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
     LinearLayout go_to_web_site,contest_add_to_cal;
     private static Handler handler;
     private SimpleDateFormat dateFormat;
-    private Date targetDate;
+    private Date targetDate,startDate,endDate;
     Context context;
 
     public Context getContext() {
@@ -82,30 +82,14 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
             }
         });
-
-        contest_add_to_cal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_INSERT)
-                        .setData(CalendarContract.Events.CONTENT_URI)
-                        .putExtra(CalendarContract.Events.TITLE, getIntent().getStringExtra("name"))
-                        .putExtra(CalendarContract.Events.EVENT_LOCATION, getIntent().getStringExtra("site"))
-                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, start).putExtra(CalendarContract.EXTRA_EVENT_END_TIME,end)
-                        .putExtra(CalendarContract.Events.DESCRIPTION, getIntent().getStringExtra("URL"));
-
-                    startActivity(intent);
-
-
-            }
-        });
-
-
-        handler = new Handler(Looper.getMainLooper());
         dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        handler = new Handler(Looper.getMainLooper());
+
 
         try {
             targetDate = dateFormat.parse(starttime);
             // Add 6 hours to the target date
+
             targetDate.setTime(targetDate.getTime() + 6 * 60 * 60 * 1000);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -114,8 +98,28 @@ public class ContestInsiderActivity extends AppCompatActivity {
         }
 
         startCountdown();
+        contest_add_to_cal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    startDate = dateFormat.parse((starttime));
+
+                    endDate = dateFormat.parse(endtime);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.Events.TITLE, getIntent().getStringExtra("name"))
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, getIntent().getStringExtra("site"))
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startDate.getTime()+6*3600*1000).putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endDate.getTime()+6*3600*1000)
+                        .putExtra(CalendarContract.Events.DESCRIPTION, getIntent().getStringExtra("URL"));
+
+                    startActivity(intent);
 
 
+            }
+        });
 
     }
     public static long convertAndAddHours(String iso8601DateString, int hoursToAdd) throws ParseException {
