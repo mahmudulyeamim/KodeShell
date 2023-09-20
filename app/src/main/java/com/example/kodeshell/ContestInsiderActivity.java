@@ -1,6 +1,7 @@
 package com.example.kodeshell;
 
 
+import android.content.Context;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,15 @@ public class ContestInsiderActivity extends AppCompatActivity {
     private static Handler handler;
     private SimpleDateFormat dateFormat;
     private Date targetDate;
+    Context context;
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,8 +75,10 @@ public class ContestInsiderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
                // toast.show();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
-                    startActivity(intent);
+                Intent intent = new Intent(ContestInsiderActivity.this, WebviewActivity.class);
+                intent.putExtra("URL",URL);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             }
         });
