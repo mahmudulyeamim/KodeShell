@@ -2,7 +2,7 @@ package com.example.kodeshell;
 
 public class ContestDetails {
     private int contestIcon;
-    private String contestName, contestDate, contestTime, contestDuration,url;
+    private String contestName, contestDate, contestTime, contestDuration,url,site,sttime,edtime;
 
     public int getContestIcon() {
         return contestIcon;
@@ -50,5 +50,29 @@ public class ContestDetails {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getSttime() {
+        return sttime;
+    }
+
+    public void setSttime(String sttime) {
+        this.sttime = sttime;
+    }
+
+    public String getEdtime() {
+        return edtime;
+    }
+
+    public void setEdtime(String edtime) {
+        this.edtime = edtime;
     }
 }

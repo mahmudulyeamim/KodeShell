@@ -102,6 +102,7 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
+                                    android:id="@+id/go_to_site"
                                     android:src="@drawable/globe"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -216,6 +217,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/startin"
                             android:layout_weight="1"
                             android:text="Starts in:"
                             android:textColor="@color/black"

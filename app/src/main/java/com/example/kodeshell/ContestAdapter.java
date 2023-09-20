@@ -54,6 +54,9 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestHolder> {
         intent.putExtra("time", contestDetails.getContestTime());
         intent.putExtra("duration", contestDetails.getContestDuration());
         intent.putExtra("URL",contestDetails.getUrl());
+        intent.putExtra("site",contestDetails.getSite());
+        intent.putExtra("st",contestDetails.getSttime());
+        intent.putExtra("end",contestDetails.getEdtime());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
