@@ -53,9 +53,14 @@ public class ChatActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendbtnn);
         textMessage = findViewById(R.id.textmsg);
         receiver = findViewById(R.id.recivername);
+
         recycleView = findViewById(R.id.msgadpter);
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
+//        linearLayoutManager.setReverseLayout(true);
+//        linearLayoutManager.setStackFromEnd(true);
+
         recycleView.setLayoutManager(linearLayoutManager);
         msgAdapter = new MessageAdapter(ChatActivity.this, messagesArrayList);
         recycleView.setAdapter(msgAdapter);
@@ -69,6 +74,8 @@ public class ChatActivity extends AppCompatActivity {
 
         DatabaseReference chatreference = database.getReference().child("chats").child(senderRoom).child("messages");
 
+//        int newPosition = msgAdapter.getItemCount() - 1;
+//        recycleView.scrollToPosition(newPosition);
         chatreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -78,6 +85,8 @@ public class ChatActivity extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 msgAdapter.notifyDataSetChanged();
+                int newPosition = msgAdapter.getItemCount();
+                recycleView.smoothScrollToPosition(newPosition);
             }
 
             @Override
@@ -85,6 +94,17 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+        recycleView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int heightDiff = oldBottom - bottom;
+                if (heightDiff > 200) {
+                    int keyboardHeight = heightDiff;
+                    recycleView.smoothScrollBy(0, keyboardHeight);
+                }
+            }
+        });
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +134,10 @@ public class ChatActivity extends AppCompatActivity {
 
                                             }
                                         });
+
+
                             }
+
                         });
             }
         });

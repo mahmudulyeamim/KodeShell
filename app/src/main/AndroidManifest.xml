@@ -28,7 +28,11 @@
             android:name=".CodeforcesHandleInfo"
             android:exported="false" />
         <activity
-            android:name=".UserList"
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -49,7 +53,7 @@
             android:name=".SignupActivity1"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".UserList"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
