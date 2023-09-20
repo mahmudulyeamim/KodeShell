@@ -2,7 +2,7 @@ package com.example.kodeshell;
 
 public class ContestDetails {
     private int contestIcon;
-    private String contestName, contestDate, contestTime, contestDuration;
+    private String contestName, contestDate, contestTime, contestDuration,url;
 
     public int getContestIcon() {
         return contestIcon;
@@ -42,5 +42,13 @@ public class ContestDetails {
 
     public void setContestDuration(String contestDuration) {
         this.contestDuration = contestDuration;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

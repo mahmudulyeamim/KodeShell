@@ -11,6 +11,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
     ImageView contestIcon;
     TextView contestName, contestDate, contestTime, contestDuration;
+    String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,9 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
         contestIcon.setImageResource(getIntent().getIntExtra("image", 0));
         contestName.setText(getIntent().getStringExtra("name"));
-        contestDuration.setText(getIntent().getStringExtra("date"));
+        contestDate.setText(getIntent().getStringExtra("date"));
         contestTime.setText(getIntent().getStringExtra("time"));
         contestDuration.setText(getIntent().getStringExtra("duration"));
+        URL=getIntent().getStringExtra("URL");
     }
 }

@@ -23,8 +23,8 @@ import java.util.TimeZone;
 public class Upcoming_Codeforces_List extends AppCompatActivity {
 
     private RecyclerView contestRecyclerView;
-    private Codeforces_ContestAdapter codeforcesContestAdapter;
-    private List<Codeforces_Contest> codeforcesContests;
+    private ContestAdapter contestAdapter;
+    private List<ContestDetails> Contests;
     private CodeforcesAPIHelper apiHelper;
     private AtcoderAPIHelper atcoderAPIHelper;
 
@@ -39,7 +39,7 @@ public class Upcoming_Codeforces_List extends AppCompatActivity {
 
        apiHelper = new CodeforcesAPIHelper(this);
         contestRecyclerView = findViewById(R.id.recyclerViewContacts);
-        codeforcesContests = new ArrayList<>(); // Initialize with your contest data
+        Contests = new ArrayList<>(); // Initialize with your contest data
 
         AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
             @Override
@@ -52,22 +52,37 @@ public class Upcoming_Codeforces_List extends AppCompatActivity {
                         int durationSeconds = contestObject.getInt("duration");
                         String site=contestObject.getString("site");
                         long starttimeINsecond=timeconverter(site,startTime);
+                        String url=contestObject.getString("url");
 
-                        Codeforces_Contest a = new Codeforces_Contest(title, starttimeINsecond , durationSeconds);
+                     if(site.equals("CodeForces") || site.equals("AtCoder") || site.equals("LeetCode")) {
+                         ContestDetails contestDetails = new ContestDetails();
 
-                        codeforcesContests.add(a);
+                         if(site.equals("CodeForces"))
+                            contestDetails.setContestIcon(R.drawable.icon_codeforces);
+                         else if(site.equals("AtCoder"))
+                             contestDetails.setContestIcon(R.drawable.icon_atcoder);
+                         else contestDetails.setContestIcon(R.drawable.icon_leetcode);
+                         contestDetails.setContestName(title);
+                         contestDetails.setContestDate(startTime);
+                         contestDetails.setContestTime("yyy");
+                         contestDetails.setUrl(url);
+                         contestDetails.setContestDuration(Integer.toString(durationSeconds));
+                         Contests.add(contestDetails);
+                     }
+//
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                Collections.sort(codeforcesContests, new Comparator<Codeforces_Contest>() {
-                    @Override
-                    public int compare(Codeforces_Contest contest1, Codeforces_Contest contest2) {
-                        return Long.compare(contest1.getStartTimeSeconds(), contest2.getStartTimeSeconds());
-                    }
-                });
-                activateAdapter();
+//                Collections.sort(codeforcesContests, new Comparator<Codeforces_Contest>() {
+//                    @Override
+//                    public int compare(Codeforces_Contest contest1, Codeforces_Contest contest2) {
+//                        return Long.compare(contest1.getStartTimeSeconds(), contest2.getStartTimeSeconds());
+//                    }
+//                });
+
+//                activateAdapter();
             }
 
             @Override
@@ -118,14 +133,14 @@ public class Upcoming_Codeforces_List extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         contestRecyclerView.setLayoutManager(layoutManager);
-        contestRecyclerView.setAdapter(codeforcesContestAdapter);
+        //contestRecyclerView.setAdapter(codeforcesContestAdapter);
 
 
     }
-    private void activateAdapter(){
-        codeforcesContestAdapter = new Codeforces_ContestAdapter(this, codeforcesContests);
-        contestRecyclerView.setAdapter(codeforcesContestAdapter);
-    }
+//    private void activateAdapter(){
+//        codeforcesContestAdapter = new Codeforces_ContestAdapter(this, codeforcesContests);
+//        contestRecyclerView.setAdapter(codeforcesContestAdapter);
+//    }
     private long timeconverter(String site,String utcTimestamp){
         if(site.equals("CodeChef")) {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
