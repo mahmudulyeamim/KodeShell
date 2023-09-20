@@ -1,7 +1,5 @@
 package com.example.kodeshell;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,9 +8,23 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -98,6 +110,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void sendOTP() {
+        Random random = new Random();
+        int min = 100000; // Minimum 6-digit number
+        int max = 999999; // Maximum 6-digit number
+        int code = random.nextInt(max - min + 1) + min;
         // logic for sending otp to the given email through firebase
     }
 }
