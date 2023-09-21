@@ -174,12 +174,14 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/profile_tab_layout"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     app:tabTextColor="@color/grey_color"
                     app:tabSelectedTextColor="@color/black"
+                    android:elevation="1dp"
                     android:textAlignment="center">
 
                     <com.google.android.material.tabs.TabItem
