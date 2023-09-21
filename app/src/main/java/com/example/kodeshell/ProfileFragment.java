@@ -14,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
 
@@ -23,6 +27,7 @@ public class ProfileFragment extends Fragment {
 
     TextView info1, info1Text, info2, info2Text, username, rating;
     ImageView profile_pic;
+    private CodeforcesAPIHelper apiHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +47,7 @@ public class ProfileFragment extends Fragment {
         profile_pic = view.findViewById(R.id.profile_picture);
         username = view.findViewById(R.id.profile_username);
         rating = view.findViewById(R.id.profile_rating_info);
-
+        apiHelper = new CodeforcesAPIHelper(getContext());
         // default setup
         info1.setText("15");
         info1Text.setText("Posts");
@@ -55,8 +60,8 @@ public class ProfileFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
+
+                    if(tab.getPosition()==0) {
                         info1.setText("15");
                         info1Text.setText("Posts");
                         info2.setText("101");
@@ -64,17 +69,68 @@ public class ProfileFragment extends Fragment {
                         profile_pic.setImageResource(R.drawable.default_profile_pic);
                         username.setText("Rifat Khan");
                         rating.setText("Contribution: +10");
-                        break;
-                    case 1:
-                        info1.setText("25");
-                        info1Text.setText("Problems");
-                        info2.setText("101");
-                        info2Text.setText("Contests");
-                        profile_pic.setImageResource(R.drawable.icon_codeforces);
-                        username.setText("CodeForces");
-                        rating.setText("Rating: 1400");
-                        break;
-                    case 2:
+                    }
+                    else if(tab.getPosition()==1) {
+
+
+                       apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
+                            @Override
+                            public void onSuccess(JSONObject response) {
+                                try {
+                                    JSONObject user = response.getJSONArray("result").getJSONObject(0);
+                                    String handle = user.getString("handle");
+                                    int cfrating = user.getInt("rating");
+                                    int mxcfrating = user.getInt("maxRating");
+                                    String rank=user.getString("rank");
+
+                                    String imageUrl = user.getString("titlePhoto");
+
+//
+////                                    runOnUiThread(() -> {
+//                                        info1.setText("25");
+//                                        info1Text.setText("Problems");
+//                                        info2.setText("101");
+//                                        info2Text.setText("Contests");
+////                                    profile_pic.setImageResource(R.drawable.icon_codeforces);
+//                                        username.setText(handle);
+//                                        rating.setText(cfrating);
+////                                        Picasso.get().load(imageUrl).into(profile_pic);
+////                                    });
+
+                                    info1.setText(Integer.toString(cfrating));
+                                    info1Text.setText("Rating");
+                                    info2.setText(Integer.toString(mxcfrating));
+                                    info2Text.setText("MaxRating");
+//                                    profile_pic.setImageResource(R.drawable.icon_codeforces);
+                                    username.setText(handle);
+                                    rating.setText(rank);
+                                    Picasso.get().load(imageUrl).into(profile_pic);
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(String errorMessage) {
+                                // Handle error
+                            }
+                        });
+
+
+
+
+//                        info1.setText("25");
+//                        info1Text.setText("Problems");
+//                        info2.setText("101");
+//                        info2Text.setText("Contests");
+//                        profile_pic.setImageResource(R.drawable.icon_codeforces);
+//                        username.setText("CodeForces");
+//                        rating.setText("Rating: 1400");
+                    }
+                   else if(tab.getPosition()==2) {
                         info1.setText("56");
                         info1Text.setText("Problems");
                         info2.setText("101");
@@ -82,8 +138,8 @@ public class ProfileFragment extends Fragment {
                         profile_pic.setImageResource(R.drawable.icon_atcoder);
                         username.setText("AtCoders");
                         rating.setText("Rating: 1400");
-                        break;
-                    case 3:
+                    }
+                    else {
                         info1.setText("256");
                         info1Text.setText("Problems");
                         info2.setText("101");
@@ -91,8 +147,9 @@ public class ProfileFragment extends Fragment {
                         profile_pic.setImageResource(R.drawable.icon_leetcode);
                         username.setText("LeetCode");
                         rating.setText("Rank: 219121");
+                    }
 
-                }
+
                 viewPager2.setCurrentItem(tab.getPosition());
             }
 
