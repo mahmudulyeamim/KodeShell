@@ -58,4 +58,65 @@ public class AtcoderAPIHelper {
             }
         });
     }
+
+
+
+    public void getAtcoderContestHistoryOfUser(final ContestListCallback callback,String username) {
+        String url = "https://atcoder.jp/users/"+username+"/history/json";
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONArray usercontesthistoryArray = new JSONArray(response.body().string());
+                        mainHandler.post(() -> callback.onSuccess(usercontesthistoryArray));
+                    } catch (JSONException e) {
+                        onFailure(call, new IOException("JSON parsing error", e));
+                    }
+                } else {
+                    onFailure(call, new IOException("Request failed with code " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mainHandler.post(() -> callback.onFailure(e));
+            }
+        });
+    }
+
+
+    public void getAtcodersubmissionHistoryOfUser(final ContestListCallback callback,String username) {
+        String url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user="+username+"&from_second=100";
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONArray usersubmissionhistoryArray = new JSONArray(response.body().string());
+                        mainHandler.post(() -> callback.onSuccess(usersubmissionhistoryArray));
+                    } catch (JSONException e) {
+                        onFailure(call, new IOException("JSON parsing error", e));
+                    }
+                } else {
+                    onFailure(call, new IOException("Request failed with code " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mainHandler.post(() -> callback.onFailure(e));
+            }
+        });
+    }
+
+
 }

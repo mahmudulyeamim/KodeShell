@@ -55,9 +55,9 @@ public class ProfileCodeForcesFragment extends Fragment {
 
                         SubmissionDetails obj1 = new SubmissionDetails();
                          obj1.setName(problemName);
-                        obj1.setStatus(verdict1);
-                      obj1.setTime(timeConsumedMillis+" ms");
-                      list.add(obj1);
+                         obj1.setStatus(verdict1);
+                         obj1.setTime(timeConsumedMillis+" ms");
+                         list.add(obj1);
 
 
                     }
