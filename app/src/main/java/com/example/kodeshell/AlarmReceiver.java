@@ -1,5 +1,8 @@
 package com.example.kodeshell;
 
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -11,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class AlarmReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // This method will be called when the alarm goes off.
@@ -25,11 +29,12 @@ public class AlarmReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
+
         // Create a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "alarm_channel")
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("Contest Reminder")
-                .setContentText("Codeforces Round (Div. 2) start in 20 minute")
+                .setContentText(intent.getStringExtra("name"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true); // Auto-cancel the notification when clicked
 
@@ -40,4 +45,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         int notificationId = 123; // Unique ID for the notification
         notificationManager.notify(notificationId, builder.build());
     }
+
+
 }

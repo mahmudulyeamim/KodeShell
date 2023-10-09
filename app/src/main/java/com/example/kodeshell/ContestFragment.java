@@ -103,6 +103,7 @@ public class ContestFragment extends Fragment {
                             contestDetails.setContestDuration(durationinhoursandmin);
                             contestDetails.setSttime(startTime);
                             contestDetails.setEdtime(end_time);
+                            contestDetails.setIsalarm(false);
                             list.add(contestDetails);
                         }
 

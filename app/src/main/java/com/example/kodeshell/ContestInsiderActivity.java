@@ -37,6 +37,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
     private Date targetDate,startDate,endDate;
     Context context;
 
+
     public Context getContext() {
         return context;
     }
@@ -130,7 +131,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
                     //Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
                     // toast.show();
                     Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
-                    intent.putExtra("URL",URL);
+                    intent.putExtra("name",getIntent().getStringExtra("name"));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
@@ -183,4 +184,5 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         }, 0);
     }
+
 }

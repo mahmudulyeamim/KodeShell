@@ -3,6 +3,7 @@ package com.example.kodeshell;
 public class ContestDetails {
     private int contestIcon;
     private String contestName, contestDate, contestTime, contestDuration,url,site,sttime,edtime;
+    private boolean isalarm;
 
     public int getContestIcon() {
         return contestIcon;
@@ -74,5 +75,13 @@ public class ContestDetails {
 
     public void setEdtime(String edtime) {
         this.edtime = edtime;
+    }
+
+    public boolean isIsalarm() {
+        return isalarm;
+    }
+
+    public void setIsalarm(boolean isalarm) {
+        this.isalarm = isalarm;
     }
 }

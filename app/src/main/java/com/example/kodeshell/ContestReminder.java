@@ -85,6 +85,7 @@ public class ContestReminder extends AppCompatActivity {
 
         // Create an intent for the BroadcastReceiver
         Intent alarmIntent = new Intent(ContestReminder.this, AlarmReceiver.class);
+        alarmIntent.putExtra("name",getIntent().getStringExtra("name"));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 ContestReminder.this,
                 0,
