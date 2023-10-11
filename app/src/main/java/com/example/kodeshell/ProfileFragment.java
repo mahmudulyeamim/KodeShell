@@ -72,7 +72,6 @@ public class ProfileFragment extends Fragment {
                     }
                     else if(tab.getPosition()==1) {
 
-
                        apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
                             @Override
                             public void onSuccess(JSONObject response) {
@@ -155,7 +154,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
