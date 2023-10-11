@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,9 @@ public class ProfileFragment extends Fragment {
     ImageView profile_pic;
     private CodeforcesAPIHelper apiHelper;
 
+    private AtcoderAPIHelper atcoderAPIHelper;
+    private LeetcodeAPIHelper leetcodeAPIHelper;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class ProfileFragment extends Fragment {
         tabLayout = view.findViewById(R.id.profile_tab_layout);
         viewPager2 = view.findViewById(R.id.profile_view_pager);
         profileViewPagerAdapter = new ProfileViewPagerAdapter(getActivity());
+        atcoderAPIHelper = new AtcoderAPIHelper();
         viewPager2.setAdapter(profileViewPagerAdapter);
 
         info1 = view.findViewById(R.id.profile_info1);
@@ -48,6 +54,7 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.profile_username);
         rating = view.findViewById(R.id.profile_rating_info);
         apiHelper = new CodeforcesAPIHelper(getContext());
+        leetcodeAPIHelper=new LeetcodeAPIHelper();
         // default setup
         info1.setText("15");
         info1Text.setText("Posts");
@@ -84,23 +91,11 @@ public class ProfileFragment extends Fragment {
 
                                     String imageUrl = user.getString("titlePhoto");
 
-//
-////                                    runOnUiThread(() -> {
-//                                        info1.setText("25");
-//                                        info1Text.setText("Problems");
-//                                        info2.setText("101");
-//                                        info2Text.setText("Contests");
-////                                    profile_pic.setImageResource(R.drawable.icon_codeforces);
-//                                        username.setText(handle);
-//                                        rating.setText(cfrating);
-////                                        Picasso.get().load(imageUrl).into(profile_pic);
-////                                    });
 
                                     info1.setText(Integer.toString(cfrating));
                                     info1Text.setText("Rating");
                                     info2.setText(Integer.toString(mxcfrating));
                                     info2Text.setText("MaxRating");
-//                                    profile_pic.setImageResource(R.drawable.icon_codeforces);
                                     username.setText(handle);
                                     rating.setText(rank);
                                     Picasso.get().load(imageUrl).into(profile_pic);
@@ -118,34 +113,119 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
+                    }
+                   else if(tab.getPosition()==2) {
+
+
+                        String atcoderhandle="Istahak_0";
+                        AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
+                            @Override
+                            public void onSuccess(JSONArray usercontesthistroyArray) {
+                                int atrating=0,mxrating=0;
+                                for (int i = 0; i < usercontesthistroyArray.length(); i++) {
+                                    try {
+                                        JSONObject contesthistroyObject = usercontesthistroyArray.getJSONObject(i);
+                                        atrating=contesthistroyObject.getInt("NewRating");
+                                        mxrating=Math.max(mxrating,atrating);
 
 
 
-//                        info1.setText("25");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                info1.setText(Integer.toString(atrating));
+                                info1Text.setText("Rating");
+                                info2.setText(Integer.toString(mxrating));
+                                info2Text.setText("MaxRating");
+                                profile_pic.setImageResource(R.drawable.icon_atcoder);
+                                username.setText(atcoderhandle);
+                                rating.setText(getRank(atrating));
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                // Handle the error scenario
+                            }
+                        };
+
+                        atcoderAPIHelper.getAtcoderContestHistoryOfUser(contestListCallback,atcoderhandle);
+
+                    }
+                    else {
+
+                        String leetcodeHandle="neal_wu";
+                        JSONObject variables = new JSONObject();
+                        try {
+                            variables.put("username", leetcodeHandle);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        String query = "query userContestRankingInfo($username: String!) { " +
+                                "userContestRanking(username: $username) { " +
+                                "  attendedContestsCount " +
+                                "  rating " +
+                                "  globalRanking " +
+                                "  totalParticipants " +
+                                "  topPercentage " +
+                                "  badge { " +
+                                "    name " +
+                                "  } " +
+                                "} " +
+                                "}";
+
+                        leetcodeAPIHelper.executeQuery(query, variables, new LeetcodeAPIHelper.ContestListCallback() {
+                                    @Override
+                                    public void onSuccess(JSONObject userObject) {
+                                        try {
+                                            JSONObject data = userObject.getJSONObject("data");
+                                            JSONObject userContestRanking = data.getJSONObject("userContestRanking");
+
+                                            int attendedContestsCount = userContestRanking.getInt("attendedContestsCount");
+                                            double leetcoderating = userContestRanking.getDouble("rating");
+                                            int globalRanking = userContestRanking.getInt("globalRanking");
+                                            int totalParticipants = userContestRanking.getInt("totalParticipants");
+                                            double topPercentage = userContestRanking.getDouble("topPercentage");
+                                            JSONObject badge = userContestRanking.getJSONObject("badge");
+                                            String badgeName = badge.getString("name");
+
+
+                                            info1.setText(Double.toString(leetcoderating));
+                                            info1Text.setText("Rating");
+                                            info2.setText(Integer.toString(attendedContestsCount));
+                                            info2Text.setText("Contests");
+                                            profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                            username.setText(leetcodeHandle);
+                                            rating.setText("Global Rank : "+globalRanking);
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                });
+
+
+
+
+//                        info1.setText("256");
 //                        info1Text.setText("Problems");
 //                        info2.setText("101");
 //                        info2Text.setText("Contests");
-//                        profile_pic.setImageResource(R.drawable.icon_codeforces);
-//                        username.setText("CodeForces");
-//                        rating.setText("Rating: 1400");
-                    }
-                   else if(tab.getPosition()==2) {
-                        info1.setText("56");
-                        info1Text.setText("Problems");
-                        info2.setText("101");
-                        info2Text.setText("Contests");
-                        profile_pic.setImageResource(R.drawable.icon_atcoder);
-                        username.setText("AtCoders");
-                        rating.setText("Rating: 1400");
-                    }
-                    else {
-                        info1.setText("256");
-                        info1Text.setText("Problems");
-                        info2.setText("101");
-                        info2Text.setText("Contests");
-                        profile_pic.setImageResource(R.drawable.icon_leetcode);
-                        username.setText("LeetCode");
-                        rating.setText("Rank: 219121");
+//                        profile_pic.setImageResource(R.drawable.icon_leetcode);
+//                        username.setText("LeetCode");
+//                        rating.setText("Rank: 219121");
                     }
 
 
@@ -176,5 +256,26 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    public static String getRank(int rating) {
+        if (rating >= 2800 && rating <= 3199) {
+            return "Red";
+        } else if (rating >= 2400 && rating <= 2799) {
+            return "Orange";
+        } else if (rating >= 2000 && rating <= 2399) {
+            return "Yellow";
+        } else if (rating >= 1600 && rating <= 1999) {
+            return "Blue";
+        } else if (rating >= 1200 && rating <= 1599) {
+            return "Cyan";
+        } else if (rating >= 800 && rating <= 1199) {
+            return "Green";
+        } else if (rating >= 400 && rating <= 799) {
+            return "Brown";
+        } else {
+            return "Gray";
+        }
     }
 }

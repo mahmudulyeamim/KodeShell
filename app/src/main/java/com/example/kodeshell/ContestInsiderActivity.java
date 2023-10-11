@@ -31,11 +31,12 @@ public class ContestInsiderActivity extends AppCompatActivity {
     ImageView contestIcon,go_to_site;
     TextView contestName, contestDate, contestTime, contestDuration,startin;
     String URL;
-    LinearLayout go_to_web_site,contest_add_to_cal;
+    LinearLayout go_to_web_site,contest_add_to_cal,add_notification;
     private static Handler handler;
     private SimpleDateFormat dateFormat;
     private Date targetDate,startDate,endDate;
     Context context;
+
 
     public Context getContext() {
         return context;
@@ -59,6 +60,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
         go_to_web_site=findViewById(R.id.contest_go_to_web_layout);
         go_to_site=findViewById(R.id.go_to_site);
         contest_add_to_cal=findViewById(R.id.contest_add_to_calender_layout);
+        add_notification=findViewById(R.id.contest_add_notification_layout);
         startin=findViewById(R.id.contest_insider_time_countdown);
         contestIcon.setImageResource(getIntent().getIntExtra("image", 0));
         contestName.setText(getIntent().getStringExtra("name"));
@@ -121,6 +123,26 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         });
 
+
+        add_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    //Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
+                    // toast.show();
+                    Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
+                    intent.putExtra("name",getIntent().getStringExtra("name"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+
+
+            }
+        });
+
+
+
+
     }
     public static long convertAndAddHours(String iso8601DateString, int hoursToAdd) throws ParseException {
         Instant instant = null;
@@ -162,4 +184,5 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         }, 0);
     }
+
 }
