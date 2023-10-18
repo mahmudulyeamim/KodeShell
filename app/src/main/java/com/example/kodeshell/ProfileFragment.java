@@ -68,167 +68,145 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                    if(tab.getPosition()==0) {
-                        info1.setText("15");
-                        info1Text.setText("Posts");
-                        info2.setText("101");
-                        info2Text.setText("Followers");
-                        profile_pic.setImageResource(R.drawable.default_profile_pic);
-                        username.setText("Rifat Khan");
-                        rating.setText("Contribution: +10");
-                    }
-                    else if(tab.getPosition()==1) {
+                if(tab.getPosition()==0) {
+                    info1.setText("15");
+                    info1Text.setText("Posts");
+                    info2.setText("101");
+                    info2Text.setText("Followers");
+                    profile_pic.setImageResource(R.drawable.default_profile_pic);
+                    username.setText("Rifat Khan");
+                    rating.setText("Contribution: +10");
+                }
+                else if(tab.getPosition() == 1) {
+                    apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                JSONObject user = response.getJSONArray("result").getJSONObject(0);
+                                String handle = user.getString("handle");
+                                int cfrating = user.getInt("rating");
+                                int mxcfrating = user.getInt("maxRating");
+                                String rank=user.getString("rank");
 
-                       apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
-                            @Override
-                            public void onSuccess(JSONObject response) {
+                                String imageUrl = user.getString("titlePhoto");
+
+
+                                info1.setText(Integer.toString(cfrating));
+                                info1Text.setText("Rating");
+                                info2.setText(Integer.toString(mxcfrating));
+                                info2Text.setText("MaxRating");
+                                username.setText(handle);
+                                rating.setText(rank);
+                                Picasso.get().load(imageUrl).into(profile_pic);
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            // Handle error
+                        }
+                    });
+
+                }
+                else if(tab.getPosition()==2) {
+                    String atcoderhandle="Istahak_0";
+                    AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
+                        @Override
+                        public void onSuccess(JSONArray usercontesthistroyArray) {
+                            int atrating=0,mxrating=0;
+                            for (int i = 0; i < usercontesthistroyArray.length(); i++) {
                                 try {
-                                    JSONObject user = response.getJSONArray("result").getJSONObject(0);
-                                    String handle = user.getString("handle");
-                                    int cfrating = user.getInt("rating");
-                                    int mxcfrating = user.getInt("maxRating");
-                                    String rank=user.getString("rank");
-
-                                    String imageUrl = user.getString("titlePhoto");
-
-
-                                    info1.setText(Integer.toString(cfrating));
-                                    info1Text.setText("Rating");
-                                    info2.setText(Integer.toString(mxcfrating));
-                                    info2Text.setText("MaxRating");
-                                    username.setText(handle);
-                                    rating.setText(rank);
-                                    Picasso.get().load(imageUrl).into(profile_pic);
-
-
+                                    JSONObject contesthistroyObject = usercontesthistroyArray.getJSONObject(i);
+                                    atrating=contesthistroyObject.getInt("NewRating");
+                                    mxrating=Math.max(mxrating,atrating);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
 
-                            @Override
-                            public void onError(String errorMessage) {
-                                // Handle error
-                            }
-                        });
-
-                    }
-                   else if(tab.getPosition()==2) {
-
-
-                        String atcoderhandle="Istahak_0";
-                        AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
-                            @Override
-                            public void onSuccess(JSONArray usercontesthistroyArray) {
-                                int atrating=0,mxrating=0;
-                                for (int i = 0; i < usercontesthistroyArray.length(); i++) {
-                                    try {
-                                        JSONObject contesthistroyObject = usercontesthistroyArray.getJSONObject(i);
-                                        atrating=contesthistroyObject.getInt("NewRating");
-                                        mxrating=Math.max(mxrating,atrating);
-
-
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                info1.setText(Integer.toString(atrating));
-                                info1Text.setText("Rating");
-                                info2.setText(Integer.toString(mxrating));
-                                info2Text.setText("MaxRating");
-                                profile_pic.setImageResource(R.drawable.icon_atcoder);
-                                username.setText(atcoderhandle);
-                                rating.setText(getRank(atrating));
-
-
-                            }
-
-                            @Override
-                            public void onFailure(Exception e) {
-                                // Handle the error scenario
-                            }
-                        };
-
-                        atcoderAPIHelper.getAtcoderContestHistoryOfUser(contestListCallback,atcoderhandle);
-
-                    }
-                    else {
-
-                        String leetcodeHandle="neal_wu";
-                        JSONObject variables = new JSONObject();
-                        try {
-                            variables.put("username", leetcodeHandle);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            info1.setText(Integer.toString(atrating));
+                            info1Text.setText("Rating");
+                            info2.setText(Integer.toString(mxrating));
+                            info2Text.setText("MaxRating");
+                            profile_pic.setImageResource(R.drawable.icon_atcoder);
+                            username.setText(atcoderhandle);
+                            rating.setText(getRank(atrating));
                         }
 
-                        String query = "query userContestRankingInfo($username: String!) { " +
-                                "userContestRanking(username: $username) { " +
-                                "  attendedContestsCount " +
-                                "  rating " +
-                                "  globalRanking " +
-                                "  totalParticipants " +
-                                "  topPercentage " +
-                                "  badge { " +
-                                "    name " +
-                                "  } " +
-                                "} " +
-                                "}";
+                        @Override
+                        public void onFailure(Exception e) {
+                            // Handle the error scenario
+                        }
+                    };
 
-                        leetcodeAPIHelper.executeQuery(query, variables, new LeetcodeAPIHelper.ContestListCallback() {
-                                    @Override
-                                    public void onSuccess(JSONObject userObject) {
-                                        try {
-                                            JSONObject data = userObject.getJSONObject("data");
-                                            JSONObject userContestRanking = data.getJSONObject("userContestRanking");
+                    atcoderAPIHelper.getAtcoderContestHistoryOfUser(contestListCallback,atcoderhandle);
 
-                                            int attendedContestsCount = userContestRanking.getInt("attendedContestsCount");
-                                            double leetcoderating = userContestRanking.getDouble("rating");
-                                            int globalRanking = userContestRanking.getInt("globalRanking");
-                                            int totalParticipants = userContestRanking.getInt("totalParticipants");
-                                            double topPercentage = userContestRanking.getDouble("topPercentage");
-                                            JSONObject badge = userContestRanking.getJSONObject("badge");
-                                            String badgeName = badge.getString("name");
-
-
-                                            info1.setText(Double.toString(leetcoderating));
-                                            info1Text.setText("Rating");
-                                            info2.setText(Integer.toString(attendedContestsCount));
-                                            info2Text.setText("Contests");
-                                            profile_pic.setImageResource(R.drawable.icon_leetcode);
-                                            username.setText(leetcodeHandle);
-                                            rating.setText("Global Rank : "+globalRanking);
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Exception e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
-                                    }
-
-
-                                });
-
-
-
-
-//                        info1.setText("256");
-//                        info1Text.setText("Problems");
-//                        info2.setText("101");
-//                        info2Text.setText("Contests");
-//                        profile_pic.setImageResource(R.drawable.icon_leetcode);
-//                        username.setText("LeetCode");
-//                        rating.setText("Rank: 219121");
+                }
+                else {
+                    String leetcodeHandle="neal_wu";
+                    JSONObject variables = new JSONObject();
+                    try {
+                        variables.put("username", leetcodeHandle);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
+                    String query = "query userContestRankingInfo($username: String!) { " +
+                            "userContestRanking(username: $username) { " +
+                            "  attendedContestsCount " +
+                            "  rating " +
+                            "  globalRanking " +
+                            "  totalParticipants " +
+                            "  topPercentage " +
+                            "  badge { " +
+                            "    name " +
+                            "  } " +
+                            "} " +
+                            "}";
 
+                    leetcodeAPIHelper.executeQuery(query, variables, new LeetcodeAPIHelper.ContestListCallback() {
+                        @Override
+                        public void onSuccess(JSONObject userObject) {
+                            try {
+                                JSONObject data = userObject.getJSONObject("data");
+                                JSONObject userContestRanking = data.getJSONObject("userContestRanking");
+
+                                int attendedContestsCount = userContestRanking.getInt("attendedContestsCount");
+                                int leetcoderating = (int)userContestRanking.getDouble("rating");
+                                int globalRanking = userContestRanking.getInt("globalRanking");
+                                int totalParticipants = userContestRanking.getInt("totalParticipants");
+                                double topPercentage = userContestRanking.getDouble("topPercentage");
+                                JSONObject badge = userContestRanking.getJSONObject("badge");
+                                String badgeName = badge.getString("name");
+
+
+                                info1.setText(Integer.toString(leetcoderating));
+                                info1Text.setText("Rating");
+                                info2.setText(Integer.toString(attendedContestsCount));
+                                info2Text.setText("Contests");
+                                profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                username.setText(leetcodeHandle);
+                                rating.setText("Global Rank : "+globalRanking);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    });
+                }
                 viewPager2.setCurrentItem(tab.getPosition());
             }
 
@@ -259,7 +237,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    public static String getRank(int rating) {
+    private static String getRank(int rating) {
         if (rating >= 2800 && rating <= 3199) {
             return "Red";
         } else if (rating >= 2400 && rating <= 2799) {

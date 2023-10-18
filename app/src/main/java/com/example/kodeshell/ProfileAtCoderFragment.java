@@ -22,6 +22,12 @@ public class ProfileAtCoderFragment extends Fragment {
     RecyclerView submissionRecyclerView;
     SubmissionAdapter submissionAdapter;
     private AtcoderAPIHelper apiHelper;
+    String username;
+
+    public ProfileAtCoderFragment(String username) {
+        this.username = username;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,48 +40,49 @@ public class ProfileAtCoderFragment extends Fragment {
 
         ArrayList<SubmissionDetails> list = new ArrayList<>();
 
-        String atcoderhandle="Istahak_0";
-        AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
-            @Override
-            public void onSuccess(JSONArray usersubmissionhistroyArray) {
-                StringBuilder problemNames = new StringBuilder();
-                int listsz=usersubmissionhistroyArray.length();
-                int lst10=10;
-                for (int i = listsz-1; i >=0 && lst10>0; i--) {
-                    try {
-                        JSONObject submissionhistroyObject = usersubmissionhistroyArray.getJSONObject(i);
-                        String problemid=submissionhistroyObject.getString("problem_id");
-                        int point=submissionhistroyObject.getInt("point");
-                        String result=submissionhistroyObject.getString("result");
+        String atcoderhandle = username;
+
+        if(!username.isEmpty()) {
+            AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
+                @Override
+                public void onSuccess(JSONArray usersubmissionhistroyArray) {
+                    StringBuilder problemNames = new StringBuilder();
+                    int listsz = usersubmissionhistroyArray.length();
+                    int lst10 = 10;
+                    for (int i = listsz - 1; i >= 0 && lst10 > 0; i--) {
+                        try {
+                            JSONObject submissionhistroyObject = usersubmissionhistroyArray.getJSONObject(i);
+                            String problemid = submissionhistroyObject.getString("problem_id");
+                            int point = submissionhistroyObject.getInt("point");
+                            String result = submissionhistroyObject.getString("result");
 //                        String full=problemid+" "+Integer.toString(point)+" "+result+"\n";
 //                        problemNames.append(full);
-                        lst10-=1;
-                        SubmissionDetails obj1 = new SubmissionDetails();
-                        obj1.setName(problemid);
-                        obj1.setStatus(result);
-                        obj1.setTime(Integer.toString(point));
-                        list.add(obj1);
+                            lst10 -= 1;
+                            SubmissionDetails obj1 = new SubmissionDetails();
+                            obj1.setName(problemid);
+                            obj1.setStatus(result);
+                            obj1.setTime(Integer.toString(point));
+                            list.add(obj1);
 
 
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    //set
+
+                    submissionAdapter = new SubmissionAdapter(list);
+                    submissionRecyclerView.setAdapter(submissionAdapter);
+
                 }
-               //set
 
-                submissionAdapter = new SubmissionAdapter(list);
-                submissionRecyclerView.setAdapter(submissionAdapter);
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                // Handle the error scenario
-            }
-        };
-        apiHelper.getAtcodersubmissionHistoryOfUser(contestListCallback,atcoderhandle);
-
+                @Override
+                public void onFailure(Exception e) {
+                    // Handle the error scenario
+                }
+            };
+            apiHelper.getAtcodersubmissionHistoryOfUser(contestListCallback, atcoderhandle);
+        }
 
 
         return view;

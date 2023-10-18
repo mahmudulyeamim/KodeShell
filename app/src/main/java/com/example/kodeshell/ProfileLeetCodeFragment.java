@@ -25,6 +25,11 @@ public class ProfileLeetCodeFragment extends Fragment {
     RecyclerView submissionRecyclerView;
     SubmissionAdapter submissionAdapter;
     private LeetcodeAPIHelper apiHelper;
+    String username;
+
+    public ProfileLeetCodeFragment(String username) {
+        this.username = username;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,70 +45,68 @@ public class ProfileLeetCodeFragment extends Fragment {
 
         ArrayList<SubmissionDetails> list = new ArrayList<>();
 
-        String leetcodehandle="neal_wu";
+        String leetcodehandle = username;
 
-        JSONObject variables = new JSONObject();
-        try {
-            variables.put("username", "neal_wu");
-            variables.put("limit", 15); // Set the limit for recent submissions
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String query = "query recentAcSubmissions($username: String!, $limit: Int!) { " +
-                "recentAcSubmissionList(username: $username, limit: $limit) { " +
-                "  id " +
-                "  title " +
-                "  titleSlug " +
-                "  timestamp " +
-                "} " +
-                "}";
-
-
-
-
-
-        apiHelper.executeQuery(query, variables, new LeetcodeAPIHelper.ContestListCallback() {
-            @Override
-            public void onSuccess(JSONObject userObject) {
-                try {
-
-                    JSONObject data = userObject.getJSONObject("data");
-                    JSONArray recentSubmissionsArray = data.getJSONArray("recentAcSubmissionList");
-
-                    for (int i = 0; i < recentSubmissionsArray.length(); i++) {
-                        JSONObject submission = recentSubmissionsArray.getJSONObject(i);
-                        String submissionId = submission.getString("id");
-                        String submissionTitle = submission.getString("title");
-                        String submissionTitleSlug = submission.getString("titleSlug");
-                        String submissionTimestamp = submission.getString("timestamp");
-
-                        SubmissionDetails obj1 = new SubmissionDetails();
-                        obj1.setName(submissionTitle);
-                        obj1.setStatus("AC");
-
-                        obj1.setTime(convertTimestampToDate(submissionTimestamp));
-                        list.add(obj1);
-                    }
-
-
-
-                    submissionAdapter = new SubmissionAdapter(list);
-                    submissionRecyclerView.setAdapter(submissionAdapter);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Exception e) {
+        if(!username.isEmpty()) {
+            JSONObject variables = new JSONObject();
+            try {
+                variables.put("username", leetcodehandle);
+                variables.put("limit", 15); // Set the limit for recent submissions
+            } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
             }
-        });
+
+            String query = "query recentAcSubmissions($username: String!, $limit: Int!) { " +
+                    "recentAcSubmissionList(username: $username, limit: $limit) { " +
+                    "  id " +
+                    "  title " +
+                    "  titleSlug " +
+                    "  timestamp " +
+                    "} " +
+                    "}";
 
 
+            apiHelper.executeQuery(query, variables, new LeetcodeAPIHelper.ContestListCallback() {
+                @Override
+                public void onSuccess(JSONObject userObject) {
+                    try {
+
+                        JSONObject data = userObject.getJSONObject("data");
+                        JSONArray recentSubmissionsArray = data.getJSONArray("recentAcSubmissionList");
+
+                        for (int i = 0; i < recentSubmissionsArray.length(); i++) {
+                            JSONObject submission = recentSubmissionsArray.getJSONObject(i);
+                            String submissionId = submission.getString("id");
+                            String submissionTitle = submission.getString("title");
+                            String submissionTitleSlug = submission.getString("titleSlug");
+                            String submissionTimestamp = submission.getString("timestamp");
+
+                            SubmissionDetails obj1 = new SubmissionDetails();
+                            obj1.setName(submissionTitle);
+                            obj1.setStatus("AC");
+
+                            obj1.setTime(convertTimestampToDate(submissionTimestamp));
+                            list.add(obj1);
+                        }
+
+
+                        submissionAdapter = new SubmissionAdapter(list);
+                        submissionRecyclerView.setAdapter(submissionAdapter);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
 
 

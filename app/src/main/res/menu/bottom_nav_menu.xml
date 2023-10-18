@@ -7,11 +7,6 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/search_button"
-        android:icon="@drawable/search_24"
-        tools:ignore="MenuTitle" />
-
-    <item
         android:id="@+id/contest_button"
         android:icon="@drawable/calendar_day_24"
         tools:ignore="MenuTitle" />
@@ -19,6 +14,11 @@
     <item
         android:id="@+id/notification_button"
         android:icon="@drawable/bell_24"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/stalk_button"
+        android:icon="@drawable/stalk_24"
         tools:ignore="MenuTitle" />
 
     <item

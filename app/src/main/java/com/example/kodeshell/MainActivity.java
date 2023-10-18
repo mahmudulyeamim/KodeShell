@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     ContestFragment contestFragment;
     ProfileFragment profileFragment;
 
+    StalkFragment stalkFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         contestFragment = new ContestFragment();
         profileFragment = new ProfileFragment();
+        stalkFragment = new StalkFragment();
 
         openHomeFragment();
 
@@ -55,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                     openMessengerActivity();
                     return true;
                 }
+                else if(item.getItemId() == R.id.stalk_button) {
+                    openStalkFragment();
+                    return true;
+                }
                 return false;
             }
         });
@@ -63,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
     private void openMessengerActivity() {
         Intent intent = new Intent(this, UserList.class);
         startActivity(intent);
+    }
+
+    private void openStalkFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, stalkFragment).commit();
+
     }
 
     private void openHomeFragment() {
