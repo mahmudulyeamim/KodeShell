@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
@@ -62,7 +64,10 @@ public class ContestInsiderActivity extends AppCompatActivity {
         contest_add_to_cal=findViewById(R.id.contest_add_to_calender_layout);
         add_notification=findViewById(R.id.contest_add_notification_layout);
         startin=findViewById(R.id.contest_insider_time_countdown);
-        contestIcon.setImageResource(getIntent().getIntExtra("image", 0));
+
+        Picasso.get().load(getIntent().getIntExtra("image", 0)).fit().centerInside().into(contestIcon);
+        // contestIcon.setImageResource(getIntent().getIntExtra("image", 0));
+
         contestName.setText(getIntent().getStringExtra("name"));
         contestDate.setText(getIntent().getStringExtra("date"));
         contestTime.setText(getIntent().getStringExtra("time"));

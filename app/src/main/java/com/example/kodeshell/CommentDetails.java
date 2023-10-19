@@ -1,7 +1,24 @@
 package com.example.kodeshell;
 
 public class CommentDetails {
-    private String username, imageURL, comment;
+    private String username, imageURL, comment, time;
+    private int avatar;
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
 
     public String getUsername() {
         return username;

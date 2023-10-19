@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
@@ -11,139 +10,140 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/post_left_border_line"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/post_text_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/post_text_img"
-        app:srcCompat="@color/gray_line_color" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/post_text_img"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="26dp"
-        app:civ_border_color="@color/gray_line_color"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/post_left_border_line"
-        app:layout_constraintStart_toStartOf="@+id/post_left_border_line"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/avatar1" />
-
-    <TextView
-        android:id="@+id/post_text_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:lineSpacingExtra="8sp"
-        android:text="Mahmudul Yeamim"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:fontFamily="@font/ubuntu"
-        app:layout_constraintBottom_toTopOf="@id/post_text_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/post_text_img"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/post_text_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="8dp"
-        android:text="1 hour ago"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        android:textColor="@color/grey_color"
-        android:fontFamily="@font/ubuntu"
-        app:layout_constraintBottom_toTopOf="@id/post_text_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/post_text_img"
-        app:layout_constraintTop_toBottomOf="@id/post_text_username"/>
-
-    <TextView
-        android:id="@+id/post_text_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp"
-        android:lineSpacingExtra="2sp"
-        android:fontFamily="@font/ubuntu"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:background="@drawable/text_card_bg"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/post_left_border_line"
-        app:layout_constraintTop_toBottomOf="@id/post_text_username"/>
-
-    <LinearLayout
-        android:id="@+id/post_statistics"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintStart_toEndOf="@id/post_left_border_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post_text_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-
         <ImageView
-            android:id="@+id/post_upvote_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/up_voted" />
+            android:id="@+id/post_left_border_line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/post_text_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/post_text_img"
+            app:srcCompat="@color/gray_line_color" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_text_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="26dp"
+            app:civ_border_color="@color/gray_line_color"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/post_left_border_line"
+            app:layout_constraintStart_toStartOf="@+id/post_left_border_line"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/avatar1" />
 
         <TextView
-            android:id="@+id/post_upvote_count"
-            android:layout_width="wrap_content"
+            android:id="@+id/post_text_username"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:text="+23"
-            android:textSize="16sp"
-            android:textColor="@color/upvote_color"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:lineSpacingExtra="8sp"
+            android:text="Mahmudul Yeamim"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:fontFamily="@font/ubuntu"/>
-
-        <ImageView
-            android:id="@+id/post_down_vote_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="2dp"
-            android:src="@drawable/down_vote" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/comments" />
+            android:textSize="18sp"
+            android:fontFamily="@font/ubuntu"
+            app:layout_constraintBottom_toTopOf="@id/post_text_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/post_text_img"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/post_comment_count"
-            android:layout_width="wrap_content"
+            android:id="@+id/post_text_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginEnd="16dp"
-            android:text="12"
-            android:textSize="16sp"
-            android:textColor="@color/comment_color"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="1 hour ago"
             android:textStyle="bold"
-            android:fontFamily="@font/ubuntu" />
+            android:textSize="12sp"
+            android:textColor="@color/grey_color"
+            android:fontFamily="@font/ubuntu"
+            app:layout_constraintBottom_toTopOf="@id/post_text_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/post_text_img"
+            app:layout_constraintTop_toBottomOf="@id/post_text_username"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/post_text_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="2sp"
+            android:fontFamily="@font/ubuntu"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:background="@drawable/text_card_bg"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/post_left_border_line"
+            app:layout_constraintTop_toBottomOf="@id/post_text_username"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/post_statistics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toEndOf="@id/post_left_border_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_text_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/post_upvote_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/up_voted" />
+
+            <TextView
+                android:id="@+id/post_upvote_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="+23"
+                android:textSize="16sp"
+                android:textColor="@color/upvote_color"
+                android:textStyle="bold"
+                android:fontFamily="@font/ubuntu"/>
+
+            <ImageView
+                android:id="@+id/post_down_vote_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/down_vote" />
+
+            <ImageView
+                android:id="@+id/comment_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/comments" />
+
+            <TextView
+                android:id="@+id/post_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginEnd="16dp"
+                android:text="12"
+                android:textSize="16sp"
+                android:textColor="@color/comment_color"
+                android:textStyle="bold"
+                android:fontFamily="@font/ubuntu" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

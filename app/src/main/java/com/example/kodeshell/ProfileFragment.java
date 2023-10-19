@@ -60,7 +60,8 @@ public class ProfileFragment extends Fragment {
         info1Text.setText("Posts");
         info2.setText("101");
         info2Text.setText("Followers");
-        profile_pic.setImageResource(R.drawable.default_profile_pic);
+        Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
+        // profile_pic.setImageResource(R.drawable.default_profile_pic);
         username.setText("Rifat Khan");
         rating.setText("Contribution: +10");
 
@@ -73,7 +74,8 @@ public class ProfileFragment extends Fragment {
                     info1Text.setText("Posts");
                     info2.setText("101");
                     info2Text.setText("Followers");
-                    profile_pic.setImageResource(R.drawable.default_profile_pic);
+                    Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
+                    // profile_pic.setImageResource(R.drawable.default_profile_pic);
                     username.setText("Rifat Khan");
                     rating.setText("Contribution: +10");
                 }
@@ -134,7 +136,8 @@ public class ProfileFragment extends Fragment {
                             info1Text.setText("Rating");
                             info2.setText(Integer.toString(mxrating));
                             info2Text.setText("MaxRating");
-                            profile_pic.setImageResource(R.drawable.icon_atcoder);
+                            Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
+                            // profile_pic.setImageResource(R.drawable.icon_atcoder);
                             username.setText(atcoderhandle);
                             rating.setText(getRank(atrating));
                         }
@@ -190,7 +193,8 @@ public class ProfileFragment extends Fragment {
                                 info1Text.setText("Rating");
                                 info2.setText(Integer.toString(attendedContestsCount));
                                 info2Text.setText("Contests");
-                                profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                                // profile_pic.setImageResource(R.drawable.icon_leetcode);
                                 username.setText(leetcodeHandle);
                                 rating.setText("Global Rank : "+globalRanking);
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ContestAdapter extends RecyclerView.Adapter<ContestHolder> {
@@ -32,7 +34,8 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ContestHolder holder, int position) {
-        holder.contestIcon.setImageResource(list.get(position).getContestIcon());
+        Picasso.get().load(list.get(position).getContestIcon()).fit().centerInside().into(holder.contestIcon);
+        // holder.contestIcon.setImageResource(list.get(position).getContestIcon());
         holder.contestName.setText(list.get(position).getContestName());
         holder.contestTime.setText(list.get(position).getContestDate() + " at " + list.get(position).getContestTime());
         holder.contestDuration.setText("Duration: " + list.get(position).getContestDuration());

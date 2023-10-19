@@ -5,15 +5,14 @@ import java.util.List;
 public class PostDetails {
     private String username, imageURL, time, post;
     private int avatar;
+    private int upVoteIcon;
+    private int downVoteIcon;
+    private int upVote, downVote;
+    private List<CommentDetails> comments;
 
     public int getAvatar() {
         return avatar;
     }
-
-    private int upVoteIcon;
-    private int downVoteIcon;
-    private int upVote, downVote;
-    private List<ContestDetails> comments;
 
     public int getUpVoteIcon() {
         return upVoteIcon;
@@ -47,7 +46,7 @@ public class PostDetails {
         return downVote;
     }
 
-    public List<ContestDetails> getComments() {
+    public List<CommentDetails> getComments() {
         return comments;
     }
 
@@ -75,7 +74,7 @@ public class PostDetails {
         this.downVote = downVote;
     }
 
-    public void setComments(List<ContestDetails> comments) {
+    public void setComments(List<CommentDetails> comments) {
         this.comments = comments;
     }
 

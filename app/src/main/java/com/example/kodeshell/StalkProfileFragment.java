@@ -129,6 +129,7 @@ public class StalkProfileFragment extends Fragment {
                     info2Text.setText("MaxRating");
                     username.setText("user not found");
                     rating.setText("");
+                    Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                 }
             });
         }
@@ -139,7 +140,7 @@ public class StalkProfileFragment extends Fragment {
             info2Text.setText("MaxRating");
             username.setText("user not found");
             rating.setText("");
-            profile_pic.setImageResource(R.drawable.icon_codeforces);
+            Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -184,7 +185,7 @@ public class StalkProfileFragment extends Fragment {
                                 info2Text.setText("MaxRating");
                                 username.setText("user not found");
                                 rating.setText("");
-                                profile_pic.setImageResource(R.drawable.icon_codeforces);
+                                Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                             }
                         });
                     }
@@ -195,7 +196,7 @@ public class StalkProfileFragment extends Fragment {
                         info2Text.setText("MaxRating");
                         username.setText("user not found");
                         rating.setText("");
-                        profile_pic.setImageResource(R.drawable.icon_codeforces);
+                        Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                     }
 
                 }
@@ -222,7 +223,7 @@ public class StalkProfileFragment extends Fragment {
                                 info1Text.setText("Rating");
                                 info2.setText(Integer.toString(mxrating));
                                 info2Text.setText("MaxRating");
-                                profile_pic.setImageResource(R.drawable.icon_atcoder);
+                                Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                                 username.setText(atcoderhandle);
                                 rating.setText(getRank(atrating));
                             }
@@ -236,7 +237,8 @@ public class StalkProfileFragment extends Fragment {
                                 info2Text.setText("MaxRating");
                                 username.setText("user not found");
                                 rating.setText("");
-                                profile_pic.setImageResource(R.drawable.icon_atcoder);
+                                // profile_pic.setImageResource(R.drawable.icon_atcoder);
+                                Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                             }
                         };
 
@@ -249,7 +251,8 @@ public class StalkProfileFragment extends Fragment {
                         info2Text.setText("MaxRating");
                         username.setText("user not found");
                         rating.setText("");
-                        profile_pic.setImageResource(R.drawable.icon_atcoder);
+                        Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
+                        // profile_pic.setImageResource(R.drawable.icon_atcoder);
                     }
 
                 }
@@ -296,7 +299,8 @@ public class StalkProfileFragment extends Fragment {
                                     info1Text.setText("Rating");
                                     info2.setText(Integer.toString(attendedContestsCount));
                                     info2Text.setText("Contests");
-                                    profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                    Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                                    // profile_pic.setImageResource(R.drawable.icon_leetcode);
                                     username.setText(leetcodeHandle);
                                     rating.setText("Global Rank : " + globalRanking);
 
@@ -315,7 +319,8 @@ public class StalkProfileFragment extends Fragment {
                                 info2Text.setText("Contests");
                                 username.setText("user not found");
                                 rating.setText("");
-                                profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                                // profile_pic.setImageResource(R.drawable.icon_leetcode);
                             }
                         });
                     }
@@ -326,7 +331,8 @@ public class StalkProfileFragment extends Fragment {
                         info2Text.setText("Contests");
                         username.setText("user not found");
                         rating.setText("");
-                        profile_pic.setImageResource(R.drawable.icon_leetcode);
+                        Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                        // profile_pic.setImageResource(R.drawable.icon_leetcode);
                     }
                 }
 

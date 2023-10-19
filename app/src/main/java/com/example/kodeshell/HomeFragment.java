@@ -42,6 +42,33 @@ public class HomeFragment extends Fragment {
 
         ArrayList<PostDetails> list = new ArrayList<>();
 
+        ArrayList<CommentDetails> clist = new ArrayList<>();
+        CommentDetails cobj1 = new CommentDetails();
+        cobj1.setAvatar(R.drawable.avatar5);
+        cobj1.setUsername("Zack King");
+        cobj1.setTime("5 minutes ago");
+        cobj1.setComment("Great");
+        clist.add(cobj1);
+
+        CommentDetails cobj2 = new CommentDetails();
+        cobj2.setAvatar(R.drawable.avatar3);
+        cobj2.setUsername("Ash Kamora");
+        cobj2.setTime("1 hour ago");
+        cobj2.setComment("I totally agree with you");
+        clist.add(cobj2);
+
+        PostDetails obj6 = new PostDetails();
+        obj6.setAvatar(R.drawable.avatar9);
+        obj6.setUsername("Iffatul Siam");
+        obj6.setTime("Just Now");
+        obj6.setPost("Competitive programming: where brains race and algorithms battle to solve complex problems in the blink of an eye. It's a high-speed chess match of code, where programmers strive for elegance and efficiency to claim the ultimate checkmate in the digital arena. \uD83D\uDCBB\uD83C\uDFC6 ");
+        obj6.setUpVote(1000);
+        obj6.setDownVote(213);
+        obj6.setUpVoteIcon(R.drawable.up_vote);
+        obj6.setDownVoteIcon(R.drawable.down_voted);
+        obj6.setComments(clist);
+        list.add(obj6);
+
         PostDetails obj1 = new PostDetails();
         obj1.setAvatar(R.drawable.avatar1);
         obj1.setUsername("Mahmudul Yeamim");
@@ -99,10 +126,12 @@ public class HomeFragment extends Fragment {
         obj5.setDownVoteIcon(R.drawable.down_voted);
         list.add(obj5);
 
-        postAdapter = new PostAdapter(list, getContext());
+        postAdapter = new PostAdapter(list, getContext(), getParentFragmentManager());
         postRecyclerView.setAdapter(postAdapter);
 
         messengerButton.setOnClickListener(view1 -> openMessengerActivity());
+
+
 
         return view;
     }
