@@ -54,10 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     openProfileFragment();
                     return true;
                 }
-                else if(item.getItemId() == R.id.notification_button) {
-                    openMessengerActivity();
-                    return true;
-                }
                 else if(item.getItemId() == R.id.stalk_button) {
                     openStalkFragment();
                     return true;
@@ -65,11 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private void openMessengerActivity() {
-        Intent intent = new Intent(this, UserList.class);
-        startActivity(intent);
     }
 
     private void openStalkFragment() {

@@ -32,7 +32,6 @@ public class ContestAdapter extends RecyclerView.Adapter<ContestHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ContestHolder holder, int position) {
-        System.out.println(position);
         holder.contestIcon.setImageResource(list.get(position).getContestIcon());
         holder.contestName.setText(list.get(position).getContestName());
         holder.contestTime.setText(list.get(position).getContestDate() + " at " + list.get(position).getContestTime());
