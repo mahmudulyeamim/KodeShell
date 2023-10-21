@@ -76,4 +76,7 @@ dependencies {
     def fragment_version = "1.3.4"
     implementation "androidx.fragment:fragment:$fragment_version"
 
+    // swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }

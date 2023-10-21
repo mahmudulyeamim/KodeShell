@@ -58,10 +58,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
             holder.commentCount.setText(Integer.toString(list.get(position).getComments().size()));
         }
 
-        if(list.get(position).getComments() != null) {
-            holder.commentCount.setOnClickListener(view -> openCommentFragment(list.get(position).getComments()));
-            holder.commentIcon.setOnClickListener(view -> openCommentFragment(list.get(position).getComments()));
-        }
+        holder.commentCount.setOnClickListener(view -> openCommentFragment(list.get(position).getComments()));
+        holder.commentIcon.setOnClickListener(view -> openCommentFragment(list.get(position).getComments()));
     }
 
     @Override

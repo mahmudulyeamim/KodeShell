@@ -5,8 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment {
 
     ImageView messengerButton, newPostButton, searchButton;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class HomeFragment extends Fragment {
         messengerButton = view.findViewById(R.id.home_messenger_button);
         newPostButton = view.findViewById(R.id.home_new_post_button);
         searchButton = view.findViewById(R.id.home_search_button);
+        swipeRefreshLayout = view.findViewById(R.id.home_swipe_refresh_layout);
 
         postRecyclerView = view.findViewById(R.id.postRecyclerView);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -126,12 +131,33 @@ public class HomeFragment extends Fragment {
         obj5.setDownVoteIcon(R.drawable.down_voted);
         list.add(obj5);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                PostDetails obj = new PostDetails();
+                obj.setAvatar(R.drawable.avatar12);
+                obj.setUsername("Oleksandr Kulkov");
+                obj.setTime("Just now");
+                obj.setPost("I am new to this app");
+                obj.setUpVote(10);
+                obj.setDownVote(3);
+                obj.setUpVoteIcon(R.drawable.up_voted);
+                obj.setDownVoteIcon(R.drawable.down_vote);
+                list.add(0, obj);
+
+                postAdapter.notifyItemInserted(0);
+                postRecyclerView.scrollToPosition(0);
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         postAdapter = new PostAdapter(list, getContext(), getParentFragmentManager());
         postRecyclerView.setAdapter(postAdapter);
 
         messengerButton.setOnClickListener(view1 -> openMessengerActivity());
 
-
+        newPostButton.setOnClickListener(view1 -> openNewPostFragment());
 
         return view;
     }
@@ -139,5 +165,14 @@ public class HomeFragment extends Fragment {
     private void openMessengerActivity() {
         Intent intent = new Intent(getContext(), UserList.class);
         startActivity(intent);
+    }
+
+    private void openNewPostFragment() {
+        NewPostFragment newPostFragment = new NewPostFragment();
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, newPostFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

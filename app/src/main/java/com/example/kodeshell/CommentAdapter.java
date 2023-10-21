@@ -19,12 +19,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentHolder> {
     Context context;
 
     public CommentAdapter(List<CommentDetails> list, Context context) {
-        this.list = list;
+        if(list != null) this.list = list;
+        else list = new ArrayList<>();
         this.context = context;
-    }
-
-    void addToList(CommentDetails commentDetails) {
-        list.add(0, commentDetails);
     }
 
     @NonNull

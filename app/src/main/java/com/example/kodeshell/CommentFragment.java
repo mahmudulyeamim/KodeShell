@@ -29,6 +29,10 @@ public class CommentFragment extends Fragment {
 
     private List<CommentDetails> list;
 
+    public CommentFragment() {
+        list = new ArrayList<>();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,10 +66,10 @@ public class CommentFragment extends Fragment {
             obj.setUsername("Sophia Charlotte");
             obj.setTime("Just now");
             obj.setComment(text);
-            list.add(obj);
+            list.add(0, obj);
 
-            commentAdapter.notifyItemInserted(list.size() - 1);
-            commentRecyclerView.scrollToPosition(list.size() - 1);
+            commentAdapter.notifyItemInserted(0);
+            commentRecyclerView.scrollToPosition(0);
 
             comment.setText("");
         }
@@ -76,6 +80,6 @@ public class CommentFragment extends Fragment {
     }
 
     public void setList(List<CommentDetails> list) {
-        this.list = list;
+        if(list != null) this.list = list;
     }
 }
