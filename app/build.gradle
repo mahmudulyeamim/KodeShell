@@ -79,7 +79,9 @@ dependencies {
     // swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-    // drawer layout
-    implementation "androidx.drawerlayout:drawerlayout:1.2.0"
+    //google play services
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+//    implementation 'com.jpardogo.android:googleprogressbar:1.2.0'
+
 
 }
