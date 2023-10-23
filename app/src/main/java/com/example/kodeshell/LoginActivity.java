@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,11 +49,12 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView signupButton, forgotPasswordButton;
 
-    Button loginButton, loginWithGoogleButton;
+    Button loginButton, loginWithGoogleButton, signInbtn;
+    ImageView googleIcon;
 
     TextInputLayout emailTextInput, passwordTextInput;
 
-    ProgressBar progressBar;
+    ProgressBar loginprogressBar, signinprogressBar;
 
     String id, firstName, lastName;
     @Override
@@ -71,7 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.registerButtonLoginActivity);
         forgotPasswordButton = findViewById(R.id.login_forgot_password_text);
 
-        progressBar = findViewById(R.id.login_progress_bar);
+        loginprogressBar = findViewById(R.id.login_progress_bar);
+        signinprogressBar = findViewById(R.id.sign_in_progress_bar);
+
+        googleIcon = findViewById(R.id.google_icon);
 
         initEditText();
 
@@ -89,10 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
-        Button signInbtn = findViewById(R.id.login_google_button);
+        signInbtn = findViewById(R.id.login_google_button);
         signInbtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                signinprogressBar.setVisibility(View.VISIBLE);
+                signInbtn.setVisibility(View.INVISIBLE);
+                googleIcon.setVisibility(View.INVISIBLE);
                 signIn();
             }
         });
@@ -125,6 +134,9 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        signinprogressBar.setVisibility(View.GONE);
+                        signInbtn.setVisibility(View.VISIBLE);
+                        googleIcon.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             userExists("yourUserId", new UserExistsCallback() {
@@ -230,7 +242,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validateUser() {
         if(validateEmail() && validatePassword()) {
-            progressBar.setVisibility(View.VISIBLE);
+            loginprogressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
 
             String email = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
@@ -239,11 +251,10 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    progressBar.setVisibility(View.GONE);
+                    loginprogressBar.setVisibility(View.GONE);
                     loginButton.setVisibility(View.VISIBLE);
 
                     if (task.isSuccessful()){
-//                                progressDialog.show();
                         try {
                             openHomeActivity();
                         } catch (Exception e) {
