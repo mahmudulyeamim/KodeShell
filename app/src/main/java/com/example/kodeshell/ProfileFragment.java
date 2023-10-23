@@ -2,18 +2,28 @@ package com.example.kodeshell;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.provider.Settings;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
@@ -33,6 +43,10 @@ public class ProfileFragment extends Fragment {
 
     private AtcoderAPIHelper atcoderAPIHelper;
     private LeetcodeAPIHelper leetcodeAPIHelper;
+
+    ImageView openNavButton;
+
+    DrawerLayout drawerLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,15 +69,15 @@ public class ProfileFragment extends Fragment {
         rating = view.findViewById(R.id.profile_rating_info);
         apiHelper = new CodeforcesAPIHelper(getContext());
         leetcodeAPIHelper=new LeetcodeAPIHelper();
+
         // default setup
         info1.setText("15");
         info1Text.setText("Posts");
-        info2.setText("101");
-        info2Text.setText("Followers");
+        info2.setText("+121");
+        info2Text.setText("Contribution");
         Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
-        // profile_pic.setImageResource(R.drawable.default_profile_pic);
         username.setText("Rifat Khan");
-        rating.setText("Contribution: +10");
+        rating.setText("");
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -72,12 +86,11 @@ public class ProfileFragment extends Fragment {
                 if(tab.getPosition()==0) {
                     info1.setText("15");
                     info1Text.setText("Posts");
-                    info2.setText("101");
-                    info2Text.setText("Followers");
+                    info2.setText("+121");
+                    info2Text.setText("Contribution");
                     Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
-                    // profile_pic.setImageResource(R.drawable.default_profile_pic);
                     username.setText("Rifat Khan");
-                    rating.setText("Contribution: +10");
+                    rating.setText("");
                 }
                 else if(tab.getPosition() == 1) {
                     apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
@@ -237,7 +250,46 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        drawerLayout = view.findViewById(R.id.profile_drawer_layout);
+        NavigationView navigationView = view.findViewById(R.id.nav_drawer_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        openNavButton = view.findViewById(R.id.open_nav_button);
+
+        openNavButton.setOnClickListener(view1 -> openNavigationView());
+
         return view;
+    }
+
+    private void openNavigationView() {
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.edit_profile_button) {
+            EditProfileFragment editProfileFragment = new EditProfileFragment();
+
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container, editProfileFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(item.getItemId() == R.id.about_us_button) {
+            AboutUsFragment aboutUsFragment = new AboutUsFragment();
+
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container, aboutUsFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else {
+            Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        item.setChecked(false);
+        drawerLayout.closeDrawer(GravityCompat.END);
+        return true;
     }
 
 

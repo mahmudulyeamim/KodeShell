@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void openStalkFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, stalkFragment).commit();
-
     }
 
     private void openHomeFragment() {
