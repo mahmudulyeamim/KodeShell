@@ -1,5 +1,6 @@
 package com.example.kodeshell;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ProfileCodeForcesFragment extends Fragment {
@@ -54,6 +59,7 @@ public class ProfileCodeForcesFragment extends Fragment {
                         JSONArray submissions = response.getJSONArray("result");
                         for (int i = 0; i < submissions.length(); i++) {
                             JSONObject submission = submissions.getJSONObject(i);
+                            long subtime=submission.getLong("creationTimeSeconds");
                             JSONObject problem = submission.getJSONObject("problem");
                             String problemName = problem.getString("name");
 
@@ -61,11 +67,23 @@ public class ProfileCodeForcesFragment extends Fragment {
 
                             String verdict1 = submission.getString("verdict");
                             int timeConsumedMillis = submission.getInt("timeConsumedMillis");
-
+                            subtime=subtime+6*3600;
+                            LocalDateTime localDateTime=null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(subtime), ZoneId.of("UTC"));
+                            }
+                            DateTimeFormatter formatter = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                formatter = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' HH:mm:ss");
+                            }
+                            String submissiondate=null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                submissiondate = localDateTime.format(formatter);
+                            }
                             SubmissionDetails obj1 = new SubmissionDetails();
                             obj1.setName(problemName);
                             obj1.setStatus(verdict1);
-                            obj1.setTime(timeConsumedMillis + " ms");
+                            obj1.setTime(submissiondate);
                             list.add(obj1);
 
 
