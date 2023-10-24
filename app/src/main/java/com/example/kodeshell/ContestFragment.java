@@ -58,22 +58,23 @@ public class ContestFragment extends Fragment {
                         String url=contestObject.getString("url");
                         String end_time=contestObject.getString("end_time");
                         if(site.equals("CodeForces") || site.equals("AtCoder") || site.equals("LeetCode")) {
-                            ContestDetails contestDetails = new ContestDetails();
+                            if(isvalidcontest(end_time))
+                            {  ContestDetails contestDetails = new ContestDetails();
 
-                            if(site.equals("CodeForces"))
+                            if (site.equals("CodeForces"))
                                 contestDetails.setContestIcon(R.drawable.icon_codeforces);
-                            else if(site.equals("AtCoder"))
+                            else if (site.equals("AtCoder"))
                                 contestDetails.setContestIcon(R.drawable.icon_atcoder);
                             else contestDetails.setContestIcon(R.drawable.icon_leetcode);
 
                             // Define the input date format
                             SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
                             inputDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Dhaka"));
-                            SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd MMM yyyy",Locale.US);
+                            SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
                             SimpleDateFormat outputTimeFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
-                            String contestDate="16 sep";
-                            String contestTime="8:00";
+                            String contestDate = "16 sep";
+                            String contestTime = "8:00";
                             try {
                                 // Parse the input date string
                                 Date date = inputDateFormat.parse(startTime);
@@ -86,14 +87,14 @@ public class ContestFragment extends Fragment {
                                 // Get the modified Date object
                                 Date modifiedDate = calendar.getTime();
                                 // Format date and time components
-                                contestDate= outputDateFormat.format(modifiedDate);
+                                contestDate = outputDateFormat.format(modifiedDate);
                                 contestTime = outputTimeFormat.format(modifiedDate);
 
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            String durationinhoursandmin=convertSecondsToHoursMinutes(durationSeconds);
+                            String durationinhoursandmin = convertSecondsToHoursMinutes(durationSeconds);
                             contestDetails.setSite(site);
 
                             contestDetails.setContestName(title);
@@ -105,6 +106,7 @@ public class ContestFragment extends Fragment {
                             contestDetails.setEdtime(end_time);
                             contestDetails.setIsalarm(false);
                             list.add(contestDetails);
+                        }
                         }
 
                         Collections.sort(list, new Comparator<ContestDetails>() {
@@ -169,5 +171,26 @@ public class ContestFragment extends Fragment {
         String formattedMinutes = df.format(minutes);
 
         return formattedHours + ":" + formattedMinutes;
+    }
+
+    private boolean isvalidcontest(String endtime){
+
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        Date targetDate = null;
+        try {
+            targetDate = dateFormat.parse(endtime);
+            // Add 6 hours to the target date
+
+            targetDate.setTime(targetDate.getTime() + 6 * 60 * 60 * 1000);
+        } catch (android.net.ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            throw new RuntimeException(e);
+        }
+        long currentTimeMillis = System.currentTimeMillis();
+        long targetTimeMillis = targetDate.getTime();
+        long remainingMillis = targetTimeMillis - currentTimeMillis;
+
+        return (remainingMillis>0);
     }
 }

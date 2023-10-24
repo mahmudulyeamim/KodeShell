@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class Upcoming_Codeforces_List extends AppCompatActivity {
@@ -53,21 +54,25 @@ public class Upcoming_Codeforces_List extends AppCompatActivity {
                         String site=contestObject.getString("site");
                         long starttimeINsecond=timeconverter(site,startTime);
                         String url=contestObject.getString("url");
+                        String endtime=contestObject.getString("end_time");
 
                      if(site.equals("CodeForces") || site.equals("AtCoder") || site.equals("LeetCode")) {
-                         ContestDetails contestDetails = new ContestDetails();
 
-                         if(site.equals("CodeForces"))
-                            contestDetails.setContestIcon(R.drawable.icon_codeforces);
-                         else if(site.equals("AtCoder"))
-                             contestDetails.setContestIcon(R.drawable.icon_atcoder);
-                         else contestDetails.setContestIcon(R.drawable.icon_leetcode);
-                         contestDetails.setContestName(title);
-                         contestDetails.setContestDate(startTime);
-                         contestDetails.setContestTime("yyy");
-                         contestDetails.setUrl(url);
-                         contestDetails.setContestDuration(Integer.toString(durationSeconds));
-                         Contests.add(contestDetails);
+                        if(isvalidcontest(endtime)) {
+                            ContestDetails contestDetails = new ContestDetails();
+
+                            if (site.equals("CodeForces"))
+                                contestDetails.setContestIcon(R.drawable.icon_codeforces);
+                            else if (site.equals("AtCoder"))
+                                contestDetails.setContestIcon(R.drawable.icon_atcoder);
+                            else contestDetails.setContestIcon(R.drawable.icon_leetcode);
+                            contestDetails.setContestName(title);
+                            contestDetails.setContestDate(startTime);
+                            contestDetails.setContestTime("yyy");
+                            contestDetails.setUrl(url);
+                            contestDetails.setContestDuration(Integer.toString(durationSeconds));
+                            Contests.add(contestDetails);
+                        }
                      }
 //
                     } catch (JSONException e) {
@@ -167,6 +172,27 @@ public class Upcoming_Codeforces_List extends AppCompatActivity {
             }
             return  seconds;
         }
+    }
+
+    private boolean isvalidcontest(String endtime){
+
+         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        Date targetDate = null;
+        try {
+            targetDate = dateFormat.parse(endtime);
+            // Add 6 hours to the target date
+
+            targetDate.setTime(targetDate.getTime() + 6 * 60 * 60 * 1000);
+        } catch (android.net.ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            throw new RuntimeException(e);
+        }
+        long currentTimeMillis = System.currentTimeMillis();
+        long targetTimeMillis = targetDate.getTime();
+        long remainingMillis = targetTimeMillis - currentTimeMillis;
+
+        return (remainingMillis>0);
     }
 
 }

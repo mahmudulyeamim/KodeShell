@@ -108,10 +108,6 @@ public class ProfileLeetCodeFragment extends Fragment {
 
         }
 
-
-
-
-
         return view;
     }
 
