@@ -18,7 +18,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ContestReminder extends AppCompatActivity {
 
@@ -33,6 +37,8 @@ public class ContestReminder extends AppCompatActivity {
 
         Button setAlarmButton = findViewById(R.id.setAlarmButton);
         TimePicker timePicker = findViewById(R.id.timePicker);
+        // Set the TimePicker to use the 24-hour format
+        timePicker.setIs24HourView(true);
 
         setAlarmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -50,7 +56,11 @@ public class ContestReminder extends AppCompatActivity {
                     // Permission is already granted, proceed to set the alarm
                     int hour = timePicker.getHour();
                     int minute = timePicker.getMinute();
-                    setAlarm(hour, minute);
+                    try {
+                        setAlarm(hour, minute);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
@@ -66,7 +76,11 @@ public class ContestReminder extends AppCompatActivity {
                 TimePicker timePicker = findViewById(R.id.timePicker);
                 int hour = timePicker.getHour();
                 int minute = timePicker.getMinute();
-                setAlarm(hour, minute);
+                try {
+                    setAlarm(hour, minute);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 // Permission denied, show a message to the user
                 Toast.makeText(this, "Permission denied. Cannot set the alarm.", Toast.LENGTH_SHORT).show();
@@ -76,12 +90,15 @@ public class ContestReminder extends AppCompatActivity {
 
     // Set the alarm
     @SuppressLint("ScheduleExactAlarm")
-    private void setAlarm(int hour, int minute) {
+    private void setAlarm(int hour, int minute) throws ParseException {
         // Calculate the time in milliseconds
+        String starttime=getIntent().getStringExtra("starttime");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date date = dateFormat.parse(starttime);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, 6-hour);
+        calendar.add(Calendar.MINUTE, -minute);
 
         // Create an intent for the BroadcastReceiver
         Intent alarmIntent = new Intent(ContestReminder.this, AlarmReceiver.class);
@@ -100,30 +117,7 @@ public class ContestReminder extends AppCompatActivity {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
         // Notify the user that the alarm is set
-        Toast.makeText(ContestReminder.this, "Alarm set successfully", Toast.LENGTH_SHORT).show();
-    }
-
-    private void cancelAlarm() {
-        // Create an intent for the BroadcastReceiver (use the same intent as when setting the alarm)
-        Intent alarmIntent = new Intent(ContestReminder.this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                ContestReminder.this,
-                0,
-                alarmIntent,
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
-        );
-
-        // Get the AlarmManager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        // Cancel the pending alarm (if it exists)
-        alarmManager.cancel(pendingIntent);
-
-        // Notify the user that the alarm is canceled
-        Toast.makeText(ContestReminder.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
-
-        // Update the alarm state
-        isAlarmSet = false;
+//        Toast.makeText(ContestReminder.this, "Alarm set successfully", Toast.LENGTH_SHORT).show();
     }
 
 }
