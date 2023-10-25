@@ -117,6 +117,15 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
 
                             } catch (JSONException e) {
+
+                                info1.setText("0");
+                                info1Text.setText("Rating");
+                                info2.setText("0");
+                                info2Text.setText("MaxRating");
+                                username.setText("Invalid Username");
+                                rating.setText("");
+                                Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
                                 e.printStackTrace();
                             }
                         }
@@ -124,6 +133,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                         @Override
                         public void onError(String errorMessage) {
                             // Handle error
+                            info1.setText("0");
+                            info1Text.setText("Rating");
+                            info2.setText("0");
+                            info2Text.setText("MaxRating");
+                            username.setText("Invalid Username");
+                            rating.setText("");
+                            Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
                         }
                     });
 
@@ -158,6 +175,14 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                         @Override
                         public void onFailure(Exception e) {
                             // Handle the error scenario
+                            info1.setText("0");
+                            info1Text.setText("Rating");
+                            info2.setText("0");
+                            info2Text.setText("MaxRating");
+                            username.setText("Invalid Username");
+                            rating.setText("");
+                            Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
+
                         }
                     };
 
@@ -209,9 +234,22 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                                 Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                                 // profile_pic.setImageResource(R.drawable.icon_leetcode);
                                 username.setText(leetcodeHandle);
-                                rating.setText("Global Rank : "+globalRanking);
+
+                                rating.setText("Global Rank : " + globalRanking);
+
 
                             } catch (Exception e) {
+
+                                info1.setText("0");
+                                info1Text.setText("Rating");
+                                info2.setText("0");
+                                info2Text.setText("Contests");
+                                Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                                // profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                username.setText(leetcodeHandle);
+
+                                rating.setText("Not participated in any contest");
+
                                 e.printStackTrace();
                             }
                         }

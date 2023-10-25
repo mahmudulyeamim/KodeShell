@@ -115,13 +115,28 @@ public class StalkProfileFragment extends Fragment {
                         Picasso.get().load(imageUrl).into(profile_pic);
 
                     } catch (JSONException e) {
+                        info1.setText("0");
+                        info1Text.setText("Rating");
+                        info2.setText("0");
+                        info2Text.setText("MaxRating");
+                        username.setText("Invalid Username");
+                        rating.setText("");
+                        Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onError(String errorMessage) {
-                    // Handle error
+                    // Handle error info1.setText("0");
+                                info1Text.setText("Rating");
+                                info2.setText("0");
+                                info2Text.setText("MaxRating");
+                                username.setText("Invalid Username");
+                                rating.setText("");
+                                Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
                     // Toast.makeText(getContext(), "Request Failed", Toast.LENGTH_SHORT).show();
                     info1.setText("N/A");
                     info1Text.setText("Rating");
@@ -172,6 +187,14 @@ public class StalkProfileFragment extends Fragment {
 
 
                                 } catch (JSONException e) {
+                                    info1.setText("0");
+                                    info1Text.setText("Rating");
+                                    info2.setText("0");
+                                    info2Text.setText("MaxRating");
+                                    username.setText("Invalid Username");
+                                    rating.setText("");
+                                    Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
                                     e.printStackTrace();
                                 }
                             }
@@ -287,7 +310,7 @@ public class StalkProfileFragment extends Fragment {
                                     JSONObject userContestRanking = data.getJSONObject("userContestRanking");
 
                                     int attendedContestsCount = userContestRanking.getInt("attendedContestsCount");
-                                    int leetcoderating = (int) userContestRanking.getDouble("rating");
+                                    int leetcoderating = (int)userContestRanking.getDouble("rating");
                                     int globalRanking = userContestRanking.getInt("globalRanking");
                                     int totalParticipants = userContestRanking.getInt("totalParticipants");
                                     double topPercentage = userContestRanking.getDouble("topPercentage");
@@ -302,9 +325,21 @@ public class StalkProfileFragment extends Fragment {
                                     Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                                     // profile_pic.setImageResource(R.drawable.icon_leetcode);
                                     username.setText(leetcodeHandle);
+
                                     rating.setText("Global Rank : " + globalRanking);
 
+
                                 } catch (Exception e) {
+                                    info1.setText("0");
+                                    info1Text.setText("Rating");
+                                    info2.setText("0");
+                                    info2Text.setText("Contests");
+                                    Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                                    // profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                    username.setText(leetcodeHandle);
+
+                                    rating.setText("Not participated in any contest");
+
                                     e.printStackTrace();
                                 }
                             }

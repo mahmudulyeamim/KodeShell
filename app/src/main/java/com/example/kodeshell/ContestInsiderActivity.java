@@ -137,6 +137,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
                     // toast.show();
                     Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
                     intent.putExtra("name",getIntent().getStringExtra("name"));
+                    intent.putExtra("starttime",starttime);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 

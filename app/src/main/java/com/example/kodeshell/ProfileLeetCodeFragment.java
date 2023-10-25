@@ -1,5 +1,6 @@
 package com.example.kodeshell;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -80,12 +85,26 @@ public class ProfileLeetCodeFragment extends Fragment {
                             String submissionTitle = submission.getString("title");
                             String submissionTitleSlug = submission.getString("titleSlug");
                             String submissionTimestamp = submission.getString("timestamp");
+                            long subtime=Long.parseLong(submissionTimestamp);
+                            subtime=subtime+6*3600;
+                            LocalDateTime localDateTime=null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                localDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(subtime), ZoneId.of("UTC"));
+                            }
+                            DateTimeFormatter formatter = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                formatter = DateTimeFormatter.ofPattern("dd MMM yyyy 'at' HH:mm:ss");
+                            }
+                            String submissiondate=null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                submissiondate = localDateTime.format(formatter);
+                            }
 
                             SubmissionDetails obj1 = new SubmissionDetails();
                             obj1.setName(submissionTitle);
                             obj1.setStatus("AC");
 
-                            obj1.setTime(convertTimestampToDate(submissionTimestamp));
+                            obj1.setTime(submissiondate);
                             list.add(obj1);
                         }
 
@@ -108,22 +127,8 @@ public class ProfileLeetCodeFragment extends Fragment {
 
         }
 
-
-
-
-
         return view;
     }
 
-    public static String convertTimestampToDate(String timestamp) {
-        try {
-            long unixTimestamp = Long.parseLong(timestamp);
-            Date date = new Date(unixTimestamp * 1000L); // Convert to milliseconds
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-            return sdf.format(date);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return "Invalid Timestamp";
-        }
-    }
+
 }
