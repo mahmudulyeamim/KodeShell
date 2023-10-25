@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,15 @@ import android.widget.Toolbar;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -31,6 +40,8 @@ public class HomeFragment extends Fragment {
     ImageView messengerButton, newPostButton, searchButton;
 
     SwipeRefreshLayout swipeRefreshLayout;
+    FirebaseDatabase database;
+    ArrayList<PostDetails> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,109 +56,49 @@ public class HomeFragment extends Fragment {
         postRecyclerView = view.findViewById(R.id.postRecyclerView);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<PostDetails> list = new ArrayList<>();
 
-        ArrayList<CommentDetails> clist = new ArrayList<>();
-        CommentDetails cobj1 = new CommentDetails();
-        cobj1.setAvatar(R.drawable.avatar5);
-        cobj1.setUsername("Zack King");
-        cobj1.setTime("5 minutes ago");
-        cobj1.setComment("Great");
-        clist.add(cobj1);
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child("post");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String id = postSnapshot.child("id").getValue(String.class);
+                    String username = postSnapshot.child("userName").getValue(String.class);
+                    String time = getTime(postSnapshot.child("time").getValue(String.class));
+                    int upVote = postSnapshot.child("upVote").getValue(Integer.class);
+                    int downVote = postSnapshot.child("downVote").getValue(Integer.class);
+                    String post = postSnapshot.child("content").getValue(String.class);
 
-        CommentDetails cobj2 = new CommentDetails();
-        cobj2.setAvatar(R.drawable.avatar3);
-        cobj2.setUsername("Ash Kamora");
-        cobj2.setTime("1 hour ago");
-        cobj2.setComment("I totally agree with you");
-        clist.add(cobj2);
+                    // Fetch comments for each post
+                    fetchCommentsForPost(id, username, time, upVote, downVote, post);
+                }
+            }
 
-        PostDetails obj6 = new PostDetails();
-        obj6.setAvatar(R.drawable.avatar9);
-        obj6.setUsername("Iffatul Siam");
-        obj6.setTime("Just Now");
-        obj6.setPost("Competitive programming: where brains race and algorithms battle to solve complex problems in the blink of an eye. It's a high-speed chess match of code, where programmers strive for elegance and efficiency to claim the ultimate checkmate in the digital arena. \uD83D\uDCBB\uD83C\uDFC6 ");
-        obj6.setUpVote(1000);
-        obj6.setDownVote(213);
-        obj6.setUpVoteIcon(R.drawable.up_vote);
-        obj6.setDownVoteIcon(R.drawable.down_voted);
-        obj6.setComments(clist);
-        list.add(obj6);
-
-        PostDetails obj1 = new PostDetails();
-        obj1.setAvatar(R.drawable.avatar1);
-        obj1.setUsername("Mahmudul Yeamim");
-        obj1.setTime("2 days ago");
-        obj1.setPost("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n" +
-                "\n" +
-                "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.");
-        obj1.setUpVote(10);
-        obj1.setDownVote(2);
-        obj1.setUpVoteIcon(R.drawable.up_voted);
-        obj1.setDownVoteIcon(R.drawable.down_vote);
-        list.add(obj1);
-
-        PostDetails obj2 = new PostDetails();
-        obj2.setAvatar(R.drawable.avatar10);
-        obj2.setUsername("Istahak Islam");
-        obj2.setTime("22 hours ago");
-        obj2.setPost("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.");
-        obj2.setUpVote(100);
-        obj2.setDownVote(21);
-        obj2.setUpVoteIcon(R.drawable.up_vote);
-        obj2.setDownVoteIcon(R.drawable.down_voted);
-        list.add(obj2);
-
-        PostDetails obj3 = new PostDetails();
-        obj3.setAvatar(R.drawable.avatar11);
-        obj3.setUsername("RIfat Khan");
-        obj3.setTime("3 days ago");
-        obj3.setPost("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-        obj3.setUpVote(100);
-        obj3.setDownVote(21);
-        obj3.setUpVoteIcon(R.drawable.up_vote);
-        obj3.setDownVoteIcon(R.drawable.down_vote);
-        list.add(obj3);
-
-        PostDetails obj4 = new PostDetails();
-        obj4.setAvatar(R.drawable.avatar5);
-        obj4.setUsername("3Ds");
-        obj4.setTime("1 year ago");
-        obj4.setPost("Hello world");
-        obj4.setUpVote(1000);
-        obj4.setDownVote(213);
-        obj4.setUpVoteIcon(R.drawable.up_vote);
-        obj4.setDownVoteIcon(R.drawable.down_voted);
-        list.add(obj4);
-
-        PostDetails obj5 = new PostDetails();
-        obj5.setAvatar(R.drawable.avatar7);
-        obj5.setUsername("Lisa Khan");
-        obj5.setTime("2 year ago");
-        obj5.setPost("But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?");
-        obj5.setUpVote(1000);
-        obj5.setDownVote(213);
-        obj5.setUpVoteIcon(R.drawable.up_vote);
-        obj5.setDownVoteIcon(R.drawable.down_voted);
-        list.add(obj5);
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                PostDetails obj = new PostDetails();
-                obj.setAvatar(R.drawable.avatar12);
-                obj.setUsername("Oleksandr Kulkov");
-                obj.setTime("Just now");
-                obj.setPost("I am new to this app");
-                obj.setUpVote(10);
-                obj.setDownVote(3);
-                obj.setUpVoteIcon(R.drawable.up_voted);
-                obj.setDownVoteIcon(R.drawable.down_vote);
-                list.add(0, obj);
-
-                postAdapter.notifyItemInserted(0);
+//                PostDetails obj = new PostDetails();
+//                obj.setAvatar(R.drawable.avatar12);
+//                obj.setUsername("Oleksandr Kulkov");
+//                obj.setTime("Just now");
+//                obj.setPost("I am new to this app");
+//                obj.setUpVote(10);
+//                obj.setDownVote(3);
+//                obj.setUpVoteIcon(R.drawable.up_voted);
+//                obj.setDownVoteIcon(R.drawable.down_vote);
+//                list.add(0, obj);
+//
+//                postAdapter.notifyItemInserted(0);
                 postRecyclerView.scrollToPosition(0);
-
+//                postAdapter = new PostAdapter(list, getContext(), getParentFragmentManager());
+//                postRecyclerView.setAdapter(postAdapter);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -161,7 +112,95 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+    private void fetchCommentsForPost(String postId, String username, String time, int upVote, int downVote, String post) {
+        ArrayList<CommentDetails> clist = new ArrayList<>();
+        DatabaseReference commentsRef = database.getReference().child("post").child(postId).child("comments");
+        commentsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                clist.clear();
+                for (DataSnapshot commentSnapshot : dataSnapshot.getChildren()) {
+                    String commentUsername = commentSnapshot.child("userName").getValue(String.class);
+                    String commentTime = getTime(commentSnapshot.child("time").getValue(String.class));
+                    String commentText = commentSnapshot.child("comment").getValue(String.class);
+                    CommentDetails newComment = new CommentDetails();
+                    newComment.setAvatar(R.drawable.avatar7);
+                    newComment.setUsername(commentUsername);
+                    newComment.setTime(commentTime);
+                    newComment.setComment(commentText);
+                    clist.add(newComment);
+                }
 
+                // Create and add the post after fetching comments
+                PostDetails newPost = new PostDetails();
+                newPost.setAvatar(R.drawable.avatar7);
+                newPost.setId(postId);
+                newPost.setUsername(username);
+                newPost.setTime(time);
+                newPost.setPost(post);
+                newPost.setUpVote(upVote);
+                newPost.setDownVote(downVote);
+                newPost.setUpVoteIcon(R.drawable.up_vote);
+                newPost.setDownVoteIcon(R.drawable.down_voted);
+                newPost.setComments(clist);
+                list.add(newPost);
+
+                // Update the UI after both posts and comments are fetched
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
+            }
+        });
+    }
+    private String getTime(String dateString) {
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
+
+        // Convert string to LocalDateTime object
+        LocalDateTime givenDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            givenDateTime = LocalDateTime.parse(dateString, formatter);
+        }
+
+        // Get the current LocalDateTime
+        LocalDateTime currentDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDateTime = LocalDateTime.now();
+        }
+
+        // Calculate the difference
+        Duration duration = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            duration = Duration.between(givenDateTime, currentDateTime);
+        }
+        String durationString = formatDuration(duration);
+        return durationString;
+    }
+    private String formatDuration(Duration duration) {
+        long days = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            days = duration.toDays();
+        }
+        long hours = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            hours = duration.toHours() % 24;
+        }
+        long minutes = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            minutes = duration.toMinutes() % 60;
+        }
+        long seconds = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            seconds = duration.getSeconds() % 60;
+        }
+
+        return String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds);
+    }
     private void openMessengerActivity() {
         Intent intent = new Intent(getContext(), UserList.class);
         startActivity(intent);
@@ -174,5 +213,9 @@ public class HomeFragment extends Fragment {
         transaction.replace(R.id.main_fragment_container, newPostFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    private void activateAdapter(ArrayList<PostDetails> list) {
+        postAdapter = new PostAdapter(list, getContext(), getParentFragmentManager());
+        postRecyclerView.setAdapter(postAdapter);
     }
 }

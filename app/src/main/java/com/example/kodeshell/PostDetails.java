@@ -1,13 +1,24 @@
 package com.example.kodeshell;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostDetails {
-    private String username, imageURL, time, post;
+    private String id, username, imageURL, time, post;
     private int avatar;
     private int upVoteIcon;
     private int downVoteIcon;
     private int upVote, downVote;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private List<CommentDetails> comments;
 
     public int getAvatar() {

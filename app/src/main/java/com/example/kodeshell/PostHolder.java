@@ -5,12 +5,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostHolder extends RecyclerView.ViewHolder {
 
     ImageView profilePic, upVoteIcon, downVoteIcon, commentIcon;
-    TextView username, time, post, upvoteCount, commentCount;
+    TextView username, time, post, upvoteCount, commentCount, downvoteCount;
 
     public PostHolder(@NonNull View itemView) {
         super(itemView);
@@ -22,6 +23,7 @@ public class PostHolder extends RecyclerView.ViewHolder {
         time = itemView.findViewById(R.id.post_text_time);
         post = itemView.findViewById(R.id.post_text_content);
         upvoteCount = itemView.findViewById(R.id.post_upvote_count);
+        downvoteCount = itemView.findViewById(R.id.post_downvote_count);
         commentCount = itemView.findViewById(R.id.post_comment_count);
     }
 }
