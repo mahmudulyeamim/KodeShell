@@ -25,6 +25,13 @@ import android.widget.Toolbar;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -48,6 +55,11 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
     DrawerLayout drawerLayout;
 
+    FirebaseDatabase database;
+    FirebaseAuth mAuth;
+    DatabaseReference reference;
+    User user = new User();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,30 +82,36 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         apiHelper = new CodeforcesAPIHelper(getContext());
         leetcodeAPIHelper=new LeetcodeAPIHelper();
 
-        // default setup
-        info1.setText("15");
-        info1Text.setText("Posts");
-        info2.setText("+121");
-        info2Text.setText("Contribution");
-        Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
-        username.setText("Rifat Khan");
-        rating.setText("");
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference().child("user");
 
+        // default setup
+//        info1.setText("15");
+//        info1Text.setText("Posts");
+//        info2.setText("+121");
+//        info2Text.setText("Contribution");
+//        Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
+//        username.setText("Rifat Khan");
+//        rating.setText("");
+        loadCurrentUserInformation();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 if(tab.getPosition()==0) {
-                    info1.setText("15");
+                    info1.setText("0");
                     info1Text.setText("Posts");
-                    info2.setText("+121");
+                    info2.setText("0");
                     info2Text.setText("Contribution");
-                    Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
-                    username.setText("Rifat Khan");
+                    loadImage(user.getAvatarid());
+                    username.setText(user.firstName+" "+user.lastName);
                     rating.setText("");
                 }
                 else if(tab.getPosition() == 1) {
-                    apiHelper.getUserInfo("_0istahak", new CodeforcesAPIHelper.UserInfoListener() {
+                    apiHelper.getUserInfo(user.codeforcesuname, new CodeforcesAPIHelper.UserInfoListener() {
                         @Override
                         public void onSuccess(JSONObject response) {
                             try {
@@ -146,11 +164,12 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                 }
                 else if(tab.getPosition()==2) {
-                    String atcoderhandle="Istahak_0";
+                    String atcoderhandle=user.atcoderuname;
                     AtcoderAPIHelper.ContestListCallback contestListCallback = new AtcoderAPIHelper.ContestListCallback() {
                         @Override
                         public void onSuccess(JSONArray usercontesthistroyArray) {
                             int atrating=0,mxrating=0;
+
                             for (int i = 0; i < usercontesthistroyArray.length(); i++) {
                                 try {
                                     JSONObject contesthistroyObject = usercontesthistroyArray.getJSONObject(i);
@@ -158,6 +177,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                                     mxrating=Math.max(mxrating,atrating);
 
                                 } catch (JSONException e) {
+
                                     e.printStackTrace();
                                 }
                             }
@@ -190,7 +210,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                 }
                 else {
-                    String leetcodeHandle="neal_wu";
+                    String leetcodeHandle=user.leetcodeuname;
                     JSONObject variables = new JSONObject();
                     try {
                         variables.put("username", leetcodeHandle);
@@ -256,6 +276,15 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                         @Override
                         public void onFailure(Exception e) {
+                            info1.setText("0");
+                            info1Text.setText("Rating");
+                            info2.setText("0");
+                            info2Text.setText("Contests");
+                            Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
+                            // profile_pic.setImageResource(R.drawable.icon_leetcode);
+                            username.setText(leetcodeHandle);
+
+                            rating.setText("Not participated in any contest");
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
                         }
@@ -330,7 +359,73 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         return true;
     }
 
+    private void loadCurrentUserInformation() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            DatabaseReference currentUserRef = reference.child(userId);
+            currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        User currentUser = dataSnapshot.getValue(User.class);
+                        if (currentUser != null) {
+                            user.setAvatarid(currentUser.getAvatarid());
+                            user.setFirstName(currentUser.getFirstName());
+                            user.setLastName(currentUser.getLastName());
+                            user.setAtcoderuname(currentUser.getAtcoderuname());
+                            user.setCodeforcesuname(currentUser.getCodeforcesuname());
+                            user.setLeetcodeuname(currentUser.getLeetcodeuname());
+                        }
+
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+    }
+    private void loadImage(int i){
+        if(i == 0) {
+            Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 1) {
+            Picasso.get().load(R.drawable.avatar2).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 2) {
+            Picasso.get().load(R.drawable.avatar3).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 3) {
+            Picasso.get().load(R.drawable.avatar4).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 4) {
+            Picasso.get().load(R.drawable.avatar5).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 5) {
+            Picasso.get().load(R.drawable.avatar6).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 6) {
+            Picasso.get().load(R.drawable.avatar7).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 7) {
+            Picasso.get().load(R.drawable.avatar8).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 8) {
+            Picasso.get().load(R.drawable.avatar9).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 9) {
+            Picasso.get().load(R.drawable.avatar10).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 10) {
+            Picasso.get().load(R.drawable.avatar11).fit().centerInside().into(profile_pic);
+        }
+        else if(i == 11) {
+            Picasso.get().load(R.drawable.avatar12).fit().centerInside().into(profile_pic);
+        }
+    }
     private static String getRank(int rating) {
         if (rating >= 2800 && rating <= 3199) {
             return "Red";
