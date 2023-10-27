@@ -13,22 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
-import java.util.Properties;
 import java.util.Random;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    TextInputLayout emailTextInput;
+    TextInputLayout phoneTextInput;
     Button submitButton;
     ImageView backButton;
 
@@ -37,7 +26,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        emailTextInput = findViewById(R.id.forgot_password_email);
+        phoneTextInput = findViewById(R.id.forgot_password_phone_number);
 
         submitButton = findViewById(R.id.forgot_password_submit_button);
 
@@ -51,7 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void initEditText() {
-        emailTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+        phoneTextInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -59,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                emailTextInput.setError(null);
+                phoneTextInput.setError(null);
             }
 
             @Override
@@ -78,34 +67,30 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if(validateEmail()) {
             sendOTP();
             Intent intent = new Intent(this, OtpActivity.class);
-            intent.putExtra("requested_email_address", Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim());
+            intent.putExtra("requested_phone_number", Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim());
             startActivity(intent);
         }
     }
 
     private boolean validateEmail() {
-        String emailInput = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
+        String phoneInput = Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim();
 
-        if(emailInput.isEmpty()) {
-            emailTextInput.setError("Field can't be empty");
+        if(phoneInput.isEmpty()) {
+            phoneTextInput.setError("Field can't be empty");
             return false;
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            emailTextInput.setError("Please enter a valid email address");
-            return false;
-        }
-        else if(!checkEmailExistence(emailInput)) {
-            emailTextInput.setError("No user found with this email");
+        else if(!checkPhoneExistence(phoneInput)) {
+            phoneTextInput.setError("No user found with this email");
             return false;
         }
         else {
-            emailTextInput.setError(null);
+            phoneTextInput.setError(null);
             return true;
         }
     }
 
-    private boolean checkEmailExistence(String emailAddress) {
-        // will check in the database if there is any user with this email address
+    private boolean checkPhoneExistence(String phoneNumber) {
+        // will check in the database if there is any user with this phone number
         return true;
     }
 
