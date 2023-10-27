@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".LoginActivity" >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/login_progress_bar"
@@ -46,13 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="420dp"
         android:fontFamily="@font/ubuntu"
         android:text="Login"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_cover_picture" />
 
@@ -63,11 +66,9 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="330dp"
         android:hint="Email ID"
-        android:textColorHint="@color/hint_grey_color"
+        android:textColorHint="@color/grey_color"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_title_text" >
@@ -89,14 +90,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="110dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="220dp"
         android:hint="Password"
-        android:textColorHint="@color/hint_grey_color"
+        android:textColorHint="@color/grey_color"
         app:errorEnabled="true"
         app:endIconMode="password_toggle"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_title_text" >
@@ -118,9 +117,8 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="180dp"
         android:backgroundTint="@color/dark_blue"
         android:fontFamily="@font/ubuntu"
         android:text="Login"
@@ -128,7 +126,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius = "15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,9 +136,8 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="90dp"
         android:backgroundTint="@color/off_white"
         android:fontFamily="@font/ubuntu"
         android:text="Login with Google"
@@ -149,7 +145,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius = "15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,13 +156,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="220dp"
         android:fontFamily="@font/ubuntu"
         android:text="Forgot Password?"
         android:textColor="@color/dark_blue"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password" />
 
@@ -231,7 +224,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginRight="170dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/ubuntu"
         android:text="New to KodeShell?"
         android:textColor="@color/material_dynamic_neutral60"
@@ -247,7 +240,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="2dp"
         android:fontFamily="@font/ubuntu"
         android:text="Register"
@@ -258,5 +251,6 @@
         app:layout_constraintStart_toEndOf="@id/login_new_to_kodeshell_text"
         app:layout_constraintTop_toBottomOf="@+id/login_google_button" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

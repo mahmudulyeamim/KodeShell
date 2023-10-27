@@ -23,7 +23,7 @@ import java.util.Objects;
 public class SignupActivity1 extends AppCompatActivity {
     TextView loginButton;
 
-    TextInputLayout firstNameTextInput, lastNameTextInput, emailTextInput;
+    TextInputLayout firstNameTextInput, lastNameTextInput, emailTextInput, phoneTextInput;
 
     FirebaseAuth auth;
     FirebaseDatabase database;
@@ -43,6 +43,7 @@ public class SignupActivity1 extends AppCompatActivity {
         firstNameTextInput = findViewById(R.id.signup1_first_name);
         lastNameTextInput = findViewById(R.id.signup1_last_name);
         emailTextInput = findViewById(R.id.signup1_email);
+        phoneTextInput = findViewById(R.id.signup1_phone_number_layout);
 
         initEditText();
 
@@ -105,15 +106,32 @@ public class SignupActivity1 extends AppCompatActivity {
 
             }
         });
+
+        phoneTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                phoneTextInput.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void openSignupActivity2() {
-        if(validateName(firstNameTextInput) && validateName(lastNameTextInput) && validateEmail()) {
+        if(validateName(firstNameTextInput) && validateName(lastNameTextInput) && validateEmail() && validatePhone()) {
             Intent intent = new Intent(this, SignupActivity2.class);
             String firstName = Objects.requireNonNull(firstNameTextInput.getEditText()).getText().toString().trim();
             String lastName = Objects.requireNonNull(lastNameTextInput.getEditText()).getText().toString().trim();
             String email = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
-//
+
             intent.putExtra("fname", firstName);
             intent.putExtra("lname", lastName);
             intent.putExtra("uemail", email);
@@ -159,5 +177,27 @@ public class SignupActivity1 extends AppCompatActivity {
             emailTextInput.setError(null);
             return true;
         }
+    }
+
+    private boolean validatePhone() {
+        String phoneInput = Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim();
+
+        if(phoneInput.isEmpty()) {
+            phoneTextInput.setError("Field can't be empty");
+            return false;
+        }
+        else if(checkPhoneExistence(phoneInput)) {
+            phoneTextInput.setError("Another user already exists with this phone number");
+            return false;
+        }
+        else {
+            phoneTextInput.setError(null);
+            return true;
+        }
+    }
+
+    private boolean checkPhoneExistence(String phoneNumber) {
+        // will check in the database if there is any user with this phone number
+        return false;
     }
 }

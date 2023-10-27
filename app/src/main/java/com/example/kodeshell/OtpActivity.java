@@ -20,7 +20,7 @@ public class OtpActivity extends AppCompatActivity {
 
     TextView resendButton, emailAddressText;
 
-    String requestedEmailAddress;
+    String requestedPhoneNumber;
 
 
     @Override
@@ -43,7 +43,7 @@ public class OtpActivity extends AppCompatActivity {
 
         ImageView backButton = findViewById(R.id.backButton);
 
-        requestedEmailAddress = getIntent().getStringExtra("requested_email_address");
+        requestedPhoneNumber = getIntent().getStringExtra("requested_phone_number");
 
         setEmailAddress();
 
@@ -152,7 +152,7 @@ public class OtpActivity extends AppCompatActivity {
     }
 
     private void setEmailAddress() {
-        emailAddressText.setText(requestedEmailAddress);
+        emailAddressText.setText(requestedPhoneNumber);
     }
 
     private void openForgotPasswordActivity() {
@@ -163,7 +163,7 @@ public class OtpActivity extends AppCompatActivity {
     private void openResetPasswordActivity() {
         if(validateOtp()) {
             Intent intent = new Intent(this, ResetPasswordActivity.class);
-            intent.putExtra("requested_email_address", requestedEmailAddress);
+            intent.putExtra("requested_email_address", requestedPhoneNumber);
             startActivity(intent);
         }
     }
