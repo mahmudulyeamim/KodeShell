@@ -143,10 +143,10 @@ public class HomeFragment extends Fragment {
                 newPost.setUpVoteIcon(R.drawable.up_vote);
                 newPost.setDownVoteIcon(R.drawable.down_voted);
                 newPost.setComments(clist);
-                list.add(newPost);
-
-                // Update the UI after both posts and comments are fetched
-                postAdapter.notifyDataSetChanged();
+                if (!list.contains(newPost)) {
+                    list.add(newPost);
+                    postAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -213,9 +213,5 @@ public class HomeFragment extends Fragment {
         transaction.replace(R.id.main_fragment_container, newPostFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-    private void activateAdapter(ArrayList<PostDetails> list) {
-        postAdapter = new PostAdapter(list, getContext(), getParentFragmentManager());
-        postRecyclerView.setAdapter(postAdapter);
     }
 }

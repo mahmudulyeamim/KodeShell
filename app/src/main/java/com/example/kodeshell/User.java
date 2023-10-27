@@ -1,26 +1,54 @@
 package com.example.kodeshell;
 
 public class User {
-    String profilepic,mail,firstName, lastName,password,userId,lastMessage,status;
+    String mail,firstName, lastName, password, userId,lastMessage, status, codeforcesuname, atcoderuname, leetcodeuname;
+    int avatarid;
 
     public  User(){}
 
-    public User(String userId, String firstName, String lastName, String maill, String password, String status) {
+    public User(String userId, String firstName, String lastName, String mail, String password, String status,int avatarid, String codeforcesuname, String atcoderuname, String leetcodeuname) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mail = maill;
+        this.mail = mail;
         this.password = password;
-//        this.profilepic = profilepic;
         this.status = status;
+        this.avatarid = avatarid;
+        this.codeforcesuname = codeforcesuname;
+        this.atcoderuname = atcoderuname;
+        this.leetcodeuname = leetcodeuname;
     }
 
-    public String getProfilepic() {
-        return profilepic;
+    public String getCodeforcesuname() {
+        return codeforcesuname;
     }
 
-    public void setProfilepic(String profilepic) {
-        this.profilepic = profilepic;
+    public void setCodeforcesuname(String codeforcesuname) {
+        this.codeforcesuname = codeforcesuname;
+    }
+
+    public String getAtcoderuname() {
+        return atcoderuname;
+    }
+
+    public void setAtcoderuname(String atcoderuname) {
+        this.atcoderuname = atcoderuname;
+    }
+
+    public String getLeetcodeuname() {
+        return leetcodeuname;
+    }
+
+    public void setLeetcodeuname(String leetcodeuname) {
+        this.leetcodeuname = leetcodeuname;
+    }
+
+    public int getAvatarid() {
+        return avatarid;
+    }
+
+    public void setAvatarid(int avatarid) {
+        this.avatarid = avatarid;
     }
 
     public String getMail() {
