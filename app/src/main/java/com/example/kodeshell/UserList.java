@@ -59,7 +59,7 @@ public class UserList extends AppCompatActivity {
                     String pass = userSnapshot.child("password").getValue(String.class);
                     String status = userSnapshot.child("status").getValue(String.class);
                     String userId = userSnapshot.child("userId").getValue(String.class);
-                    User new_user = new User(userId, fname, lname, email, pass, status);
+                    User new_user = new User(userId, fname, lname, email, pass, status, 0, "", "", "");
                     contacts.add(new_user);
                     String stringValue = Integer.toString(contacts.size());
                 }

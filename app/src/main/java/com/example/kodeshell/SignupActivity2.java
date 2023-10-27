@@ -81,10 +81,8 @@ public class SignupActivity2 extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     String id = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference().child("user").child(id);
-                    StorageReference storageReference = storage.getReference().child("Upload").child(id);
-
                     String status = "Hey I'm Using This Application";
-                    User users = new User(id, fname, lname, email, Password, status);
+                    User users = new User(id, fname, lname, email, Password, status, 0, "", "", "");
                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

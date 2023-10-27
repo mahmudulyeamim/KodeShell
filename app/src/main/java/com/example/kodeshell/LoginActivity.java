@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onUserExists(boolean exists) {
                                     if (!exists) {
-                                        User user = new User(id, firstName, lastName, "", "", "Hi");
+                                        User user = new User(id, firstName, lastName, "", "", "Hi", 0, "", "", "");
                                         addUser(user);
                                     }
                                     else{
