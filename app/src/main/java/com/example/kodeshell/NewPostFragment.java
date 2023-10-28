@@ -41,6 +41,8 @@ public class NewPostFragment extends Fragment {
     FirebaseDatabase database;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    DatabaseReference reference, reference2;
+    int avatarID = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,21 +58,20 @@ public class NewPostFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        Picasso.get().load(R.drawable.avatar10).fit().centerInside().into(profilePic);
-
         postButton.setOnClickListener(view1 -> createNewPost());
         String uid = currentUser.getUid();
 
         DatabaseReference userRef = database.getReference("user").child(uid);
-        Toast.makeText(getContext(), uid, Toast.LENGTH_SHORT).show();
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String firstName = dataSnapshot.child("firstName").getValue(String.class);
-                    String lastName = dataSnapshot.child("lastName").getValue(String.class);
-                    username.setText(firstName + " " + lastName);
-                    Toast.makeText(getContext(), "First Name: " + firstName + ", Last Name: " + lastName, Toast.LENGTH_SHORT).show();
+                    User currentUser = dataSnapshot.getValue(User.class);
+                    if (currentUser != null) {
+                        loadImage(currentUser.getAvatarid());
+                        avatarID = currentUser.getAvatarid();
+                        username.setText(currentUser.getFirstName()+" "+currentUser.getLastName());
+                    }
                 }
             }
 
@@ -79,13 +80,52 @@ public class NewPostFragment extends Fragment {
                 Log.e("Firebase", "Error reading data: " + databaseError.getMessage());
             }
         });
+        loadImage(avatarID);
         return view;
+    }
+    private void loadImage(int i){
+        if(i == 0) {
+            Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profilePic);
+        }
+        else if(i == 1) {
+            Picasso.get().load(R.drawable.avatar2).fit().centerInside().into(profilePic);
+        }
+        else if(i == 2) {
+            Picasso.get().load(R.drawable.avatar3).fit().centerInside().into(profilePic);
+        }
+        else if(i == 3) {
+            Picasso.get().load(R.drawable.avatar4).fit().centerInside().into(profilePic);
+        }
+        else if(i == 4) {
+            Picasso.get().load(R.drawable.avatar5).fit().centerInside().into(profilePic);
+        }
+        else if(i == 5) {
+            Picasso.get().load(R.drawable.avatar6).fit().centerInside().into(profilePic);
+        }
+        else if(i == 6) {
+            Picasso.get().load(R.drawable.avatar7).fit().centerInside().into(profilePic);
+        }
+        else if(i == 7) {
+            Picasso.get().load(R.drawable.avatar8).fit().centerInside().into(profilePic);
+        }
+        else if(i == 8) {
+            Picasso.get().load(R.drawable.avatar9).fit().centerInside().into(profilePic);
+        }
+        else if(i == 9) {
+            Picasso.get().load(R.drawable.avatar10).fit().centerInside().into(profilePic);
+        }
+        else if(i == 10) {
+            Picasso.get().load(R.drawable.avatar11).fit().centerInside().into(profilePic);
+        }
+        else if(i == 11) {
+            Picasso.get().load(R.drawable.avatar12).fit().centerInside().into(profilePic);
+        }
     }
     private void createNewPost() {
         String post = postContent.getText().toString().trim();
         if (!post.isEmpty()) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("post");
-            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("user");
+            reference = FirebaseDatabase.getInstance().getReference().child("post");
+            reference2 = FirebaseDatabase.getInstance().getReference().child("user");
             String userName = username.getText().toString();
             LocalDateTime currentDateTime = null;
             String currDateTime = "00:00:00";
@@ -102,11 +142,12 @@ public class NewPostFragment extends Fragment {
             }
             String content = postContent.getText().toString();
             String postId = reference.push().getKey();
-            Post newPost = new Post(postId, userName, currDateTime, content, 0, 0);
+            Post newPost = new Post(postId, userName, currDateTime, content, 0, 0, avatarID);
             reference.child(postId).setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        setVoters(postId);
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -117,27 +158,24 @@ public class NewPostFragment extends Fragment {
                     }
                 }
             });
-            DatabaseReference upvotersRef = reference.child(postId).child("upvoters");
-            DatabaseReference downvotersRef = reference.child(postId).child("downvoters");
-            reference2.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        String id = userSnapshot.child("userId").getValue(String.class);
-                        if (upvotersRef != null && upvotersRef.child(id) != null)
-                            upvotersRef.child(id).setValue(false);
-                        if (downvotersRef != null && downvotersRef.child(id) != null)
-                            downvotersRef.child(id).setValue(false);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
-                }
-            });
-
         }
+    }
+    private void setVoters(String postId){
+        DatabaseReference votersRef = reference.child(postId).child("voters");
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String id = userSnapshot.child("userId").getValue(String.class);
+                    if (votersRef != null && votersRef.child(id) != null)
+                        votersRef.child(id).setValue(false);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.example.kodeshell;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PostDetails {
     private String id, username, imageURL, time, post;
@@ -10,6 +11,17 @@ public class PostDetails {
     private int upVoteIcon;
     private int downVoteIcon;
     private int upVote, downVote;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        PostDetails that = (PostDetails) obj;
+        return Objects.equals(id, that.id);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public String getId() {
         return id;

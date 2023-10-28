@@ -1,8 +1,6 @@
 package com.example.kodeshell;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
 
@@ -66,13 +63,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
 
         int upVoteCount = list.get(position).getUpVote();
         int downVoteCount = list.get(position).getDownVote();
-        holder.upvoteCount.setText("+" + Integer.toString(upVoteCount));
-        holder.downvoteCount.setText("-" + Integer.toString(downVoteCount));
+        if(upVoteCount>=downVoteCount){
+            holder.upvoteCount.setText("+" + Integer.toString(upVoteCount-downVoteCount));
+        }
+        else{
+            holder.upvoteCount.setText("-" + Integer.toString(downVoteCount-upVoteCount));
+
+        }
         database = FirebaseDatabase.getInstance();
         String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("upvoters");
-        final boolean[] upvoted = {false};
-        final boolean[] downvoted = {false};// default value if voters map or currentUser is not found
+        DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("voters");
+        final boolean[] voted = {false};
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -80,135 +81,94 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
                     Boolean Voted = dataSnapshot.child(currentUser).getValue(Boolean.class);
                     if (Voted != null) {
                         if (Voted)
-                            upvoted[0] = true;
-                        else upvoted[0] = false;
+                            voted[0] = true;
+                        else voted[0] = false;
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("Firebase Error", "Failed to read vote status", databaseError.toException());
             }
         });
-        reference = database.getReference().child("post").child(list.get(position).getId()).child("downvoters");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Boolean Voted = dataSnapshot.child(currentUser).getValue(Boolean.class);
-                    if (Voted != null) {
-                        if (Voted)
-                            downvoted[0] = true;
-                        else downvoted[0] = false;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Firebase Error", "Failed to read vote status", databaseError.toException());
-            }
-        });
-
         holder.upVoteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(upvoted[0]){
+                if (!voted[0]) {
                     int curr = list.get(position).getUpVote();
-                    DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("upvoters").child(currentUser);
-                    reference.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("voters").child(currentUser);
+                    reference.setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                upvoted[0] = false;
+                                voted[0] = true;
                                 DatabaseReference upVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("upVote");
-                                upVoteReference.setValue(curr - 1);
-                                notifyItemChanged(position);
+                                upVoteReference.setValue(curr + 1);
+//                                    notifyItemChanged(position);
                             } else {
                                 Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    return;
                 }
-                if(downvoted[0]){
-                    return;
-                }
-                int curr = list.get(position).getUpVote();
-                DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("upvoters").child(currentUser);
-                reference.setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Successfully updated the vote status in the database
-                            upvoted[0] = true;
-                            DatabaseReference upVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("upVote");
-                            upVoteReference.setValue(curr + 1);
-
-                            // Notify the adapter that the item at the given position has changed
-                            notifyItemChanged(position);
-                        } else {
-                            Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
 
         holder.downVoteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(downvoted[0]){
-                    int curr = list.get(position).getDownVote();
-                    DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("downvoters").child(currentUser);
-                    reference.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                if (!voted[0]) {
+                    int curr = list.get(position).getUpVote();
+                    DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("voters").child(currentUser);
+                    reference.setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                downvoted[0] = false;
+                                voted[0] = true;
                                 DatabaseReference downVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("downVote");
-                                downVoteReference.setValue(curr - 1);
-                                notifyItemChanged(position);
+                                downVoteReference.setValue(curr + 1);
+//                                    notifyItemChanged(position);
                             } else {
                                 Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    return;
                 }
-                if(upvoted[0]){
-                    return;
-                }
-                int curr = list.get(position).getDownVote();
-                DatabaseReference reference = database.getReference().child("post").child(list.get(position).getId()).child("downvoters").child(currentUser);
-                reference.setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Successfully updated the vote status in the database
-                            downvoted[0] = true;
-                            DatabaseReference downVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("downVote");
-                            downVoteReference.setValue(curr + 1);
-
-                            // Notify the adapter that the item at the given position has changed
-                            notifyItemChanged(position);
-                        } else {
-                            Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
-        if(list.get(position).getComments() == null) {
+        if (list.get(position).
+
+                getComments() == null) {
             holder.commentCount.setText("0");
-        }
-        else {
+        } else {
             holder.commentCount.setText(Integer.toString(list.get(position).getComments().size()));
         }
 
-        holder.commentCount.setOnClickListener(view -> openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
-        holder.commentIcon.setOnClickListener(view -> openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
+        holder.commentCount.setOnClickListener(view ->
+
+                openCommentFragment(list.get(position).
+
+                        getId(), list.
+
+                        get(position).
+
+                        getComments()));
+        holder.commentIcon.setOnClickListener(view ->
+
+                openCommentFragment(list.get(position).
+
+                        getId(), list.
+
+
+                        get(position).
+
+                        getComments()));
+    }
+
+    public void updateData(ArrayList<PostDetails> newList) {
+        list.clear();
+        list.addAll(newList);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -28,7 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class CommentFragment extends Fragment {
     FirebaseUser currentUser;
     EditText comment;
     String PostID, currentUserName;
+    CommentDetails newComment;
+    int avatarID = 0;
 
     private List<CommentDetails> list;
 
@@ -94,6 +98,7 @@ public class CommentFragment extends Fragment {
                     String firstName = dataSnapshot.child("firstName").getValue(String.class);
                     String lastName = dataSnapshot.child("lastName").getValue(String.class);
                     currentUserName = firstName+" "+lastName;
+                    avatarID = dataSnapshot.child("avatarid").getValue(Integer.class);
                 }
             }
             @Override
@@ -127,15 +132,17 @@ public class CommentFragment extends Fragment {
                 currDateTime = currentDateTimeString;
             }
             Map<String, Object> commentMap = new HashMap<>();
-            CommentDetails newComment = new CommentDetails();
-            newComment.setAvatar(R.drawable.avatar6);
+            newComment = new CommentDetails();
+
+            loadImage(avatarID);
             newComment.setUsername(currentUserName);
-            newComment.setTime(currDateTime);
+            newComment.setTime(getTime(currDateTime));
             newComment.setComment(text);
 
             commentMap.put("username", currentUserName);
             commentMap.put("time", currDateTime);
             commentMap.put("comment", text);
+            commentMap.put("avatarid", avatarID);
             reference.child(commentId).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -153,7 +160,109 @@ public class CommentFragment extends Fragment {
             comment.setText("");
         }
     }
+    private String getTime(String dateString) {
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
 
+        // Convert string to LocalDateTime object
+        LocalDateTime givenDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            givenDateTime = LocalDateTime.parse(dateString, formatter);
+        }
+
+        // Get the current LocalDateTime
+        LocalDateTime currentDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDateTime = LocalDateTime.now();
+        }
+
+        return getTimeAgo(givenDateTime, currentDateTime);
+    }
+    public static String getTimeAgo(LocalDateTime pastTime, LocalDateTime currentTime) {
+        Duration duration = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            duration = Duration.between(pastTime, currentTime);
+        }
+
+        long seconds = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            seconds = duration.getSeconds();
+        }
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        long weeks = days / 7;
+        long months = days / 30;
+        long years = days / 365;
+
+        if (seconds < 60) {
+            return "Just now";
+        } else if (minutes == 1) {
+            return "1 minute ago";
+        } else if (minutes < 60) {
+            return minutes + " minutes ago";
+        } else if (hours == 1) {
+            return "1 hour ago";
+        } else if (hours < 24) {
+            return hours + " hours ago";
+        } else if (days == 1) {
+            return "1 day ago";
+        } else if (days < 7) {
+            return days + " days ago";
+        } else if (weeks == 1) {
+            return "1 week ago";
+        } else if (weeks < 4) {
+            return weeks + " weeks ago";
+        } else if (months == 1) {
+            return "1 month ago";
+        } else if (months < 12) {
+            return months + " months ago";
+        } else if (years == 1) {
+            return "1 year ago";
+        } else {
+            return years + " years ago";
+        }
+    }
+    private void loadImage(int i){
+        if(i == 0) {
+            newComment.setAvatar(R.drawable.avatar1);
+        }
+        else if(i == 1) {
+            newComment.setAvatar(R.drawable.avatar2);
+        }
+        else if(i == 2) {
+            newComment.setAvatar(R.drawable.avatar3);
+        }
+        else if(i == 3) {
+            newComment.setAvatar(R.drawable.avatar4);
+        }
+        else if(i == 4) {
+            newComment.setAvatar(R.drawable.avatar5);
+        }
+        else if(i == 5) {
+            newComment.setAvatar(R.drawable.avatar6);
+        }
+        else if(i == 6) {
+            newComment.setAvatar(R.drawable.avatar7);
+        }
+        else if(i == 7) {
+            newComment.setAvatar(R.drawable.avatar8);
+        }
+        else if(i == 8) {
+            newComment.setAvatar(R.drawable.avatar9);
+        }
+        else if(i == 9) {
+            newComment.setAvatar(R.drawable.avatar10);
+        }
+        else if(i == 10) {
+            newComment.setAvatar(R.drawable.avatar11);
+        }
+        else if(i == 11) {
+            newComment.setAvatar(R.drawable.avatar12);
+        }
+    }
     public List<CommentDetails> getList() {
         return list;
     }

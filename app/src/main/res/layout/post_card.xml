@@ -123,16 +123,6 @@
                 android:layout_height="24dp"
                 android:layout_marginLeft="2dp"
                 android:src="@drawable/down_vote" />
-            <TextView
-                android:id="@+id/post_downvote_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="-23"
-                android:textSize="16sp"
-                android:textColor="@color/upvote_color"
-                android:textStyle="bold"
-                android:fontFamily="@font/ubuntu"/>
 
             <ImageView
                 android:id="@+id/comment_icon"
