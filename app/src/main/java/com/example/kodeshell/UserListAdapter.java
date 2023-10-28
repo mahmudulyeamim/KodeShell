@@ -83,17 +83,17 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
-        TextView phoneNumberTextView;
+        // TextView phoneNumberTextView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.contactName);
-            phoneNumberTextView = itemView.findViewById(R.id.contactPhone);
+            // phoneNumberTextView = itemView.findViewById(R.id.contactPhone);
         }
 
         void bind(User contact) {
-            nameTextView.setText(contact.getFirstName() + contact.getLastName());
-            phoneNumberTextView.setText(contact.getMail());
+            nameTextView.setText(contact.getFirstName() + " " + contact.getLastName());
+            // phoneNumberTextView.setText(contact.getMail());
         }
     }
 

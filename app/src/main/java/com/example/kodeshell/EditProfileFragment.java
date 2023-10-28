@@ -1,10 +1,14 @@
 package com.example.kodeshell;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +46,7 @@ public class EditProfileFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     DatabaseReference reference;
+
     User currUser;
     int avatarID;
 
@@ -80,6 +86,8 @@ public class EditProfileFragment extends Fragment {
                 updateProfile();
             }
         });
+
+
         loadCurrentUserInformation();
 
         return view;
@@ -96,6 +104,9 @@ public class EditProfileFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         User currentUser = dataSnapshot.getValue(User.class);
+
+                        currUser = currentUser;
+
                         if (currentUser != null) {
                             loadImage(currentUser.getAvatarid());
                             avatarID = currentUser.getAvatarid();
@@ -171,7 +182,11 @@ public class EditProfileFragment extends Fragment {
                             user.setCodeforcesuname(cfuname);
                             user.setLeetcodeuname(leetuname);
                             userRef.setValue(user);
+
+                            currUser = user;
                         }
+
+                        onDataLoaded(currUser);
                     }
                 }
 
@@ -182,11 +197,18 @@ public class EditProfileFragment extends Fragment {
             });
         }
     }
-    private void defaultSetup() {
-        Picasso.get().load(R.drawable.default_profile_pic1).fit().centerInside().into(userAvatar);
-        ks.getEditText().setText("Rifat Khan");
-        cf.getEditText().setText("_0Istahak");
-        ac.getEditText().setText("Istahak_0");
-        lc.getEditText().setText("neal_wu");
+
+    public void onDataLoaded(User user) {
+        requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        ProfileFragment profileFragment = new ProfileFragment();
+
+        profileFragment.setUser(currUser);
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, profileFragment);
+        requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        transaction.commit();
     }
 }

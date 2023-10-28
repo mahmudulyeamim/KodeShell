@@ -157,11 +157,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
 
     class  senderVierwHolder extends RecyclerView.ViewHolder {
-        CircleImageView circleImageView;
+        // CircleImageView circleImageView;
         TextView msgtxt;
         public senderVierwHolder(@NonNull View itemView) {
             super(itemView);
-            circleImageView = itemView.findViewById(R.id.profilerggg);
+            // circleImageView = itemView.findViewById(R.id.profilerggg);
             msgtxt = itemView.findViewById(R.id.msgsendertyp);
             Linkify.addLinks(msgtxt, Linkify.WEB_URLS);
         }
@@ -171,7 +171,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         TextView msgtxt;
         public reciverViewHolder(@NonNull View itemView) {
             super(itemView);
-            circleImageView = itemView.findViewById(R.id.pro);
+            // circleImageView = itemView.findViewById(R.id.pro);
             msgtxt = itemView.findViewById(R.id.recivertextset);
             Linkify.addLinks(msgtxt, Linkify.WEB_URLS);
         }

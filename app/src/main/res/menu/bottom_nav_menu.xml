@@ -7,13 +7,13 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/contest_button"
-        android:icon="@drawable/calendar_day_24"
+        android:id="@+id/announcement_button"
+        android:icon="@drawable/trophy_star_24"
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/notification_button"
-        android:icon="@drawable/bell_24"
+        android:id="@+id/contest_button"
+        android:icon="@drawable/calendar_day_24"
         tools:ignore="MenuTitle" />
 
     <item

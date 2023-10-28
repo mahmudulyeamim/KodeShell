@@ -38,7 +38,7 @@ public class ContestReminder extends AppCompatActivity {
         Button setAlarmButton = findViewById(R.id.setAlarmButton);
         TimePicker timePicker = findViewById(R.id.timePicker);
         // Set the TimePicker to use the 24-hour format
-        timePicker.setIs24HourView(true);
+        timePicker.setIs24HourView(false);
 
         setAlarmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)

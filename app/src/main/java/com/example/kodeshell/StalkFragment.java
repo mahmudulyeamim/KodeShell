@@ -33,11 +33,6 @@ public class StalkFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bundle result = new Bundle();
-//                result.putString("cf", cfUsername.getEditText().getText().toString().trim());
-//                result.putString("ac", acUsername.getEditText().getText().toString().trim());
-//                result.putString("lc", lcUsername.getEditText().getText().toString().trim());
-//                getParentFragmentManager().setFragmentResult("usernames", result);
 
                 StalkProfileFragment stalkProfileFragment = new StalkProfileFragment();
 

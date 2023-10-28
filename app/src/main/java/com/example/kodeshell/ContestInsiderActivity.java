@@ -1,10 +1,13 @@
 package com.example.kodeshell;
 
 
+import static android.text.format.DateFormat.is24HourFormat;
+
 import android.content.Context;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -39,6 +44,9 @@ public class ContestInsiderActivity extends AppCompatActivity {
     private Date targetDate,startDate,endDate;
     Context context;
 
+    MaterialTimePicker picker;
+
+    ConstraintLayout notificationbg;
 
     public Context getContext() {
         return context;
@@ -64,6 +72,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
         contest_add_to_cal=findViewById(R.id.contest_add_to_calender_layout);
         add_notification=findViewById(R.id.contest_add_notification_layout);
         startin=findViewById(R.id.contest_insider_time_countdown);
+        notificationbg = findViewById(R.id.contest_insider_notification_button_bg);
 
         Picasso.get().load(getIntent().getIntExtra("image", 0)).fit().centerInside().into(contestIcon);
         // contestIcon.setImageResource(getIntent().getIntExtra("image", 0));
@@ -128,20 +137,37 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         });
 
+        picker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+                .build();
+
+        if(!isNotificationAdded()) {
+            notificationbg.setBackgroundResource(R.drawable.custom_contest_circle_background);
+        }
+        else {
+            notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
+        }
+
 
         add_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    //Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
-                    // toast.show();
-                    Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
-                    intent.putExtra("name",getIntent().getStringExtra("name"));
-                    intent.putExtra("starttime",starttime);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+//                    Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
+//                     toast.show();
+//                    Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
+//                    intent.putExtra("name",getIntent().getStringExtra("name"));
+//                    intent.putExtra("starttime",starttime);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
 
 
+                picker.show(getSupportFragmentManager(), "TAG");
+
+                picker.addOnPositiveButtonClickListener(view1 -> contestReminder());
 
             }
         });
@@ -150,6 +176,18 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
 
     }
+
+    private boolean isNotificationAdded() {
+        // will fetch data from database if notification has been added earlier or not
+        return false;
+    }
+
+    private void contestReminder() {
+        notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
+
+        // handle what will happen after clicking the add notification button
+    }
+
     public static long convertAndAddHours(String iso8601DateString, int hoursToAdd) throws ParseException {
         Instant instant = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

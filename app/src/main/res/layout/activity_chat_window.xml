@@ -4,35 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/msg_bg_color">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:background="@color/msg_receiver_bg_color"
         android:id="@+id/ll1"
-        android:gravity="center">
+        android:elevation="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileimgg"
-            android:layout_width="93dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:src="@drawable/profile"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="@dimen/_2sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.226" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/avatar9"
+            app:civ_border_color="@color/msg_send_button_bg_color"
+            app:civ_border_width="@dimen/_2sdp" />
 
         <TextView
             android:id="@+id/recivername"
-            android:layout_width="367dp"
-            android:layout_height="33dp"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="Rifat"
+            android:fontFamily="@font/ubuntu"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
     </LinearLayout>
@@ -40,7 +42,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/msgadpter"
         android:layout_width="match_parent"
-        android:layout_height="536dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/ll2"
         android:layout_below="@+id/ll1"
         android:layout_marginTop="-12dp"
@@ -61,21 +63,27 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:layout_weight="1"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/msg_text_dialog_color"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <EditText
                 android:id="@+id/textmsg"
-                android:layout_width="338dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
                 android:layout_gravity="center"
                 android:background="@null"
-                android:hint="Type The Messages..."
+                android:fontFamily="@font/ubuntu"
+                android:textColorHint="@color/grey_color"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/custom_cursor_msg"
+                android:hint="Send a message..."
                 android:paddingStart="13.00dp" />
 
         </androidx.cardview.widget.CardView>
@@ -87,14 +95,16 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/msg_send_button_bg_color"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <ImageView
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="1dp"
                 android:layout_gravity="center"
-                android:background="@drawable/sendbtn" />
+                android:background="@drawable/send_button1" />
 
         </androidx.cardview.widget.CardView>
 
