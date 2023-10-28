@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class ProfileCodeForcesFragment extends Fragment {
 
 
 
-        if(!username.isEmpty()) {
+        if(username != null && !username.isEmpty()) {
             apiHelper.getUserLastSubmissions(username, 10, new CodeforcesAPIHelper.UserInfoListener() {
                 @Override
                 public void onSuccess(JSONObject response) {
@@ -112,4 +113,6 @@ public class ProfileCodeForcesFragment extends Fragment {
 
         return view;
     }
+
+
 }

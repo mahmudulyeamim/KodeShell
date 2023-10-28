@@ -14,6 +14,13 @@ import android.widget.ProgressBar;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,12 +32,22 @@ public class MainActivity extends AppCompatActivity {
 
     StalkFragment stalkFragment;
 
+    FirebaseDatabase database;
+
+    FirebaseAuth mAuth;
+
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        reference = database.getReference().child("user");
 
         homeFragment = new HomeFragment();
         contestFragment = new ContestFragment();
@@ -51,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 else if(item.getItemId() == R.id.profile_button) {
-                    openProfileFragment();
+                    loadCurrentUserInformation();
                     return true;
                 }
                 else if(item.getItemId() == R.id.stalk_button) {
@@ -75,7 +92,31 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, contestFragment).commit();
     }
 
-    private void openProfileFragment() {
+    private void openProfileFragment(User user) {
+        profileFragment.setUser(user);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, profileFragment).commit();
+    }
+
+    private void loadCurrentUserInformation() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            DatabaseReference currentUserRef = reference.child(userId);
+            currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        User currentUser = dataSnapshot.getValue(User.class);
+
+                        openProfileFragment(currentUser);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
     }
 }

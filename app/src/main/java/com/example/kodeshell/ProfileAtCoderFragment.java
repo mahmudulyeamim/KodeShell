@@ -61,8 +61,6 @@ public class ProfileAtCoderFragment extends Fragment {
                             String problemid = submissionhistroyObject.getString("problem_id");
                             long subtime = submissionhistroyObject.getInt("epoch_second");
                             String result = submissionhistroyObject.getString("result");
-//                        String full=problemid+" "+Integer.toString(point)+" "+result+"\n";
-//                        problemNames.append(full);
                             subtime=subtime+6*3600;
                             LocalDateTime localDateTime=null;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

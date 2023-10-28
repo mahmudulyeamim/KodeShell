@@ -3,6 +3,7 @@ package com.example.kodeshell;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +39,7 @@ public class ProfileLeetCodeFragment extends Fragment {
     RecyclerView submissionRecyclerView;
     SubmissionAdapter submissionAdapter;
     private LeetcodeAPIHelper apiHelper;
+
     String username;
 
     public ProfileLeetCodeFragment(String username) {
@@ -40,7 +50,7 @@ public class ProfileLeetCodeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+//
         View view = inflater.inflate(R.layout.fragment_profile_leet_code, container, false);
 
         submissionRecyclerView = view.findViewById(R.id.submissionRecyclerView);
@@ -56,7 +66,7 @@ public class ProfileLeetCodeFragment extends Fragment {
             JSONObject variables = new JSONObject();
             try {
                 variables.put("username", leetcodehandle);
-                variables.put("limit", 15); // Set the limit for recent submissions
+                variables.put("limit", 20); // Set the limit for recent submissions
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -129,6 +139,7 @@ public class ProfileLeetCodeFragment extends Fragment {
 
         return view;
     }
+
 
 
 }

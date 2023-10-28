@@ -6,9 +6,11 @@
     <color name="dark_blue">#001F45</color>
     <color name="off_white">#EEEEEE</color>
     <color name="grey_color">#8F9193</color>
-    <color name="hint_grey_color">#E1E3E5</color>
+    <color name="hint_grey_color">#8F9193</color>
+<!--    <color name="hint_grey_color">#E1E3E5</color>-->
     <color name="dark_grey_color">#727272</color>
     <color name="grey_background">#F5F5F5</color>
+    <color name="red">#FF0000</color>
 
     <color name="card_bg_color">#FBFBFB</color>
     <color name="card_bg_dark_color">#0E0E0E</color>
@@ -19,4 +21,11 @@
 
     <color name="upvote_color">#148801</color>
     <color name="comment_color">#008DDA</color>
+
+    <color name="msg_bg_color">#272E3A</color>
+    <color name="msg_text_dialog_color">#3B4754</color>
+    <color name="msg_send_button_bg_color">#04BD7F</color>
+    <color name="msg_sender_bg_color">#008055</color>
+    <color name="msg_receiver_bg_color">#3B4754</color>
+
 </resources>

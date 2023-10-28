@@ -7,9 +7,29 @@
     android:background="@color/white"
     tools:context=".EditProfileFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:title="Edit Profile Details"
+            app:titleTextColor="@color/black"
+            app:layout_scrollFlags="scroll|enterAlways|snap"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,6 +78,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
+                app:helperText="*KodeShell username isn't editable"
+                app:helperTextTextColor="@color/red"
                 android:hint="KodeShell Username"
                 android:textColorHint="@color/hint_grey_color"
                 app:errorEnabled="true">
@@ -67,6 +89,8 @@
                     android:layout_height="50dp"
                     android:fontFamily="@font/ubuntu"
                     android:padding="8dp"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -89,6 +113,8 @@
                     android:layout_height="50dp"
                     android:fontFamily="@font/ubuntu"
                     android:padding="8dp"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -111,6 +137,8 @@
                     android:layout_height="50dp"
                     android:fontFamily="@font/ubuntu"
                     android:padding="8dp"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -133,6 +161,8 @@
                     android:layout_height="50dp"
                     android:fontFamily="@font/ubuntu"
                     android:padding="8dp"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -146,6 +176,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="50dp"
                 android:backgroundTint="@color/dark_blue"
                 android:fontFamily="@font/ubuntu"
                 android:text="Save"
