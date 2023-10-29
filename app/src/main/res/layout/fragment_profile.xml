@@ -219,8 +219,7 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/profile_view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"/>
+                        android:layout_height="600dp"/>
 
                 </LinearLayout>
 
@@ -233,6 +232,7 @@
             android:layout_height="match_parent"
             android:id="@+id/nav_drawer_view"
             android:layout_gravity="end"
+            android:layout_marginBottom="-20dp"
             app:menu="@menu/nav_drawer_menu"
             app:itemIconTint="@color/black"
             app:itemTextColor="@color/black"

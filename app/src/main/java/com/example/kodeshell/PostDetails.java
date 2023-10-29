@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class PostDetails {
-    private String id, username, imageURL, time, post;
+    private String id, username, time, post;
     private int avatar;
     private int upVoteIcon;
     private int downVoteIcon;
@@ -49,10 +49,6 @@ public class PostDetails {
         return username;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
     public String getTime() {
         return time;
     }
@@ -75,10 +71,6 @@ public class PostDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public void setTime(String time) {

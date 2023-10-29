@@ -8,9 +8,9 @@
     tools:context=".ProfileAtCoderFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/submissionRecyclerView"
+        android:id="@+id/ac_submissionRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

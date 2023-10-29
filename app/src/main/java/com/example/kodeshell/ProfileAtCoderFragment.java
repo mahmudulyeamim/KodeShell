@@ -41,7 +41,7 @@ public class ProfileAtCoderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile_at_coder, container, false);
 
-        submissionRecyclerView = view.findViewById(R.id.submissionRecyclerView);
+        submissionRecyclerView = view.findViewById(R.id.ac_submissionRecyclerView);
         submissionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         apiHelper = new AtcoderAPIHelper();
 

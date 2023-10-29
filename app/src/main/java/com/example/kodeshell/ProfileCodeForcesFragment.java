@@ -43,7 +43,7 @@ public class ProfileCodeForcesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile_code_forces, container, false);
 
-        submissionRecyclerView = view.findViewById(R.id.submissionRecyclerView);
+        submissionRecyclerView = view.findViewById(R.id.cf_submissionRecyclerView);
         submissionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         apiHelper = new CodeforcesAPIHelper(getContext());
 

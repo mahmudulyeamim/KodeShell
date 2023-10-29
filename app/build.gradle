@@ -89,4 +89,7 @@ dependencies {
 
     // drawer layout
     implementation "androidx.drawerlayout:drawerlayout:1.2.0"
+
+    // viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha03'
 }

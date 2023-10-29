@@ -53,7 +53,7 @@ public class ProfileLeetCodeFragment extends Fragment {
 //
         View view = inflater.inflate(R.layout.fragment_profile_leet_code, container, false);
 
-        submissionRecyclerView = view.findViewById(R.id.submissionRecyclerView);
+        submissionRecyclerView = view.findViewById(R.id.lc_submissionRecyclerView);
         submissionRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         apiHelper = new LeetcodeAPIHelper();
 
