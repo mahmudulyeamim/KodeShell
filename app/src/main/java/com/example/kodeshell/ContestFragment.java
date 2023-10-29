@@ -1,11 +1,13 @@
 package com.example.kodeshell;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -57,15 +61,24 @@ public class ContestFragment extends Fragment {
                         String site=contestObject.getString("site");
                         String url=contestObject.getString("url");
                         String end_time=contestObject.getString("end_time");
-                        if(site.equals("CodeForces") || site.equals("AtCoder") || site.equals("LeetCode")) {
+                        if(site.equals("CodeChef")){
+                            startTime=convertDateFormat(startTime);
+                            end_time=convertDateFormat(end_time);
+                            Log.d("hiii",startTime);
+                        }
+
+                        if(site.equals("CodeForces") || site.equals("AtCoder") || site.equals("LeetCode") || site.equals("CodeForces::Gym") ||  site.equals("CodeChef")) {
                             if(isvalidcontest(end_time))
                             {  ContestDetails contestDetails = new ContestDetails();
 
-                            if (site.equals("CodeForces"))
+                            if (site.equals("CodeForces") ||  site.equals("CodeForces::Gym"))
                                 contestDetails.setContestIcon(R.drawable.icon_codeforces);
                             else if (site.equals("AtCoder"))
                                 contestDetails.setContestIcon(R.drawable.icon_atcoder);
-                            else contestDetails.setContestIcon(R.drawable.icon_leetcode);
+                            else if (site.equals("CodeChef")) {
+                                contestDetails.setContestIcon(R.drawable.icon_codechef);
+
+                            } else contestDetails.setContestIcon(R.drawable.icon_leetcode);
 
                             // Define the input date format
                             SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
@@ -192,5 +205,26 @@ public class ContestFragment extends Fragment {
         long remainingMillis = targetTimeMillis - currentTimeMillis;
 
         return (remainingMillis>0);
+    }
+    public static String convertDateFormat(String inputDate) {
+        String inputFormat = "yyyy-MM-dd HH:mm:ss";
+        String outputFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
+        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
+
+        // Set the time zone to UTC to match your input
+        inputFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        try {
+            Date date = inputFormatter.parse(inputDate);
+            // Add 6 hours
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.HOUR, 6);
+            return outputFormatter.format(calendar.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "Parsing failed"; // Handle the parsing error gracefully
+        }
     }
 }

@@ -67,6 +67,10 @@ dependencies {
     // card-view
     implementation "androidx.cardview:cardview:1.0.0"
 
+    //timeparse
+    implementation 'org.threeten:threetenbp:1.4.0'
+
+
     // circular image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
