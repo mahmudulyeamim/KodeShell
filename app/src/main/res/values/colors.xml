@@ -24,8 +24,8 @@
 
     <color name="msg_bg_color">#272E3A</color>
     <color name="msg_text_dialog_color">#3B4754</color>
-    <color name="msg_send_button_bg_color">#04BD7F</color>
-    <color name="msg_sender_bg_color">#008055</color>
+    <color name="msg_send_button_bg_color">#f25c54</color>
+    <color name="msg_sender_bg_color">#f27059</color>
     <color name="msg_receiver_bg_color">#3B4754</color>
 
 </resources>
