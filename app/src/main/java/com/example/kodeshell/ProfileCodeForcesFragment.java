@@ -94,6 +94,8 @@ public class ProfileCodeForcesFragment extends Fragment {
                         submissionAdapter = new SubmissionAdapter(list);
                         submissionRecyclerView.setAdapter(submissionAdapter);
 
+                        // Log.e("recycler_view_height_cf_insider", Integer.toString(submissionRecyclerView.getHeight()));
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -107,6 +109,8 @@ public class ProfileCodeForcesFragment extends Fragment {
                 }
             });
         }
+
+        // Log.e("recycler_view_height_cf", Integer.toString(submissionRecyclerView.getHeight()));
 
        // submissionAdapter = new SubmissionAdapter(list);
        // submissionRecyclerView.setAdapter(submissionAdapter);

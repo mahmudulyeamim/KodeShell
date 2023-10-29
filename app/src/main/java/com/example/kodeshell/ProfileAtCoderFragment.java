@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,8 @@ public class ProfileAtCoderFragment extends Fragment {
                     submissionAdapter = new SubmissionAdapter(list);
                     submissionRecyclerView.setAdapter(submissionAdapter);
 
+                    // Log.e("recycler_view_height_ac_insider", Integer.toString(submissionRecyclerView.getHeight()));
+
                 }
 
                 @Override
@@ -102,6 +105,7 @@ public class ProfileAtCoderFragment extends Fragment {
             apiHelper.getAtcodersubmissionHistoryOfUser(contestListCallback, atcoderhandle);
         }
 
+        // Log.e("recycler_view_height_ac", Integer.toString(submissionRecyclerView.getHeight()));
 
         return view;
     }

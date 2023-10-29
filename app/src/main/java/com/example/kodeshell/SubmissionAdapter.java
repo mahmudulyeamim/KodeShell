@@ -1,5 +1,6 @@
 package com.example.kodeshell;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class SubmissionAdapter extends RecyclerView.Adapter<SubmissionHolder> {
 
     @Override
     public int getItemCount() {
+        // Log.e("list_size", Integer.toString(list.size()));
+
         return list.size();
     }
 

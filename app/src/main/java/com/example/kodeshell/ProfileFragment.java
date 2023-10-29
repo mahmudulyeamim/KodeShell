@@ -147,13 +147,15 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                                 } catch (JSONException e) {
 
-                                    info1.setText("0");
+                                    info1.setText("N/A");
                                     info1Text.setText("Rating");
-                                    info2.setText("0");
+                                    info2.setText("N/A");
                                     info2Text.setText("MaxRating");
-                                    username.setText("Invalid Username");
-                                    rating.setText("");
+                                    username.setText(user.codeforcesuname);
+                                    rating.setText("Didn't participate in any contest");
                                     Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
+                                    // Toast.makeText(getContext(), "catch", Toast.LENGTH_SHORT).show();
 
                                     e.printStackTrace();
                                 }
@@ -166,9 +168,11 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                                 info1Text.setText("Rating");
                                 info2.setText("N/A");
                                 info2Text.setText("MaxRating");
-                                username.setText("Invalid Username");
-                                rating.setText("");
+                                username.setText(user.codeforcesuname);
+                                rating.setText("Invalid Username");
                                 Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
+
+                                // Toast.makeText(getContext(), "on error", Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -178,7 +182,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("MaxRating");
-                        username.setText("Username not added yet");
+                        username.setText("Username isn't added yet");
                         rating.setText("");
                         Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                     }
@@ -202,6 +206,13 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                                     } catch (JSONException e) {
 
+                                        info1.setText("N/A");
+                                        info1Text.setText("Rating");
+                                        info2.setText("N/A");
+                                        info2Text.setText("MaxRating");
+                                        username.setText(user.atcoderuname);
+                                        rating.setText("Didn't participate in any contest");
+                                        Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                                         e.printStackTrace();
                                     }
                                 }
@@ -223,8 +234,8 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                                 info1Text.setText("Rating");
                                 info2.setText("N/A");
                                 info2Text.setText("MaxRating");
-                                username.setText("Invalid Username");
-                                rating.setText("");
+                                username.setText(user.atcoderuname);
+                                rating.setText("Invalid Username");
                                 Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
 
                             }
@@ -238,7 +249,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("MaxRating");
-                        username.setText("Username not added yet");
+                        username.setText("Username isn't added yet");
                         rating.setText("");
                         Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                     }
@@ -319,9 +330,9 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                                 info2Text.setText("Contests");
                                 Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                                 // profile_pic.setImageResource(R.drawable.icon_leetcode);
-                                username.setText("Invalid username");
+                                username.setText(user.leetcodeuname);
 
-                                rating.setText("");
+                                rating.setText("Invalid username");
 //                                e.printStackTrace();
 //                                Toast.makeText(getContext(), "Request failed", Toast.LENGTH_SHORT).show();
                             }
@@ -336,7 +347,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                         info2Text.setText("Contests");
                         Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                         // profile_pic.setImageResource(R.drawable.icon_leetcode);
-                        username.setText("Username not added yet");
+                        username.setText("Username isn't added yet");
                         rating.setText("");
                     }
                 }

@@ -103,8 +103,8 @@ public class StalkProfileFragment extends Fragment {
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("MaxRating");
-                        username.setText("Invalid Username");
-                        rating.setText("");
+                        username.setText(cfUsername);
+                        rating.setText("Didn't participate in any contest");
                         Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
 
                         e.printStackTrace();
@@ -119,8 +119,8 @@ public class StalkProfileFragment extends Fragment {
                     info1Text.setText("Rating");
                     info2.setText("N/A");
                     info2Text.setText("MaxRating");
-                    username.setText("Invalid username");
-                    rating.setText("");
+                    username.setText(cfUsername);
+                    rating.setText("Invalid Username");
                     Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                 }
             });
@@ -130,7 +130,7 @@ public class StalkProfileFragment extends Fragment {
             info1Text.setText("Rating");
             info2.setText("N/A");
             info2Text.setText("MaxRating");
-            username.setText("No username selected");
+            username.setText("No username is selected");
             rating.setText("");
             Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
         }
@@ -168,8 +168,8 @@ public class StalkProfileFragment extends Fragment {
                                     info1Text.setText("Rating");
                                     info2.setText("N/A");
                                     info2Text.setText("MaxRating");
-                                    username.setText("Invalid Username");
-                                    rating.setText("");
+                                    username.setText(cfUsername);
+                                    rating.setText("Didn't participate in any contest");
                                     Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
 
                                     e.printStackTrace();
@@ -183,8 +183,8 @@ public class StalkProfileFragment extends Fragment {
                                 info1Text.setText("Rating");
                                 info2.setText("N/A");
                                 info2Text.setText("MaxRating");
-                                username.setText("Invalid username");
-                                rating.setText("");
+                                username.setText(cfUsername);
+                                rating.setText("Invalid Username");
                                 Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                             }
                         });
@@ -194,7 +194,7 @@ public class StalkProfileFragment extends Fragment {
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("MaxRating");
-                        username.setText("No username selected");
+                        username.setText("No username is selected");
                         rating.setText("");
                         Picasso.get().load(R.drawable.icon_codeforces).into(profile_pic);
                     }
@@ -215,6 +215,14 @@ public class StalkProfileFragment extends Fragment {
 
 
                                     } catch (JSONException e) {
+                                        info1.setText("N/A");
+                                        info1Text.setText("Rating");
+                                        info2.setText("N/A");
+                                        info2Text.setText("MaxRating");
+                                        username.setText(acUsername);
+                                        rating.setText("Didn't participate in any contest");
+                                        Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
+
                                         e.printStackTrace();
                                     }
                                 }
@@ -235,9 +243,8 @@ public class StalkProfileFragment extends Fragment {
                                 info1Text.setText("Rating");
                                 info2.setText("N/A");
                                 info2Text.setText("MaxRating");
-                                username.setText("Invalid username");
-                                rating.setText("");
-                                // profile_pic.setImageResource(R.drawable.icon_atcoder);
+                                username.setText(acUsername);
+                                rating.setText("Invalid Username");
                                 Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                             }
                         };
@@ -249,7 +256,7 @@ public class StalkProfileFragment extends Fragment {
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("MaxRating");
-                        username.setText("No username selected");
+                        username.setText("No username is selected");
                         rating.setText("");
                         Picasso.get().load(R.drawable.icon_atcoder).into(profile_pic);
                         // profile_pic.setImageResource(R.drawable.icon_atcoder);
@@ -329,10 +336,11 @@ public class StalkProfileFragment extends Fragment {
                                 info1Text.setText("Rating");
                                 info2.setText("N/A");
                                 info2Text.setText("Contests");
-                                username.setText("Invalid username");
-                                rating.setText("");
                                 Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                                 // profile_pic.setImageResource(R.drawable.icon_leetcode);
+                                username.setText(lcUsername);
+
+                                rating.setText("Invalid username");
                             }
                         });
                     }
@@ -341,7 +349,7 @@ public class StalkProfileFragment extends Fragment {
                         info1Text.setText("Rating");
                         info2.setText("N/A");
                         info2Text.setText("Contests");
-                        username.setText("No username selected");
+                        username.setText("No username is selected");
                         rating.setText("");
                         Picasso.get().load(R.drawable.icon_leetcode).into(profile_pic);
                         // profile_pic.setImageResource(R.drawable.icon_leetcode);

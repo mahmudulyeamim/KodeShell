@@ -138,18 +138,11 @@ public class ContestInsiderActivity extends AppCompatActivity {
         });
 
         picker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(12)
                 .setMinute(0)
                 .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .build();
-
-        if(!isNotificationAdded()) {
-            notificationbg.setBackgroundResource(R.drawable.custom_contest_circle_background);
-        }
-        else {
-            notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
-        }
 
 
         add_notification.setOnClickListener(new View.OnClickListener() {
@@ -183,8 +176,6 @@ public class ContestInsiderActivity extends AppCompatActivity {
     }
 
     private void contestReminder() {
-        notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
-
         // handle what will happen after clicking the add notification button
     }
 

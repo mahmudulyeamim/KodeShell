@@ -20,6 +20,7 @@
         tools:targetApi="31">
         <activity
             android:name=".SplashActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,46 +30,60 @@
         </activity>
         <activity
             android:name=".ContestReminder"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".WebviewActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".ContestInsiderActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".Upcoming_Codeforces_List"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".CodeforcesHandleInfo"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".ResetPasswordActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".OtpActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".SignupActivity2"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".SignupActivity1"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
         <activity
             android:name=".UserList"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
 
         <meta-data
