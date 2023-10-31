@@ -36,7 +36,7 @@ public class SignupActivity2 extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseStorage storage;
     FirebaseAuth auth;
-    String fname, lname, email, Password, cPassword;
+    String fname, lname, email, phonenumber, Password, cPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class SignupActivity2 extends AppCompatActivity {
         fname = prevIntent.getStringExtra("fname");
         lname = prevIntent.getStringExtra("lname");
         email = prevIntent.getStringExtra("uemail");
+        phonenumber = prevIntent.getStringExtra("phone");
 
         initEditText();
 
@@ -73,16 +74,15 @@ public class SignupActivity2 extends AppCompatActivity {
     }
 
     private void createNewUser() {
-        Toast.makeText(SignupActivity2.this, email, Toast.LENGTH_SHORT).show();
         auth.createUserWithEmailAndPassword(email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Toast.makeText(SignupActivity2.this, "User created Successfully!", Toast.LENGTH_SHORT).show();
                 if (task.isSuccessful()) {
                     String id = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference().child("user").child(id);
                     String status = "Hey I'm Using This Application";
-                    User users = new User(id, fname, lname, email, Password, status, 0, "", "", "");
+                    Toast.makeText(SignupActivity2.this, phonenumber, Toast.LENGTH_SHORT).show();
+                    User users = new User(id, fname, lname, email, Password, status, 0, "", "", "", phonenumber, 0, 0);
                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
