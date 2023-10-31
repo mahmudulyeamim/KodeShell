@@ -2,6 +2,7 @@ package com.example.kodeshell;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +62,7 @@ public class LeetcodeAPIHelper {
                         onFailure(call, new IOException("JSON parsing error", e));
                     }
                 } else {
+
                     onFailure(call, new IOException("Request failed with code " + response.code()));
                 }
             }

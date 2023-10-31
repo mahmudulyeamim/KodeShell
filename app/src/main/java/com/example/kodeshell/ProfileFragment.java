@@ -256,7 +256,7 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
 
                 }
                 else {
-                    if(user.leetcodeuname != null && !user.leetcodeuname.isEmpty()) {
+                    if((user.leetcodeuname != null && !user.leetcodeuname.isEmpty())) {
 
                         String leetcodeHandle = user.leetcodeuname;
                         JSONObject variables = new JSONObject();

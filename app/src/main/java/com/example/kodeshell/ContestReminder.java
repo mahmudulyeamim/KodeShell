@@ -38,7 +38,7 @@ public class ContestReminder extends AppCompatActivity {
         Button setAlarmButton = findViewById(R.id.setAlarmButton);
         TimePicker timePicker = findViewById(R.id.timePicker);
         // Set the TimePicker to use the 24-hour format
-        timePicker.setIs24HourView(false);
+        timePicker.setIs24HourView(true);
 
         setAlarmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -117,7 +117,7 @@ public class ContestReminder extends AppCompatActivity {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
         // Notify the user that the alarm is set
-//        Toast.makeText(ContestReminder.this, "Alarm set successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ContestReminder.this, "Notification set successfully", Toast.LENGTH_SHORT).show();
     }
 
 }
