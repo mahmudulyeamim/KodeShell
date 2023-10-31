@@ -125,7 +125,7 @@
                 android:src="@drawable/down_vote" />
 
             <ImageView
-                android:id="@+id/comment_icon"
+                android:id="@+id/post_comment_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="20dp"

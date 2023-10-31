@@ -7,7 +7,7 @@
         tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/announcement_button"
+        android:id="@+id/news_button"
         android:icon="@drawable/trophy_star_24"
         tools:ignore="MenuTitle" />
 

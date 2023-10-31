@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment;
+
+    NewsFragment newsFragment;
     ContestFragment contestFragment;
     ProfileFragment profileFragment;
 
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         reference = database.getReference().child("user");
 
         homeFragment = new HomeFragment();
+        newsFragment = new NewsFragment();
         contestFragment = new ContestFragment();
         profileFragment = new ProfileFragment();
         stalkFragment = new StalkFragment();
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.home_button) {
                     openHomeFragment();
+                    return true;
+                }
+                else if(item.getItemId() == R.id.news_button) {
+                    openNewsFragment();
                     return true;
                 }
                 else if(item.getItemId() == R.id.contest_button) {
@@ -78,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void openNewsFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, newsFragment).commit();
     }
 
     private void openStalkFragment() {
