@@ -43,6 +43,7 @@ public class NewPostFragment extends Fragment {
     FirebaseUser currentUser;
     DatabaseReference reference, reference2;
     int avatarID = 0;
+    String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +60,7 @@ public class NewPostFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
 
         postButton.setOnClickListener(view1 -> createNewPost());
-        String uid = currentUser.getUid();
+        uid = currentUser.getUid();
 
         DatabaseReference userRef = database.getReference("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -74,7 +75,6 @@ public class NewPostFragment extends Fragment {
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("Firebase", "Error reading data: " + databaseError.getMessage());
@@ -142,12 +142,13 @@ public class NewPostFragment extends Fragment {
             }
             String content = postContent.getText().toString();
             String postId = reference.push().getKey();
-            Post newPost = new Post(postId, userName, currDateTime, content, 0, 0, avatarID);
+            Post newPost = new Post(postId, uid, userName, currDateTime, content, 0, 0, avatarID);
             reference.child(postId).setValue(newPost).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         setVoters(postId);
+                        setPostCount();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -160,6 +161,40 @@ public class NewPostFragment extends Fragment {
             });
         }
     }
+    private void setPostCount() {
+        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference reference = database.getReference().child("user").child(currentUser);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int currentCount = dataSnapshot.child("postcount").getValue(Integer.class);
+                    updatePostCount(currentUser, currentCount);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase Error", "Failed to read postcount", databaseError.toException());
+            }
+        });
+    }
+
+    private void updatePostCount(String currentUser, int currentCount) {
+        DatabaseReference reference = database.getReference().child("user").child(currentUser).child("postcount");
+        reference.setValue((currentCount + 1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    // Postcount updated successfully
+//                    Toast.makeText(getContext(), "Postcount updated successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Failed to update postcount
+                    Toast.makeText(getContext(), "Error in updating postcount", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     private void setVoters(String postId){
         DatabaseReference votersRef = reference.child(postId).child("voters");
         reference2.addValueEventListener(new ValueEventListener() {

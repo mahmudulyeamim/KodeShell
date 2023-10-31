@@ -1,7 +1,7 @@
 package com.example.kodeshell;
 
 public class Post {
-    String id;
+    String id, userID;
     String userName;
     String time;
     String content;
@@ -9,8 +9,9 @@ public class Post {
     int downVote;
     int avatarid;
 
-    Post(String id, String userName, String time, String content, int upVote, int downVote, int avatarID){
+    Post(String id, String userID, String userName, String time, String content, int upVote, int downVote, int avatarID){
         this.id = id;
+        this.userID = userID;
         this.userName = userName;
         this.time = time;
         this.content = content;
@@ -18,6 +19,15 @@ public class Post {
         this.downVote = downVote;
         this.avatarid = avatarID;
     }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public int getAvatarid() {
         return avatarid;
     }

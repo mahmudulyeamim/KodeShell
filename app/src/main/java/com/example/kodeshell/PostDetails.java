@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class PostDetails {
-    private String id, username, time, post;
+    private String id, username, time, post, userID;
     private int avatar;
     private int upVoteIcon;
     private int downVoteIcon;
@@ -32,6 +32,14 @@ public class PostDetails {
     }
 
     private List<CommentDetails> comments;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public int getAvatar() {
         return avatar;

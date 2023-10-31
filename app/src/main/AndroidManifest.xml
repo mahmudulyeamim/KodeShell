@@ -81,10 +81,6 @@
             android:name=".SignupActivity1"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
             android:exported="false" />
-        <activity
-            android:name=".UserList"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection|uiMode"
-            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

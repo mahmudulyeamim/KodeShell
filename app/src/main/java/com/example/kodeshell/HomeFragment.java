@@ -74,7 +74,8 @@ public class HomeFragment extends Fragment {
                     int downVote = postSnapshot.child("downVote").getValue(Integer.class);
                     String post = postSnapshot.child("content").getValue(String.class);
                     int avatarID = postSnapshot.child("avatarid").getValue(Integer.class);
-                    fetchCommentsForPost(id, username, time, upVote, downVote, post, avatarID);
+                    String userID = postSnapshot.child("userID").getValue(String.class);
+                    fetchCommentsForPost(id, userID, username, time, upVote, downVote, post, avatarID);
                 }
             }
 
@@ -102,7 +103,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-    private void fetchCommentsForPost(String postId, String username, String time, int upVote, int downVote, String post, int avatarid) {
+    private void fetchCommentsForPost(String postId, String userID, String username, String time, int upVote, int downVote, String post, int avatarid) {
         ArrayList<CommentDetails> clist = new ArrayList<>();
         DatabaseReference commentsRef = database.getReference().child("post").child(postId).child("comments");
         commentsRef.addValueEventListener(new ValueEventListener() {
@@ -134,6 +135,7 @@ public class HomeFragment extends Fragment {
                 newPost.setUpVoteIcon(R.drawable.up_vote);
                 newPost.setDownVoteIcon(R.drawable.down_voted);
                 newPost.setComments(clist);
+                newPost.setUserID(userID);
                 if (!list.contains(newPost)) {
                     list.add(0, newPost);
                     postAdapter.notifyDataSetChanged();

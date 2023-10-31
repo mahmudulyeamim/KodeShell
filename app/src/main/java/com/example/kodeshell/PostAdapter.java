@@ -104,6 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
                                 voted[0] = true;
                                 DatabaseReference upVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("upVote");
                                 upVoteReference.setValue(curr + 1);
+                                setContributionCount(list.get(position).getUserID(), true);
 //                                    notifyItemChanged(position);
                             } else {
                                 Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
@@ -127,6 +128,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
                                 voted[0] = true;
                                 DatabaseReference downVoteReference = database.getReference().child("post").child(list.get(position).getId()).child("downVote");
                                 downVoteReference.setValue(curr + 1);
+//                                Toast.makeText(view.getContext(), list.get(position).getUserID(), Toast.LENGTH_SHORT).show();
+                                setContributionCount(list.get(position).getUserID(), false);
 //                                    notifyItemChanged(position);
                             } else {
                                 Toast.makeText(view.getContext(), "Error in updating vote status", Toast.LENGTH_SHORT).show();
@@ -163,6 +166,51 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
                         get(position).
 
                         getComments()));
+    }
+    private void setContributionCount(String currentUser, boolean upvoted) {
+        DatabaseReference reference = database.getReference().child("user").child(currentUser);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int currentCount = dataSnapshot.child("contribution").getValue(Integer.class);
+                    updatePostCount(currentUser, currentCount, upvoted);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase Error", "Failed to read postcount", databaseError.toException());
+            }
+        });
+    }
+    private void updatePostCount(String currentUser, int currentCount, boolean upvoted) {
+        DatabaseReference reference = database.getReference().child("user").child(currentUser).child("contribution");
+        if(upvoted){
+            reference.setValue((currentCount + 1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // Postcount updated successfully
+//                    Toast.makeText(getContext(), "Postcount updated successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Failed to update postcount
+                    }
+                }
+            });
+        }
+        else{
+            reference.setValue((currentCount - 1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // Postcount updated successfully
+//                    Toast.makeText(getContext(), "Postcount updated successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Failed to update postcount
+                    }
+                }
+            });
+        }
     }
 
     public void updateData(ArrayList<PostDetails> newList) {

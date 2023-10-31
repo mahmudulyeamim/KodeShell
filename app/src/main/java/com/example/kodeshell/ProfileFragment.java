@@ -100,21 +100,19 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
         reference = database.getReference().child("user");
 
 
-        // loadCurrentUserInformation();
+        loadCurrentUserInformation();
 
         default_setup();
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
-
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 if(tab.getPosition() == 0) {
-                    info1.setText("0");
+                    info1.setText(String.valueOf(user.postcount));
                     info1Text.setText("Posts");
-                    info2.setText("0");
+                    info2.setText(String.valueOf(user.contribution));
                     info2Text.setText("Contribution");
                     loadImage(user.getAvatarid());
                     username.setText(user.firstName+" "+user.lastName);
@@ -440,6 +438,9 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
                             user.setAtcoderuname(currentUser.getAtcoderuname());
                             user.setCodeforcesuname(currentUser.getCodeforcesuname());
                             user.setLeetcodeuname(currentUser.getLeetcodeuname());
+//                            Toast.makeText(getContext(), String.valueOf(currentUser.getPostcount()), Toast.LENGTH_SHORT).show();
+                            user.setPostcount(currentUser.getPostcount());
+                            user.setContribution(currentUser.getContribution());
                         }
 
                     }
@@ -509,9 +510,9 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     }
 
     private void default_setup() {
-        info1.setText("0");
+        info1.setText(String.valueOf(user.getPostcount()));
         info1Text.setText("Posts");
-        info2.setText("0");
+        info2.setText(String.valueOf(user.getContribution()));
         info2Text.setText("Contribution");
         loadImage(user.getAvatarid());
         username.setText(user.firstName+" "+user.lastName);

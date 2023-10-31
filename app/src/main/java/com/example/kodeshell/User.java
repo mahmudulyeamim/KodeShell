@@ -1,12 +1,12 @@
 package com.example.kodeshell;
 
 public class User {
-    String mail,firstName, lastName, password, userId,lastMessage, status, codeforcesuname, atcoderuname, leetcodeuname;
-    int avatarid;
+    String mail,firstName, lastName, password, userId,lastMessage, status, codeforcesuname, atcoderuname, leetcodeuname, phonenumber;
+    int avatarid, postcount, contribution;
 
     public  User(){}
 
-    public User(String userId, String firstName, String lastName, String mail, String password, String status,int avatarid, String codeforcesuname, String atcoderuname, String leetcodeuname) {
+    public User(String userId, String firstName, String lastName, String mail, String password, String status, int avatarid, String codeforcesuname, String atcoderuname, String leetcodeuname, String phonenumber, int postcount, int contribution) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -17,6 +17,33 @@ public class User {
         this.codeforcesuname = codeforcesuname;
         this.atcoderuname = atcoderuname;
         this.leetcodeuname = leetcodeuname;
+        this.phonenumber = phonenumber;
+        this.postcount = 0;
+        this.contribution = 0;
+    }
+
+    public int getPostcount() {
+        return postcount;
+    }
+
+    public void setPostcount(int postcount) {
+        this.postcount = postcount;
+    }
+
+    public int getContribution() {
+        return contribution;
+    }
+
+    public void setContribution(int contribution) {
+        this.contribution = contribution;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getCodeforcesuname() {

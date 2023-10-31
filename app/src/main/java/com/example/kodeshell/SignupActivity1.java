@@ -131,10 +131,12 @@ public class SignupActivity1 extends AppCompatActivity {
             String firstName = Objects.requireNonNull(firstNameTextInput.getEditText()).getText().toString().trim();
             String lastName = Objects.requireNonNull(lastNameTextInput.getEditText()).getText().toString().trim();
             String email = Objects.requireNonNull(emailTextInput.getEditText()).getText().toString().trim();
+            String phoneNumber = Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim();
 
             intent.putExtra("fname", firstName);
             intent.putExtra("lname", lastName);
             intent.putExtra("uemail", email);
+            intent.putExtra("phone", phoneNumber);
 
             startActivity(intent);
         }
