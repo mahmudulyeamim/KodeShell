@@ -50,6 +50,7 @@
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:layout_gravity="center"
                     android:background="@null"
+                    android:maxLines="1"
                     android:fontFamily="@font/ubuntu"
                     android:textColorHint="@color/grey_color"
                     android:textColor="@color/white"

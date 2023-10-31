@@ -5,7 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/grey_color</item>
+        
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
     </style>
+
 </resources>

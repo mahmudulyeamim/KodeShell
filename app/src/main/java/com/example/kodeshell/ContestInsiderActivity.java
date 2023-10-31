@@ -52,7 +52,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
     private Date targetDate,startDate,endDate;
     Context context;
 
-    MaterialTimePicker picker;
+    // MaterialTimePicker picker;
 
     ConstraintLayout notificationbg;
     private static final int PERMISSION_REQUEST_CODE = 123;
@@ -146,19 +146,12 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         });
 
-        picker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(0)
-                .setMinute(0)
-                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .build();
-
-        if(!isNotificationAdded()) {
-            notificationbg.setBackgroundResource(R.drawable.custom_contest_circle_background);
-        }
-        else {
-            notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
-        }
+//        picker = new MaterialTimePicker.Builder()
+//                .setTimeFormat(TimeFormat.CLOCK_24H)
+//                .setHour(0)
+//                .setMinute(0)
+//                .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
+//                .build();
 
 
         add_notification.setOnClickListener(new View.OnClickListener() {
@@ -173,30 +166,21 @@ public class ContestInsiderActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
-
-                //picker.show(getSupportFragmentManager(), "TAG");
-
-               // picker.addOnPositiveButtonClickListener(view1 -> contestReminder());
+//
+//                picker.show(getSupportFragmentManager(), "TAG");
+//
+//                picker.addOnPositiveButtonClickListener(view1 -> contestReminder());
 
             }
         });
 
-
-
-
     }
 
-    private boolean isNotificationAdded() {
-        // will fetch data from database if notification has been added earlier or not
-        return false;
-    }
-
-    private void contestReminder() {
-        notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
-
-        // handle what will happen after clicking the add notification button
-
-    }
+//    private void contestReminder() {
+//
+//        // handle what will happen after clicking the add notification button
+//
+//    }
 
     public static long convertAndAddHours(String iso8601DateString, int hoursToAdd) throws ParseException {
         Instant instant = null;
