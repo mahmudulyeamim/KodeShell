@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -83,11 +85,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
+        ImageView profilePic;
         // TextView phoneNumberTextView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.contactName);
+//            profilePic = itemView.findViewById(R.id.profilePic);
             // phoneNumberTextView = itemView.findViewById(R.id.contactPhone);
         }
 

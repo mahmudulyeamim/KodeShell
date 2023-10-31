@@ -139,33 +139,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
                 }
             }
         });
-        if (list.get(position).
-
-                getComments() == null) {
+        if (list.get(position).getComments() == null) {
             holder.commentCount.setText("0");
         } else {
             holder.commentCount.setText(Integer.toString(list.get(position).getComments().size()));
         }
 
-        holder.commentCount.setOnClickListener(view ->
-
-                openCommentFragment(list.get(position).
-
-                        getId(), list.
-
-                        get(position).
-
-                        getComments()));
+        holder.commentCount.setOnClickListener(view -> openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
         holder.commentIcon.setOnClickListener(view ->
-
-                openCommentFragment(list.get(position).
-
-                        getId(), list.
-
-
-                        get(position).
-
-                        getComments()));
+                openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
     }
     private void setContributionCount(String currentUser, boolean upvoted) {
         DatabaseReference reference = database.getReference().child("user").child(currentUser);

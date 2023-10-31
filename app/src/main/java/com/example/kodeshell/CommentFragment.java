@@ -51,7 +51,6 @@ public class CommentFragment extends Fragment {
     String PostID, currentUserName;
     CommentDetails newComment;
     int avatarID = 0;
-
     private List<CommentDetails> list;
 
     public CommentFragment() {
@@ -74,7 +73,6 @@ public class CommentFragment extends Fragment {
 
         postComment = view.findViewById(R.id.post_comment_button);
         comment = view.findViewById(R.id.comment_text);
-
         commentRecyclerView = view.findViewById(R.id.commentRecyclerView);
 
         commentAdapter = new CommentAdapter(list, getContext());
@@ -116,49 +114,102 @@ public class CommentFragment extends Fragment {
             Toast.makeText(getContext(), "Type a comment to post", Toast.LENGTH_SHORT).show();
         }
         else {
-            DatabaseReference reference = database.getReference().child("post").child(getPostID()).child("comments");
-            String commentId = reference.push().getKey();
-            LocalDateTime currentDateTime = null;
-            String currDateTime = "00:00:00";
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                currentDateTime = LocalDateTime.now();
+            String postID = getPostID();
+            if(postID.length()==20){
+                normalComment(text);
             }
-            DateTimeFormatter formatter = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            else{
+                adminPostComment(text);
             }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                String currentDateTimeString = currentDateTime.format(formatter);
-                currDateTime = currentDateTimeString;
-            }
-            Map<String, Object> commentMap = new HashMap<>();
-            newComment = new CommentDetails();
-
-            loadImage(avatarID);
-            newComment.setUsername(currentUserName);
-            newComment.setTime(getTime(currDateTime));
-            newComment.setComment(text);
-
-            commentMap.put("username", currentUserName);
-            commentMap.put("time", currDateTime);
-            commentMap.put("comment", text);
-            commentMap.put("avatarid", avatarID);
-            reference.child(commentId).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                    } else {
-                        Toast.makeText(getContext(), "Error in creating the user", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            list.add(0, newComment);
-
-            commentAdapter.notifyItemInserted(0);
-            commentRecyclerView.scrollToPosition(0);
-
-            comment.setText("");
         }
+    }
+    private void normalComment(String text){
+        DatabaseReference reference = database.getReference().child("post").child(getPostID()).child("comments");
+        String commentId = reference.push().getKey();
+        LocalDateTime currentDateTime = null;
+        String currDateTime = "00:00:00";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDateTime = LocalDateTime.now();
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String currentDateTimeString = currentDateTime.format(formatter);
+            currDateTime = currentDateTimeString;
+        }
+        Map<String, Object> commentMap = new HashMap<>();
+        newComment = new CommentDetails();
+
+        loadImage(avatarID);
+        newComment.setUsername(currentUserName);
+        newComment.setTime(getTime(currDateTime));
+        newComment.setComment(text);
+
+        commentMap.put("username", currentUserName);
+        commentMap.put("time", currDateTime);
+        commentMap.put("comment", text);
+        commentMap.put("avatarid", avatarID);
+        reference.child(commentId).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                } else {
+                    Toast.makeText(getContext(), "Error in creating the user", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        list.add(0, newComment);
+
+        commentAdapter.notifyItemInserted(0);
+        commentRecyclerView.scrollToPosition(0);
+
+        comment.setText("");
+    }
+    private void adminPostComment(String text){
+        DatabaseReference reference = database.getReference().child("adminpost").child(getPostID()).child("comments");
+        String commentId = reference.push().getKey();
+        LocalDateTime currentDateTime = null;
+        String currDateTime = "00:00:00";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDateTime = LocalDateTime.now();
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String currentDateTimeString = currentDateTime.format(formatter);
+            currDateTime = currentDateTimeString;
+        }
+        Map<String, Object> commentMap = new HashMap<>();
+        newComment = new CommentDetails();
+
+        loadImage(avatarID);
+        newComment.setUsername(currentUserName);
+        newComment.setTime(getTime(currDateTime));
+        newComment.setComment(text);
+
+        commentMap.put("username", currentUserName);
+        commentMap.put("time", currDateTime);
+        commentMap.put("comment", text);
+        commentMap.put("avatarid", avatarID);
+        reference.child(commentId).setValue(commentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                } else {
+                    Toast.makeText(getContext(), "Error in creating the user", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        list.add(0, newComment);
+
+        commentAdapter.notifyItemInserted(0);
+        commentRecyclerView.scrollToPosition(0);
+
+        comment.setText("");
     }
     private String getTime(String dateString) {
         DateTimeFormatter formatter = null;

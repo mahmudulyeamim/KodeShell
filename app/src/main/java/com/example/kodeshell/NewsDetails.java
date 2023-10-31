@@ -4,13 +4,21 @@ import java.util.List;
 import java.util.Objects;
 
 public class NewsDetails {
-
+    String newsid;
     private String time, post;
 
     private List<CommentDetails> comments;
 
     public List<CommentDetails> getComments() {
         return comments;
+    }
+
+    public String getNewsid() {
+        return newsid;
+    }
+
+    public void setNewsid(String newsid) {
+        this.newsid = newsid;
     }
 
     public String getTime() {

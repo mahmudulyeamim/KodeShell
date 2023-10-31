@@ -86,7 +86,8 @@ public class UserList extends AppCompatActivity {
                     String pass = userSnapshot.child("password").getValue(String.class);
                     String status = userSnapshot.child("status").getValue(String.class);
                     String phone = userSnapshot.child("phonenumber").getValue(String.class);
-                    User new_user = new User(reciever_id, fname, lname, email, pass, status, 0, "", "", "", phone, 0, 0);
+                    int avatarID = userSnapshot.child("avatarid").getValue(Integer.class);
+                    User new_user = new User(reciever_id, fname, lname, email, pass, status, avatarID, "", "", "", phone, 0, 0);
                     contacts.add(new_user);
                 }
                 activateAdapter();

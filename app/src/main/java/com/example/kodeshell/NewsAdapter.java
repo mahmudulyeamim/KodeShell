@@ -1,15 +1,19 @@
 package com.example.kodeshell;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
 
@@ -42,9 +46,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
         else {
             holder.commentCount.setText(Integer.toString(list.get(position).getComments().size()));
         }
-
-        holder.commentCount.setOnClickListener(view -> openCommentSection());
-        holder.commentIcon.setOnClickListener(view -> openCommentSection());
+//        Log.d("safg", list.get(position).getNewsid());
+        holder.commentCount.setOnClickListener(view -> openCommentSection(list.get(position).getNewsid(), list.get(position).getComments()));
+        holder.commentIcon.setOnClickListener(view ->
+                openCommentSection(list.get(position).getNewsid(), list.get(position).getComments()));
     }
 
     @Override
@@ -52,6 +57,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
         return list.size();
     }
 
-    private void openCommentSection() {
+    private void openCommentSection(String id, List<CommentDetails> list) {
+        CommentFragment commentFragment = new CommentFragment();
+
+        commentFragment.setList(list);
+        Log.d("safi", id);
+        commentFragment.setPostID(id);
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment_container, commentFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
