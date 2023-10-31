@@ -3,11 +3,17 @@ package com.example.kodeshell;
 
 import static android.text.format.DateFormat.is24HourFormat;
 
+import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,6 +28,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -30,6 +37,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -47,6 +55,7 @@ public class ContestInsiderActivity extends AppCompatActivity {
     MaterialTimePicker picker;
 
     ConstraintLayout notificationbg;
+    private static final int PERMISSION_REQUEST_CODE = 123;
 
     public Context getContext() {
         return context;
@@ -139,10 +148,17 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
         picker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(12)
+                .setHour(0)
                 .setMinute(0)
                 .setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .build();
+
+        if(!isNotificationAdded()) {
+            notificationbg.setBackgroundResource(R.drawable.custom_contest_circle_background);
+        }
+        else {
+            notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
+        }
 
 
         add_notification.setOnClickListener(new View.OnClickListener() {
@@ -151,16 +167,16 @@ public class ContestInsiderActivity extends AppCompatActivity {
 
 //                    Toast toast = Toast.makeText(getApplicationContext(), URL, Toast.LENGTH_SHORT);
 //                     toast.show();
-//                    Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
-//                    intent.putExtra("name",getIntent().getStringExtra("name"));
-//                    intent.putExtra("starttime",starttime);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
+                    Intent intent = new Intent(ContestInsiderActivity.this, ContestReminder.class);
+                    intent.putExtra("name",getIntent().getStringExtra("name"));
+                    intent.putExtra("starttime",starttime);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
 
-                picker.show(getSupportFragmentManager(), "TAG");
+                //picker.show(getSupportFragmentManager(), "TAG");
 
-                picker.addOnPositiveButtonClickListener(view1 -> contestReminder());
+               // picker.addOnPositiveButtonClickListener(view1 -> contestReminder());
 
             }
         });
@@ -176,7 +192,10 @@ public class ContestInsiderActivity extends AppCompatActivity {
     }
 
     private void contestReminder() {
+        notificationbg.setBackgroundResource(R.drawable.custom_added_notification_background);
+
         // handle what will happen after clicking the add notification button
+
     }
 
     public static long convertAndAddHours(String iso8601DateString, int hoursToAdd) throws ParseException {
@@ -219,5 +238,10 @@ public class ContestInsiderActivity extends AppCompatActivity {
             }
         }, 0);
     }
+
+
+
+
+
 
 }
