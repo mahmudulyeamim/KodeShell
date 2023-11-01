@@ -4,33 +4,58 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.Objects;
-import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    TextInputLayout phoneTextInput;
+    TextInputLayout email;
     Button submitButton;
     ImageView backButton;
+
+    Long timeoutSeconds = 60L;
+    String phoneNumber;
+    String verificationCode;
+    PhoneAuthProvider.ForceResendingToken  resendingToken;
+
+    ProgressBar progressBar;
+    TextView resendOtpTextView;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        phoneTextInput = findViewById(R.id.forgot_password_phone_number);
+        email = findViewById(R.id.forgot_password_phone_number);
 
         submitButton = findViewById(R.id.forgot_password_submit_button);
 
         backButton = findViewById(R.id.backButton);
+        progressBar = findViewById(R.id.progressBar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         initEditText();
 
@@ -40,7 +65,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void initEditText() {
-        phoneTextInput.getEditText().addTextChangedListener(new TextWatcher() {
+        email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -48,7 +73,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                phoneTextInput.setError(null);
+                email.setError(null);
             }
 
             @Override
@@ -64,27 +89,39 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void openOtpActivity() {
+//        Toast.makeText(this, email.getEditText().toString(), Toast.LENGTH_SHORT).show();
         if(validateEmail()) {
-            sendOTP();
-            Intent intent = new Intent(this, OtpActivity.class);
-            intent.putExtra("requested_phone_number", Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim());
-            startActivity(intent);
+            mAuth.sendPasswordResetEmail(email.getEditText().getText().toString().trim())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+//                            progressBar.setVisibility(vis);
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ForgotPasswordActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    Toast.makeText(ForgotPasswordActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
         }
     }
 
     private boolean validateEmail() {
-        String phoneInput = Objects.requireNonNull(phoneTextInput.getEditText()).getText().toString().trim();
+        String phoneInput = Objects.requireNonNull(email.getEditText()).getText().toString().trim();
 
         if(phoneInput.isEmpty()) {
-            phoneTextInput.setError("Field can't be empty");
+            email.setError("Field can't be empty");
             return false;
         }
         else if(!checkPhoneExistence(phoneInput)) {
-            phoneTextInput.setError("No user found with this email");
+            email.setError("No user found with this email");
             return false;
         }
         else {
-            phoneTextInput.setError(null);
+            email.setError(null);
             return true;
         }
     }
@@ -94,11 +131,4 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         return true;
     }
 
-    private void sendOTP() {
-        Random random = new Random();
-        int min = 100000; // Minimum 6-digit number
-        int max = 999999; // Maximum 6-digit number
-        int code = random.nextInt(max - min + 1) + min;
-        // logic for sending otp to the given email through firebase
-    }
 }
