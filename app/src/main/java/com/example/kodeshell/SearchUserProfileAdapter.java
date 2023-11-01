@@ -173,7 +173,7 @@ public class SearchUserProfileAdapter extends RecyclerView.Adapter<SearchUserPro
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_fragment_container, userProfileFragment);
-        transaction.addToBackStack(null);
+        // transaction.addToBackStack(null);
         transaction.commit();
     }
 }
