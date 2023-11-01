@@ -2,6 +2,7 @@ package com.example.kodeshell;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -256,6 +257,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()){
                         try {
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefsFile", 0);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            editor.putBoolean("hasLoggedIn", true);
+                            editor.commit();
+
                             openHomeActivity();
                         } catch (Exception e) {
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -37,7 +37,7 @@
             android:layout_below="@id/add_notification_top_app_bar"
             android:fontFamily="@font/ubuntu"
             android:layout_margin="20dp"
-            android:text="Choose how much time you'd like to be notified before the event"
+            android:text="Choose how much time you'd like to be notified before the contest"
             android:textSize="16sp"
             android:textColor="@color/dark_grey_color"
             android:textStyle="bold"/>

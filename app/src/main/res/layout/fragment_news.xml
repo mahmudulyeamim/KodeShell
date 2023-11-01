@@ -26,13 +26,13 @@ tools:context=".NewsFragment">
         app:titleTextColor="@color/black"
         app:layout_scrollFlags="scroll|enterAlways|snap">
 
-        <ImageView
-            android:id="@+id/news_search_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="10dp"
-            android:layout_gravity="end"
-            android:src="@drawable/search"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/news_search_button"-->
+<!--            android:layout_width="25dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:src="@drawable/search"/>-->
 
     </com.google.android.material.appbar.MaterialToolbar>
 
