@@ -148,6 +148,53 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
         holder.commentCount.setOnClickListener(view -> openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
         holder.commentIcon.setOnClickListener(view ->
                 openCommentFragment(list.get(position).getId(), list.get(position).getComments()));
+
+
+        holder.profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+                DatabaseReference reference1 = database1.getReference().child("user");
+
+                DatabaseReference currentUserRef = reference1.child(list.get(position).getUserID());
+                currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            User currUser = dataSnapshot.getValue(User.class);
+                            openUserProfileFragment(currUser, list.get(position).getUserID());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+            }
+        });
+
+        holder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+                DatabaseReference reference1 = database1.getReference().child("user");
+
+                DatabaseReference currentUserRef = reference1.child(list.get(position).getUserID());
+                currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            User currUser = dataSnapshot.getValue(User.class);
+                            openUserProfileFragment(currUser, list.get(position).getUserID());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            }
+        });
     }
     private void setContributionCount(String currentUser, boolean upvoted) {
         DatabaseReference reference = database.getReference().child("user").child(currentUser);
@@ -214,6 +261,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostHolder> {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_fragment_container, commentFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void openUserProfileFragment(User user, String userId) {
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+
+//        user.setAvatarid(0);
+//        user.setFirstName("Mahmudul");
+//        user.setLastName("Hasan");
+//        user.setAtcoderuname("mahmudulyeamim");
+//        user.setCodeforcesuname("mahmudulyeamim");
+//        user.setLeetcodeuname("mahmudulyeamim");
+//        user.setPostcount(0);
+//        user.setContribution(0);
+
+        userProfileFragment.setUser(user);
+        userProfileFragment.setCurrentUserId(userId);
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment_container, userProfileFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -3,27 +3,20 @@ package com.example.kodeshell;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProfileFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
+public class UserProfileFragment extends Fragment {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
@@ -52,13 +45,6 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     private AtcoderAPIHelper atcoderAPIHelper;
     private LeetcodeAPIHelper leetcodeAPIHelper;
 
-    ImageView openNavButton;
-
-    DrawerLayout drawerLayout;
-
-    FirebaseDatabase database;
-    FirebaseAuth mAuth;
-    DatabaseReference reference;
     private User user = new User();
 
     private String currentUserId;
@@ -75,38 +61,25 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-//        if(user != null && user.getCodeforcesuname() != null) {
-//            // Toast.makeText(getContext(), user.getCodeforcesuname(), Toast.LENGTH_SHORT).show();
-//            Log.e("profile", user.getCodeforcesuname());
-//        }
-//        else {
-//            Log.e("profile", "user is null");
-//        }
 
-        tabLayout = view.findViewById(R.id.profile_tab_layout);
-        viewPager2 = view.findViewById(R.id.profile_view_pager);
+        tabLayout = view.findViewById(R.id.user_profile_tab_layout);
+        viewPager2 = view.findViewById(R.id.user_profile_view_pager);
         profileViewPagerAdapter = new ProfileViewPagerAdapter(getActivity(), currentUserId);
         atcoderAPIHelper = new AtcoderAPIHelper();
         viewPager2.setAdapter(profileViewPagerAdapter);
 
-        info1 = view.findViewById(R.id.profile_info1);
-        info1Text = view.findViewById(R.id.profile_info1_text);
-        info2 = view.findViewById(R.id.profile_info2);
-        info2Text = view.findViewById(R.id.profile_info2_text);
-        profile_pic = view.findViewById(R.id.profile_picture);
-        username = view.findViewById(R.id.profile_username);
-        rating = view.findViewById(R.id.profile_rating_info);
+        info1 = view.findViewById(R.id.user_profile_info1);
+        info1Text = view.findViewById(R.id.user_profile_info1_text);
+        info2 = view.findViewById(R.id.user_profile_info2);
+        info2Text = view.findViewById(R.id.user_profile_info2_text);
+        profile_pic = view.findViewById(R.id.user_profile_picture);
+        username = view.findViewById(R.id.user_profile_username);
+        rating = view.findViewById(R.id.user_profile_rating_info);
         apiHelper = new CodeforcesAPIHelper(getContext());
         leetcodeAPIHelper=new LeetcodeAPIHelper();
 
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("user");
-
-
-        // loadCurrentUserInformation();
 
         default_setup();
 
@@ -383,80 +356,10 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             }
         });
 
-        drawerLayout = view.findViewById(R.id.profile_drawer_layout);
-        NavigationView navigationView = view.findViewById(R.id.nav_drawer_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        openNavButton = view.findViewById(R.id.open_nav_button);
-
-        openNavButton.setOnClickListener(view1 -> openNavigationView());
-
         return view;
     }
 
-    private void openNavigationView() {
-        drawerLayout.openDrawer(GravityCompat.END);
-    }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.edit_profile_button) {
-            EditProfileFragment editProfileFragment = new EditProfileFragment();
-
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container, editProfileFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else if(item.getItemId() == R.id.about_us_button) {
-            AboutUsFragment aboutUsFragment = new AboutUsFragment();
-
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container, aboutUsFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-        else {
-            Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
-        }
-
-        item.setChecked(false);
-        drawerLayout.closeDrawer(GravityCompat.END);
-        return true;
-    }
-
-    private void loadCurrentUserInformation() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-
-            DatabaseReference currentUserRef = reference.child(userId);
-            currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        User currentUser = dataSnapshot.getValue(User.class);
-                        if (currentUser != null) {
-                            user.setAvatarid(currentUser.getAvatarid());
-                            user.setFirstName(currentUser.getFirstName());
-                            user.setLastName(currentUser.getLastName());
-                            user.setAtcoderuname(currentUser.getAtcoderuname());
-                            user.setCodeforcesuname(currentUser.getCodeforcesuname());
-                            user.setLeetcodeuname(currentUser.getLeetcodeuname());
-//                            Toast.makeText(getContext(), String.valueOf(currentUser.getPostcount()), Toast.LENGTH_SHORT).show();
-                            user.setPostcount(currentUser.getPostcount());
-                            user.setContribution(currentUser.getContribution());
-                        }
-
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
-    }
     private void loadImage(int i){
         if(i == 0) {
             Picasso.get().load(R.drawable.avatar1).fit().centerInside().into(profile_pic);

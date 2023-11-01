@@ -33,7 +33,7 @@
             android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="Rifat"
+            android:text="Loading..."
             android:fontFamily="@font/ubuntu"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />

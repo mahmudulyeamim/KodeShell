@@ -5,46 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/msg_bg_color"
+    android:background="@color/white"
     android:padding="16dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/contactImage"
+        android:id="@+id/search_user_profile_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         app:civ_border_width="2dp"
-        app:civ_border_color="@color/msg_send_button_bg_color"
+        app:civ_border_color="@color/gray_line_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/avatar8" />
 
     <TextView
-        android:id="@+id/contactName"
+        android:id="@+id/search_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Loading..."
         android:textSize="16sp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:fontFamily="@font/ubuntu"
-        app:layout_constraintStart_toEndOf="@id/contactImage"
+        app:layout_constraintStart_toEndOf="@id/search_user_profile_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/contactPhone"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="123-456-7890"-->
-<!--        android:textSize="14sp"-->
-<!--        android:textColor="@android:color/darker_gray"-->
-<!--        app:layout_constraintStart_toEndOf="@id/contactImage"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/contactName"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:layout_marginEnd="16dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

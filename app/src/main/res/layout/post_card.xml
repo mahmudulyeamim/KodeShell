@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="@+id/post_left_border_line"
             app:layout_constraintStart_toStartOf="@+id/post_left_border_line"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/avatar1" />
+            android:src="@drawable/default_profile_pic1" />
 
         <TextView
             android:id="@+id/post_text_username"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="8dp"
-            android:text="1 hour ago"
+            android:text="Loading..."
             android:textStyle="bold"
             android:textSize="12sp"
             android:textColor="@color/grey_color"
@@ -81,7 +81,7 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             android:background="@drawable/text_card_bg"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+            android:text="Loading..."
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/post_left_border_line"
@@ -104,14 +104,14 @@
                 android:id="@+id/post_upvote_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/up_voted" />
+                android:src="@drawable/up_vote" />
 
             <TextView
                 android:id="@+id/post_upvote_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="+23"
+                android:text="+0"
                 android:textSize="16sp"
                 android:textColor="@color/upvote_color"
                 android:textStyle="bold"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginEnd="16dp"
-                android:text="12"
+                android:text="0"
                 android:textSize="16sp"
                 android:textColor="@color/comment_color"
                 android:textStyle="bold"
