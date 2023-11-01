@@ -10,4 +10,9 @@
 
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
+
+    <string name="Forgot_Password">Forgot Password</string>
+    <string name="we_will_send_you_an_one_time_password_on_this_mobile_number">We will send you an One Time Password on this mobile number</string>
+    <string name="_880">+880 - </string>
+    <string name="_123456789">123456789</string>
 </resources>

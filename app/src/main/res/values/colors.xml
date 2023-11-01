@@ -28,4 +28,12 @@
     <color name="msg_sender_bg_color">#f27059</color>
     <color name="msg_receiver_bg_color">#3B4754</color>
 
+    <!--    <color name="white">#FFFFFFFF</color>-->
+    <color name="primary">#536DFE</color>
+    <color name="primary_dark">#445DE4</color>
+    <color name="accent">#F44336</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="divider">#BDBDBD</color>
+
 </resources>

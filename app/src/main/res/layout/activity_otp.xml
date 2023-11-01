@@ -92,6 +92,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otp_linear_layout" />
 
+
     <TextView
         android:id="@+id/otp_did_not_receive_text"
         android:layout_width="wrap_content"
@@ -240,6 +241,7 @@
             android:textSize="24sp"
             android:textCursorDrawable="@drawable/custom_cursor"
             android:textAlignment="center" />
+
 
 
     </LinearLayout>
