@@ -101,8 +101,11 @@ public class HomeFragment extends Fragment {
 
         newPostButton.setOnClickListener(view1 -> openNewPostFragment());
 
+        searchButton.setOnClickListener(view1 -> openSearchUserProfileFragment());
+
         return view;
     }
+
     private void fetchCommentsForPost(String postId, String userID, String username, String time, int upVote, int downVote, String post, int avatarid) {
         ArrayList<CommentDetails> clist = new ArrayList<>();
         DatabaseReference commentsRef = database.getReference().child("post").child(postId).child("comments");
@@ -319,6 +322,15 @@ public class HomeFragment extends Fragment {
 
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.main_fragment_container, newPostFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void openSearchUserProfileFragment() {
+        SearchUserProfileFragment searchUserProfileFragment = new SearchUserProfileFragment();
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, searchUserProfileFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
