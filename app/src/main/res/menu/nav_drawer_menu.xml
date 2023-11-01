@@ -8,7 +8,7 @@
             <menu>
                 <item
                     android:id="@+id/edit_profile_button"
-                    android:icon="@drawable/edit_profile"
+                    android:icon="@drawable/user_pen_24"
                     android:title="Edit Profile"/>
             </menu>
         </item>
@@ -21,7 +21,7 @@
 
                 <item
                     android:id="@+id/about_us_button"
-                    android:icon="@drawable/about_us"
+                    android:icon="@drawable/info_24"
                     android:title="About Us"/>
 
                 <item

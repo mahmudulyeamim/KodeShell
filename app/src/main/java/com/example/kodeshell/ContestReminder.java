@@ -33,10 +33,11 @@ public class ContestReminder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contset_reminder);
+        setContentView(R.layout.activity_contest_reminder);
 
         Button setAlarmButton = findViewById(R.id.setAlarmButton);
         TimePicker timePicker = findViewById(R.id.timePicker);
+
         // Set the TimePicker to use the 24-hour format
         timePicker.setIs24HourView(true);
 
@@ -64,6 +65,7 @@ public class ContestReminder extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     // Handle the result of the permission request
