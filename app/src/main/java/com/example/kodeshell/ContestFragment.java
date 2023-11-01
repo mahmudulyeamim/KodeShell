@@ -216,7 +216,7 @@ public class ContestFragment extends Fragment {
             // Add 6 hours
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            calendar.add(Calendar.HOUR, 6);
+            calendar.add(Calendar.HOUR, -6);
             return outputFormatter.format(calendar.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
