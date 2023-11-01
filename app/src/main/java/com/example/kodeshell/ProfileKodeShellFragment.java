@@ -32,6 +32,12 @@ public class ProfileKodeShellFragment extends Fragment {
     ArrayList<PostDetails> list = new ArrayList<>();
     FirebaseDatabase database;
 
+    String currentUserId;
+
+    public ProfileKodeShellFragment(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,8 +55,37 @@ public class ProfileKodeShellFragment extends Fragment {
         return view;
     }
 
+//    private void getPostList() {
+//
+//        database = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = database.getReference().child("post");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                list.clear();
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    String id = postSnapshot.child("id").getValue(String.class);
+//                    String username = postSnapshot.child("userName").getValue(String.class);
+//                    String time = getTime(postSnapshot.child("time").getValue(String.class));
+//                    int upVote = postSnapshot.child("upVote").getValue(Integer.class);
+//                    int downVote = postSnapshot.child("downVote").getValue(Integer.class);
+//                    String post = postSnapshot.child("content").getValue(String.class);
+//                    int avatarID = postSnapshot.child("avatarid").getValue(Integer.class);
+//                    String userID = postSnapshot.child("userID").getValue(String.class);
+//                    String curr_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                    if (userID.equals(curr_id))
+//                        fetchCommentsForPost(id, username, time, upVote, downVote, post, avatarID);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
+//            }
+//        });
+//    }
+
     private void getPostList() {
-//        ArrayList<PostDetails> plist = new ArrayList<>();
 
         database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child("post");
@@ -67,8 +102,8 @@ public class ProfileKodeShellFragment extends Fragment {
                     String post = postSnapshot.child("content").getValue(String.class);
                     int avatarID = postSnapshot.child("avatarid").getValue(Integer.class);
                     String userID = postSnapshot.child("userID").getValue(String.class);
-                    String curr_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if (userID.equals(curr_id))
+                    // String curr_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    if (userID.equals(currentUserId))
                         fetchCommentsForPost(id, username, time, upVote, downVote, post, avatarID);
                 }
             }
@@ -78,17 +113,6 @@ public class ProfileKodeShellFragment extends Fragment {
                 Log.e("Firebase Error", "Failed to read user information", databaseError.toException());
             }
         });
-//        PostDetails obj1 = new PostDetails();
-//        obj1.setPost("Hola cpers!");
-//        obj1.setAvatar(R.drawable.avatar1);
-//        obj1.setTime("Just now");
-//        obj1.setUsername("haha haha");
-//        obj1.setUpVoteIcon(R.drawable.up_voted);
-//        obj1.setDownVoteIcon(R.drawable.down_vote);
-//        obj1.setUpVote(3);
-//        obj1.setDownVote(1);
-//        obj1.setId("0");
-//        plist.add(obj1);
     }
 
     private void fetchCommentsForPost(String postId, String username, String time, int upVote, int downVote, String post, int avatarid) {

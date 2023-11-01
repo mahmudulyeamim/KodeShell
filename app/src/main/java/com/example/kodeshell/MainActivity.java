@@ -103,8 +103,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, contestFragment).commit();
     }
 
-    private void openProfileFragment(User user) {
+    private void openProfileFragment(User user, String userId) {
         profileFragment.setUser(user);
+        profileFragment.setCurrentUserId(userId);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, profileFragment).commit();
     }
 
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot.exists()) {
                         User currentUser = dataSnapshot.getValue(User.class);
 
-                        openProfileFragment(currentUser);
+                        openProfileFragment(currentUser, userId);
                     }
                 }
                 @Override

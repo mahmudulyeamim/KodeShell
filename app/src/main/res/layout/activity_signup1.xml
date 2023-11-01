@@ -120,7 +120,7 @@
             android:layout_marginTop="230dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="140dp"
-            android:hint="Phone Number (with country code)"
+            android:hint="Phone (with country code)"
             android:textColorHint="@color/hint_grey_color"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"

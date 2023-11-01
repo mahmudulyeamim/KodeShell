@@ -20,16 +20,18 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     DatabaseReference reference;
     User user = new User();
 
-    public ProfileViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    String currentUserId;
+
+    public ProfileViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, String currentUserId) {
 
         super(fragmentActivity);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("user");
 
+        this.currentUserId = currentUserId;
+
         loadCurrentUserInformation();
-
-
     }
 
     @NonNull
@@ -40,7 +42,7 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
             case 1: return new ProfileCodeForcesFragment(user.codeforcesuname);
             case 2: return new ProfileAtCoderFragment(user.atcoderuname);
             case 3: return new ProfileLeetCodeFragment(user.leetcodeuname);
-            default: return new ProfileKodeShellFragment();
+            default: return new ProfileKodeShellFragment(currentUserId);
         }
     }
 
@@ -55,7 +57,7 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            DatabaseReference currentUserRef = reference.child(userId);
+            DatabaseReference currentUserRef = reference.child(currentUserId);
             currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

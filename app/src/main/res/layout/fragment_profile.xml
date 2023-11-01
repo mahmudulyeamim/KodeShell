@@ -73,7 +73,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_marginStart="10dp"
-                            android:src="@drawable/blank_profile_picture"
+                            android:src="@drawable/default_profile_pic1"
                             app:civ_border_width="1dp"
                             app:civ_border_color="@color/black"/>
 
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="20dp"
-                        android:text="Rifat Khan"
+                        android:text="Loading..."
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="Rating: 1400 (Max 1600)"
+                        android:text=""
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="@color/dark_grey_color"

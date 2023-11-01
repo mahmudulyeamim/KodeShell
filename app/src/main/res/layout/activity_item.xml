@@ -22,7 +22,7 @@
         android:id="@+id/contactName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="John Doe"
+        android:text="Loading..."
         android:textSize="16sp"
         android:textColor="@android:color/white"
         android:fontFamily="@font/ubuntu"

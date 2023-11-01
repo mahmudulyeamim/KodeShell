@@ -62,9 +62,9 @@
                 android:id="@+id/new_post_user_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:civ_border_color="@color/gray_line_color"
-                app:civ_border_width="2dp"
-                android:src="@drawable/avatar1"/>
+                app:civ_border_color="@color/black"
+                app:civ_border_width="1dp"
+                android:src="@drawable/default_profile_pic1"/>
 
             <TextView
                 android:id="@+id/new_post_username"
