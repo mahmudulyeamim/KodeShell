@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +46,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ChatActivity.class);
-                intent.putExtra("Name", contactList.get(position).getFirstName());
+                intent.putExtra("Name", contactList.get(position).getFirstName() + " " + contactList.get(position).getLastName());
                 intent.putExtra("ID", contactList.get(position).getUserId());
+                intent.putExtra("AvatarId", contactList.get(position).getAvatarid());
                 mContext.startActivity(intent);
             }
         });
@@ -91,12 +94,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.contactName);
-//            profilePic = itemView.findViewById(R.id.profilePic);
+            profilePic = itemView.findViewById(R.id.contactImage);
             // phoneNumberTextView = itemView.findViewById(R.id.contactPhone);
         }
 
         void bind(User contact) {
             nameTextView.setText(contact.getFirstName() + " " + contact.getLastName());
+            Picasso.get().load(loadImage(contact.avatarid)).fit().centerInside().into(profilePic);
+
             // phoneNumberTextView.setText(contact.getMail());
         }
     }
@@ -136,4 +141,41 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
+
+    private int loadImage(int i){
+        if(i == 0) {
+            return R.drawable.avatar1;
+        }
+        else if(i == 1) {
+            return R.drawable.avatar2;
+        }
+        else if(i == 2) {
+            return R.drawable.avatar3;
+        }
+        else if(i == 3) {
+            return R.drawable.avatar4;
+        }
+        else if(i == 4) {
+            return R.drawable.avatar5;
+        }
+        else if(i == 5) {
+            return R.drawable.avatar6;
+        }
+        else if(i == 6) {
+            return R.drawable.avatar7;
+        }
+        else if(i == 7) {
+            return R.drawable.avatar8;
+        }
+        else if(i == 8) {
+            return R.drawable.avatar9;
+        }
+        else if(i == 9) {
+            return R.drawable.avatar10;
+        }
+        else if(i == 10) {
+            return R.drawable.avatar11;
+        }
+        return R.drawable.avatar12;
+    }
 }

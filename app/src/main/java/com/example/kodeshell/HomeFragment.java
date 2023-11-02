@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment {
                 newPost.setPost(post);
                 newPost.setUpVote(upVote);
                 newPost.setDownVote(downVote);
-                newPost.setUpVoteIcon(R.drawable.up_vote);
+                newPost.setUpVoteIcon(R.drawable.up_voted);
                 newPost.setDownVoteIcon(R.drawable.down_voted);
                 newPost.setComments(clist);
                 newPost.setUserID(userID);

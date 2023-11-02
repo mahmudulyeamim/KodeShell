@@ -3,6 +3,7 @@ package com.example.kodeshell;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,13 +21,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity {
     String receiverUID, receiverName, SenderUID;
+
+    int receiverAvatarId;
     TextView receiver;
+    ImageView profilePic;
     FirebaseDatabase database;
     FirebaseAuth auth;
     CardView sendButton;
@@ -47,12 +52,14 @@ public class ChatActivity extends AppCompatActivity {
 
         receiverName = getIntent().getStringExtra("Name");
         receiverUID = getIntent().getStringExtra("ID");
+        receiverAvatarId = getIntent().getIntExtra("AvatarId", 0);
 
         messagesArrayList = new ArrayList<>();
 
         sendButton = findViewById(R.id.sendbtnn);
         textMessage = findViewById(R.id.textmsg);
         receiver = findViewById(R.id.recivername);
+        profilePic = findViewById(R.id.profileimgg);
 
         recycleView = findViewById(R.id.msgadpter);
 
@@ -66,6 +73,7 @@ public class ChatActivity extends AppCompatActivity {
         recycleView.setAdapter(msgAdapter);
 
         receiver.setText(receiverName);
+        Picasso.get().load(loadImage(receiverAvatarId)).fit().centerInside().into(profilePic);
 
         SenderUID = auth.getUid();
 
@@ -142,5 +150,42 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private int loadImage(int i){
+        if(i == 0) {
+            return R.drawable.avatar1;
+        }
+        else if(i == 1) {
+            return R.drawable.avatar2;
+        }
+        else if(i == 2) {
+            return R.drawable.avatar3;
+        }
+        else if(i == 3) {
+            return R.drawable.avatar4;
+        }
+        else if(i == 4) {
+            return R.drawable.avatar5;
+        }
+        else if(i == 5) {
+            return R.drawable.avatar6;
+        }
+        else if(i == 6) {
+            return R.drawable.avatar7;
+        }
+        else if(i == 7) {
+            return R.drawable.avatar8;
+        }
+        else if(i == 8) {
+            return R.drawable.avatar9;
+        }
+        else if(i == 9) {
+            return R.drawable.avatar10;
+        }
+        else if(i == 10) {
+            return R.drawable.avatar11;
+        }
+        return R.drawable.avatar12;
     }
 }
