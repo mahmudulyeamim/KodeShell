@@ -81,7 +81,7 @@ public class SignupActivity2 extends AppCompatActivity {
                     String id = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference().child("user").child(id);
                     String status = "Hey I'm Using This Application";
-                    Toast.makeText(SignupActivity2.this, phonenumber, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(SignupActivity2.this, phonenumber, Toast.LENGTH_SHORT).show();
                     User users = new User(id, fname, lname, email, Password, status, 0, "", "", "", phonenumber, 0, 0);
                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

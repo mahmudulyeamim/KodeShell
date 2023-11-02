@@ -43,18 +43,22 @@ public class UserList extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Intent intent = getIntent();
         database = FirebaseDatabase.getInstance();
-        database = FirebaseDatabase.getInstance();
+
         id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         recyclerView = findViewById(R.id.recyclerViewContacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         search = findViewById(R.id.searchEditText);
         DatabaseReference reference = database.getReference().child("user");
         ImageButton filterButton = findViewById(R.id.roundImageButton);
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String reciever_id = userSnapshot.child("userId").getValue(String.class);
+                    User newUser = userSnapshot.getValue(User.class);
+
+//                    String reciever_id = userSnapshot.child("userId").getValue(String.class);
 //                    String senderRoom = id + reciever_id;
 //                    long last_time[] = {Long.MIN_VALUE};
 //                    AtomicInteger timestampCounter = new AtomicInteger(0);
@@ -79,16 +83,17 @@ public class UserList extends AppCompatActivity {
 //                                activateAdapter();
 //                            }
 //                        }
-//                    });
-                    String fname = userSnapshot.child("firstName").getValue(String.class);
-                    String lname = userSnapshot.child("lastName").getValue(String.class);
-                    String email = userSnapshot.child("mail").getValue(String.class);
-                    String pass = userSnapshot.child("password").getValue(String.class);
-                    String status = userSnapshot.child("status").getValue(String.class);
-                    String phone = userSnapshot.child("phonenumber").getValue(String.class);
-                    int avatarID = userSnapshot.child("avatarid").getValue(Integer.class);
-                    User new_user = new User(reciever_id, fname, lname, email, pass, status, avatarID, "", "", "", phone, 0, 0);
-                    contacts.add(new_user);
+////                    });
+//                    String fname = userSnapshot.child("firstName").getValue(String.class);
+//                    String lname = userSnapshot.child("lastName").getValue(String.class);
+//                    String email = userSnapshot.child("mail").getValue(String.class);
+//                    String pass = userSnapshot.child("password").getValue(String.class);
+//                    String status = userSnapshot.child("status").getValue(String.class);
+//                    String phone = userSnapshot.child("phonenumber").getValue(String.class);
+//                    int avatarID = userSnapshot.child("avatarid").getValue(Integer.class);
+//                    User new_user = new User(reciever_id, fname, lname, email, pass, status, avatarID, "", "", "", phone, 0, 0);
+
+                    if(!newUser.getUserId().equals(id)) contacts.add(newUser);
                 }
                 activateAdapter();
             }

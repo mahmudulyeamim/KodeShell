@@ -86,6 +86,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void openOtpActivity() {
@@ -107,6 +108,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }
                     });
         }
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private boolean validateEmail() {

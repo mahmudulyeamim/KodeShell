@@ -30,7 +30,6 @@ public class NewsFragment extends Fragment {
     RecyclerView newsRecyclerView;
     NewsAdapter newsAdapter;
 
-    ImageView searchButton;
 
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<NewsDetails> list = new ArrayList<>();
@@ -42,7 +41,6 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-        searchButton = view.findViewById(R.id.news_search_button);
         swipeRefreshLayout = view.findViewById(R.id.news_swipe_refresh_layout);
 
         newsRecyclerView = view.findViewById(R.id.newsRecyclerView);

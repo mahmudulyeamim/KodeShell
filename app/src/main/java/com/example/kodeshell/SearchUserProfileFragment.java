@@ -54,18 +54,7 @@ public class SearchUserProfileFragment extends Fragment {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
 
-//                    String reciever_id = userSnapshot.child("userId").getValue(String.class);
-//                    String fname = userSnapshot.child("firstName").getValue(String.class);
-//                    String lname = userSnapshot.child("lastName").getValue(String.class);
-//                    String email = userSnapshot.child("mail").getValue(String.class);
-//                    String pass = userSnapshot.child("password").getValue(String.class);
-//                    String status = userSnapshot.child("status").getValue(String.class);
-//                    String phone = userSnapshot.child("phonenumber").getValue(String.class);
-//                    int avatarID = userSnapshot.child("avatarid").getValue(Integer.class);
-//                    User new_user = new User(reciever_id, fname, lname, email, pass, status, avatarID, "", "", "", phone, 0, 0);
-//                    contacts.add(new_user);
-
-                    contacts.add(user);
+                    if(!user.getUserId().equals(id)) contacts.add(user);
                 }
                 activateAdapter();
             }

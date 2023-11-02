@@ -1,5 +1,7 @@
 package com.example.kodeshell;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -417,7 +419,16 @@ public class ProfileFragment extends Fragment implements NavigationView.OnNaviga
             transaction.commit();
         }
         else {
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefsFile", 0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putBoolean("hasLoggedIn", false);
+            editor.commit();
+
             Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+            requireActivity().finish();
         }
 
         item.setChecked(false);
