@@ -36,7 +36,7 @@ public class UserProfileFragment extends Fragment {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
-    ProfileViewPagerAdapter profileViewPagerAdapter;
+    UserProfileViewPagerAdapter profileViewPagerAdapter;
 
     TextView info1, info1Text, info2, info2Text, username, rating;
     ImageView profile_pic;
@@ -66,7 +66,7 @@ public class UserProfileFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.user_profile_tab_layout);
         viewPager2 = view.findViewById(R.id.user_profile_view_pager);
-        profileViewPagerAdapter = new ProfileViewPagerAdapter(getActivity(), currentUserId);
+        profileViewPagerAdapter = new UserProfileViewPagerAdapter(getActivity(), currentUserId);
         atcoderAPIHelper = new AtcoderAPIHelper();
         viewPager2.setAdapter(profileViewPagerAdapter);
 
