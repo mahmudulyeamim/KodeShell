@@ -50,14 +50,13 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 4;
     }
-
     private void loadCurrentUserInformation() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            DatabaseReference currentUserRef = reference.child(currentUserId);
+            DatabaseReference currentUserRef = reference.child(userId);
             currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -71,13 +70,44 @@ public class ProfileViewPagerAdapter extends FragmentStateAdapter {
                             user.setCodeforcesuname(currentUser.getCodeforcesuname());
                             user.setLeetcodeuname(currentUser.getLeetcodeuname());
                         }
-
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle the error if needed
                 }
             });
         }
     }
+
+//    private void loadCurrentUserInformation() {
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//        if (currentUser != null) {
+//            String userId = currentUser.getUid();
+//
+//            DatabaseReference currentUserRef = reference.child(currentUserId);
+//            currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.exists()) {
+//                        User currentUser = dataSnapshot.getValue(User.class);
+//                        if (currentUser != null) {
+//                            user.setAvatarid(currentUser.getAvatarid());
+//                            user.setFirstName(currentUser.getFirstName());
+//                            user.setLastName(currentUser.getLastName());
+//                            user.setAtcoderuname(currentUser.getAtcoderuname());
+//                            user.setCodeforcesuname(currentUser.getCodeforcesuname());
+//                            user.setLeetcodeuname(currentUser.getLeetcodeuname());
+//                        }
+//
+//                    }
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                }
+//            });
+//        }
+//    }
 }
